@@ -1,10 +1,12 @@
 <template>
-    <div class="h-screen flex flex-col">
-        <LayoutHeader/>
-        <div class="grow overflow-y-scroll">
-            <slot/>
-        </div>
-        <LayoutNavbar/>
-    </div>
-
+    <p>salut</p>
+    <slot/>
 </template>
+
+<script setup lang="ts">
+
+</script>
+
+<style scoped>
+
+</style>
