@@ -1,7 +1,5 @@
 <template>
-    <div>Salut</div>
-    <h1 class="pomme">SALUT</h1>
+    <NuxtLayout name="landing">
+        <p>LANDING PAGE</p>
+    </NuxtLayout>
 </template>
-
-<script>
-</script>
