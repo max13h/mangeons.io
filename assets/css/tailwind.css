@@ -33,5 +33,17 @@ body {
 }
 
 .router-link-exact-active {
-    @apply text-primary
+    @apply text-primary-200 relative;
+    
+}
+.router-link-exact-active:after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 0;
+    width: 100%;
+    background-color: #8aead0;
+    height: 2px;
+    border-radius: 15px;
+
 }

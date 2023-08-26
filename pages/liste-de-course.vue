@@ -6,4 +6,6 @@
 definePageMeta({
   layout: "main-mobile-app",
 });
+useSetPageHeading('Listes')
+
 </script>

@@ -1,10 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt"],
-  alias: {
-    "@": "./",
-  },
   app: {
     head: {
       title: "mangeons.io",
@@ -32,7 +29,6 @@ export default defineNuxtConfig({
     autoImports: [
       // automatically imports `defineStore`
       "defineStore", // import { defineStore } from 'pinia'
-      ["defineStore", "definePiniaStore"], // import { defineStore as definePiniaStore } from 'pinia'
     ],
   },
 });

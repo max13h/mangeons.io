@@ -5,6 +5,5 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "main-mobile-app",
-  title: "Recettes"
 });
 </script>

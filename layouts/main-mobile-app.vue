@@ -5,5 +5,7 @@
             <slot/>
         </div>
         <MobileNavbar/>
+        <MobileSideBar/>
+        
     </div>
 </template>
