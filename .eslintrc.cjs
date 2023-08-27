@@ -13,6 +13,7 @@ module.exports = {
   rules: {
     semi: ["error", "never"],
     quotes: ["error", "double"],
-    indent: ["error", 2]
+    indent: ["error", 2],
+    "vue/multi-word-component-names": "off"
   }
 }
