@@ -1,16 +1,18 @@
 <template>
   <h1 class="text-3xl mb-3">
-    Connexion
+    Inscription
   </h1>
   <form action="" method="get" class="flex flex-col">
     <label for="email">Email</label>
     <input id="email" type="email" name="email" class="mb-2 p-1 border-2 border-secondary rounded-lg" autofocus>
-    <label for="password">Password</label>
+    <label for="password">Mot de passe</label>
     <input id="password" type="password" name="password" class="mb-4 p-1 border-2 border-secondary rounded-lg">
-    <input type="submit" value="Se connecter" class="bg-secondary text-light py-1 rounded-lg">
+    <label for="confirm-password">Confirmer le mot de passe</label>
+    <input id="confirm-password" type="password" name="confirm-password" class="mb-4 p-1 border-2 border-secondary rounded-lg">
+    <input type="submit" value="S'inscrire" class="bg-secondary text-light py-1 rounded-lg">
   </form>
-  <NuxtLink to="/register" class="text-secondary p-3 flex justify-center">
-    Créer un compte
+  <NuxtLink to="/login" class="text-secondary p-3 flex justify-center">
+    Se connecter
   </NuxtLink>
 </template>
 

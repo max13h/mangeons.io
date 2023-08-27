@@ -20,7 +20,8 @@ module.exports = {
         void: "never",
         normal: "always",
         component: "any"
-      }
+      },
+      'vue/no-multiple-template-root': 'off'
     }]
   }
 }
