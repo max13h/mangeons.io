@@ -6,4 +6,5 @@
 definePageMeta({
   layout: "main-mobile-app"
 })
+useSetPageHeading("Profil")
 </script>

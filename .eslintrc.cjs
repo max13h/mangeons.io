@@ -14,6 +14,13 @@ module.exports = {
     semi: ["error", "never"],
     quotes: ["error", "double"],
     indent: ["error", 2],
-    "vue/multi-word-component-names": "off"
+    "vue/multi-word-component-names": "off",
+    "vue/html-self-closing": ["error", {
+      html: {
+        void: "never",
+        normal: "always",
+        component: "any"
+      }
+    }]
   }
 }

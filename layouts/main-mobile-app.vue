@@ -4,7 +4,7 @@
     <div class="grow overflow-y-scroll">
       <slot />
     </div>
-    <MobileNavbar />
+    <MobileNavBar />
     <MobileSideBar />
   </div>
 </template>

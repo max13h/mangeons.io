@@ -1,3 +1,3 @@
 <template>
-  <p>LANDING PAGE</p>
+  <NuxtLink to="/login" class="">Sign In</NuxtLink>
 </template>
