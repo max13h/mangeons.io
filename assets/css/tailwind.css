@@ -45,5 +45,8 @@ body {
     background-color: #8aead0;
     height: 2px;
     border-radius: 15px;
+}
 
+.on-click:active {
+    transform: scale(0.9);
 }
