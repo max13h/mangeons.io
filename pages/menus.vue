@@ -1,10 +1,10 @@
 <template>
-    <p>MENUS PAGE</p>
+  <p>MENUS PAGE</p>
 </template>
 
 <script setup lang="ts">
 definePageMeta({
-  layout: "main-mobile-app",
-});
-useSetPageHeading('Menus')
+  layout: "main-mobile-app"
+})
+useSetPageHeading("Menus")
 </script>

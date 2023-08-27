@@ -1,3 +1,3 @@
 <template>
-    <p>LANDING PAGE</p>
+  <p>LANDING PAGE</p>
 </template>

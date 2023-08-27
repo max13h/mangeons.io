@@ -1,9 +1,9 @@
 <template>
-    <p>PROFIL PAGE</p>
+  <p>PROFIL PAGE</p>
 </template>
 
 <script setup lang="ts">
 definePageMeta({
-  layout: "main-mobile-app",
-});
+  layout: "main-mobile-app"
+})
 </script>

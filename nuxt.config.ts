@@ -10,25 +10,25 @@ export default defineNuxtConfig({
         {
           name: "description",
           content:
-            "Optimises la préparation des repas et simplifier tes courses !",
-        },
+            "Optimises la préparation des repas et simplifier tes courses !"
+        }
       ],
       link: [
         {
           rel: "stylesheet",
-          href: "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css",
-        },
+          href: "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+        }
       ],
-      noscript: [{ children: "JavaScript is required" }],
-    },
+      noscript: [{ children: "JavaScript is required" }]
+    }
   },
   typescript: {
-    strict: true,
+    strict: true
   },
   pinia: {
     autoImports: [
       // automatically imports `defineStore`
-      "defineStore", // import { defineStore } from 'pinia'
-    ],
-  },
-});
+      "defineStore" // import { defineStore } from 'pinia'
+    ]
+  }
+})

@@ -1,6 +1,7 @@
 <template>
-    <p>salut</p>
-    <slot/>
+  <div>
+    <slot />
+  </div>
 </template>
 
 <script setup lang="ts">
