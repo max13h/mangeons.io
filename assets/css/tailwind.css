@@ -50,3 +50,12 @@ body {
 .on-click:active {
     transform: scale(0.9);
 }
+
+.input-text {
+    outline: none;
+    @apply border-dashed border-2 border-secondary
+}
+.input-text:focus {
+    outline: none;
+    @apply border-solid border-2 border-secondary
+}
