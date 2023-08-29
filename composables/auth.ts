@@ -63,6 +63,6 @@ const _translateErrorMessage = (errorMsg: string) => {
   if (errorMsg === "Password should be at least 6 characters") {
     return "Le mot de passe doit contenir au moins 6 caractères"
   } else {
-    return "Une erreur est survenu, veuillez réessayer"
+    return "Une erreur est survenue, veuillez réessayer"
   }
 }

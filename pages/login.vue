@@ -43,6 +43,10 @@
 <script setup lang="ts">
 import { useAuthStore } from "../stores/authStore"
 
+definePageMeta({
+  layout: "auth"
+})
+
 const authStore = useAuthStore()
 
 const email = ref("")
@@ -53,10 +57,6 @@ const onSubmit = async () => {
 
   await useLogIn(email.value, password.value)
 }
-
-definePageMeta({
-  layout: "auth"
-})
 </script>
 
 <style scoped>
