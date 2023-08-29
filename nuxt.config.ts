@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: false },
-  modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt"],
+  modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "@nuxtjs/supabase"],
   app: {
     head: {
       title: "mangeons.io",
@@ -30,5 +30,8 @@ export default defineNuxtConfig({
       // automatically imports `defineStore`
       "defineStore" // import { defineStore } from 'pinia'
     ]
+  },
+  supabase: {
+    redirect: false
   }
 })

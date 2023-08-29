@@ -6,5 +6,5 @@
 definePageMeta({
   layout: "main-mobile-app"
 })
-useSetPageHeading("Menus")
+await useSetPageHeading("Menus")
 </script>

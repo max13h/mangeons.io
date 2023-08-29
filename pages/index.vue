@@ -1,5 +1,7 @@
 <template>
-  <NuxtLink to="/login" class="">
-    Sign In
-  </NuxtLink>
+  <div>
+    <NuxtLink to="/login" class="">
+      Sign In
+    </NuxtLink>
+  </div>
 </template>
