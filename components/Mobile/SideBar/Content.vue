@@ -4,7 +4,7 @@
       class="ri-close-line text-xl absolute top-2 right-2 w-7 h-7 flex justify-center items-center rounded-full"
       @click="useToggleSideBar"
     />
-    <img src="../../../assets/logos/LONG LIGHT LOGO.svg" class="mt-8 mb-16">
+    <img src="../../../assets/logos/LONG_LIGHT_LOGO.svg" class="mt-8 mb-16">
     <ul class="grow">
       <li class="ml-2">
         <NuxtLink to="/menus" class="flex items-center on-click" exact-active-class="none">
