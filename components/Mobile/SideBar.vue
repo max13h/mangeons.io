@@ -1,7 +1,7 @@
 <template>
   <aside
-    class="transform fixed top-0 left-0 w-64 h-screen bg-light ease-in-out transition-all duration-300 z-30"
-    :class="pageStore.isSideBarOpen ? 'translate-x-0' : '-translate-x-full'"
+    class="transform fixed top-0 right-0 w-64 h-screen bg-light ease-in-out transition-all duration-300 z-30"
+    :class="pageStore.isSideBarOpen ? 'translate-x-0' : 'translate-x-full'"
   >
     <MobileSideBarContent />
   </aside>

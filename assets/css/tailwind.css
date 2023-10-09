@@ -34,7 +34,7 @@ body {
 
 .router-link-exact-active {
     @apply text-primary-200 relative;
-    
+
 }
 .router-link-exact-active:after {
     content: '';
@@ -58,4 +58,8 @@ body {
 .input-text:focus {
     outline: none;
     @apply border-solid border-2 border-secondary
+}
+
+.btn-primary {
+  @apply bg-secondary rounded-lg p-2 font-bold text-white
 }
