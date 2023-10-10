@@ -4,34 +4,11 @@
       Inscription
     </h1>
     <form action="" method="get" class="flex flex-col" @submit.prevent="onSubmit">
-      <label for="email">Email</label>
-      <input
-        id="email"
-        v-model="email"
-        type="email"
-        name="email"
-        class="mb-2 p-1 border-2 border-secondary rounded-lg input-text"
-        autofocus
-        required
-      >
-      <label for="password">Mot de passe</label>
-      <input
-        id="password"
-        v-model="password"
-        type="password"
-        name="password"
-        class="mb-4 p-1 border-2 border-secondary rounded-lg input-text"
-        required
-      >
-      <label for="confirm-password">Confirmer le mot de passe</label>
-      <input
-        id="confirm-password"
-        v-model="confirmPassword"
-        type="password"
-        name="confirm-password"
-        class="mb-4 p-1 border-2 border-secondary rounded-lg input-text"
-        required
-      >
+      <FormInputText label="email" :model="email" type="email" :error="errors.email"></FormInputText>
+
+      <FormInputText label="mot de passe" :model="password" type="password" :error="errors.password"></FormInputText>
+
+      <FormInputText label="confirmez le mot de passe" :model="confirmPassword" type="password" :error="errors.confirmPassword"></FormInputText>
       <p
         v-if="authStore.statusMsg"
         class="pb-2"
@@ -52,19 +29,35 @@
 </template>
 
 <script setup lang="ts">
+import { fr } from "yup-locales"
+import { useForm } from "vee-validate"
+import { object, string, setLocale, ref } from "yup"
 import { useAuthStore } from "../stores/authStore"
 
-const authStore = useAuthStore()
+setLocale(fr)
 
-const email = ref("")
-const password = ref("")
-const confirmPassword = ref("")
+const authStore = useAuthStore()
+authStore.resetAuthStore()
+
+const schema = object({
+  email: string().email().required(),
+  password: string().min(6).required(),
+  confirmPassword: string().oneOf([ref("password")], "Les mots de passe doivent être identiques")
+})
+
+const { defineInputBinds, errors } = useForm({
+  validationSchema: schema
+})
+
+const email = defineInputBinds("email")
+const password = defineInputBinds("password")
+const confirmPassword = defineInputBinds("confirmPassword")
 
 const onSubmit = async () => {
   authStore.resetAuthStore()
-  if (useArePasswordsNotSimilar(password.value, confirmPassword.value)) { return }
+  if (useArePasswordsNotSimilar(password.value.value, confirmPassword.value.value)) { return }
 
-  await useSignIn(email.value, password.value)
+  await useSignIn(email.value.value, password.value.value)
 }
 
 definePageMeta({

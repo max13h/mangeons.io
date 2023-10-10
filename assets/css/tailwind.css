@@ -51,11 +51,12 @@ body {
     transform: scale(0.9);
 }
 
-.input-text {
+input {
     outline: none;
-    @apply border-dashed border-2 border-secondary
+    @apply border-dashed border-2 border-secondary p-1 rounded-lg w-full
 }
-.input-text:focus {
+
+input:focus {
     outline: none;
     @apply border-solid border-2 border-secondary
 }

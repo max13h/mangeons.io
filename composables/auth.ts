@@ -1,6 +1,6 @@
 import { useAuthStore } from "../stores/authStore"
 
-export const useLogIn = async (email: string, password: string) => {
+export const useLogIn = async (email: any, password: any) => {
   const authStore = useAuthStore()
   const supabase = useSupabaseClient()
 
@@ -24,7 +24,7 @@ export const useLogIn = async (email: string, password: string) => {
   }
 }
 
-export const useSignIn = async (email: string, password: string) => {
+export const useSignIn = async (email: any, password: any) => {
   const authStore = useAuthStore()
   const supabase = useSupabaseClient()
 
@@ -52,7 +52,7 @@ export const useSignIn = async (email: string, password: string) => {
 export const useArePasswordsNotSimilar = (password: string, confirmPassword: string) => {
   if (password !== confirmPassword) {
     const authStore = useAuthStore()
-    authStore.statusMsg = "Veuillez confirmez votre mot de passe"
+    authStore.statusMsg = "Une erreur est survenue, veuillez réessayer"
     authStore.isError = true
     return true
   }

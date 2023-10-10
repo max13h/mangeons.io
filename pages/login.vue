@@ -3,24 +3,12 @@
     <h1 class="text-3xl mb-3">
       Connexion
     </h1>
+
     <form action="#" method="get" class="flex flex-col" @submit.prevent="onSubmit">
-      <label for="email">Email</label>
-      <input
-        id="email"
-        v-model="email"
-        type="email"
-        name="email"
-        class="mb-2 p-1 rounded-lg border-2 input-text"
-        autofocus
-      >
-      <label for="password">Password</label>
-      <input
-        id="password"
-        v-model="password"
-        type="password"
-        name="password"
-        class="mb-4 p-1 rounded-lg input-text"
-      >
+      <FormInputText label="email" :model="email" type="email" :error="errors.email"></FormInputText>
+
+      <FormInputText label="mot de passe" :model="password" type="password" :error="errors.password"></FormInputText>
+
       <p
         v-if="authStore.statusMsg"
         class="pb-2"
@@ -41,22 +29,37 @@
 </template>
 
 <script setup lang="ts">
+import { fr } from "yup-locales"
+import { useForm } from "vee-validate"
+import { object, string, setLocale } from "yup"
 import { useAuthStore } from "../stores/authStore"
+
+setLocale(fr)
+const authStore = useAuthStore()
+if (authStore.isError === true) {
+  authStore.resetAuthStore()
+}
+
+const schema = object({
+  email: string().email().required(),
+  password: string().min(6).required()
+})
+
+const { defineInputBinds, errors } = useForm({
+  validationSchema: schema
+})
+
+const email = defineInputBinds("email")
+const password = defineInputBinds("password")
+
+const onSubmit = async () => {
+  authStore.resetAuthStore()
+  await useLogIn(email.value.value, password.value.value)
+}
 
 definePageMeta({
   layout: "auth"
 })
-
-const authStore = useAuthStore()
-
-const email = ref("")
-const password = ref("")
-
-const onSubmit = async () => {
-  authStore.resetAuthStore()
-
-  await useLogIn(email.value, password.value)
-}
 </script>
 
 <style scoped>

@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: false },
-  modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "@nuxtjs/supabase"],
+  modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "@nuxtjs/supabase", "@vee-validate/nuxt"],
   app: {
     head: {
       title: "mangeons.io",
@@ -36,7 +36,7 @@ export default defineNuxtConfig({
     redirectOptions: {
       login: "/login",
       callback: "/confirm",
-      exclude: ["/"]
+      exclude: ["/", "/register"]
     }
   }
 })
