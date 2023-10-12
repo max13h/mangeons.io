@@ -6,5 +6,6 @@
     </div>
     <MobileNavBar />
     <MobileSideBar />
+    <Modal></Modal>
   </div>
 </template>

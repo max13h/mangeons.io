@@ -51,16 +51,24 @@ body {
     transform: scale(0.9);
 }
 
-input {
+input, textarea {
     outline: none;
-    @apply border-dashed border-2 border-secondary p-1 rounded-lg w-full
+    @apply border-dashed border-2 border-secondary p-1 rounded-lg w-full px-3 py-1
 }
 
-input:focus {
+input:focus, textarea:focus {
     outline: none;
     @apply border-solid border-2 border-secondary
 }
 
+::placeholder {
+  @apply italic
+}
+
 .btn-primary {
-  @apply bg-secondary rounded-lg p-2 font-bold text-white
+  @apply bg-secondary rounded-lg p-2 text-white
+}
+
+.btn-close {
+  @apply text-xl absolute top-2 right-2 w-7 h-7 flex justify-center items-center rounded-full cursor-pointer
 }

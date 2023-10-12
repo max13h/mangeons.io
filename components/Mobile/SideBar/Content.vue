@@ -1,7 +1,7 @@
 <template>
   <div class="h-full p-5 flex flex-col">
     <i
-      class="ri-close-line text-xl absolute top-2 right-2 w-7 h-7 flex justify-center items-center rounded-full"
+      class="ri-close-line btn-close"
       @click="useToggleSideBar"
     />
     <img src="../../../assets/logos/LONG_LIGHT_LOGO.svg" class="mt-8 mb-16">
