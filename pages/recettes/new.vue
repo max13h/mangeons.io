@@ -8,7 +8,7 @@
       <FormInputText label="Nom de la recette" placeholder="Tarte à la fraise" :model="name" type="text" :error="errors.name"></FormInputText>
       <FormInputTextArea label="Brève description" placeholder="Tarte à la fraise" :model="description" :error="errors.description" size="sm"></FormInputTextArea>
 
-      <button class="btn-primary inline w-48 self-center" @click="addIngredients()">
+      <button class="btn-primary inline w-48 self-center" @click="useModalAddIngredients">
         Add ingredients
         <i class="ri-add-circle-line text-2xl align-middle" />
       </button>
@@ -55,10 +55,6 @@ const onSubmit = () => {
 }
 
 const modalStore = useModalStore()
-
-const addIngredients = () => {
-  modalStore.isOpen = true
-}
 
 definePageMeta({
   layout: "focus"
