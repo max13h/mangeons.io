@@ -5,12 +5,10 @@
     </p>
 
     <div class="w-full overflow-hidden flex-grow ">
-      <swiper-container
-        class="h-full"
-        allow-touch-move="false"
-        space-between="30"
-        effect="coverflow"
-        coverflow-effect-slide-shadows="false"
+      <swiper
+        class="h-full mt-4"
+        :allow-touch-move="false"
+        :space-between="30"
         :navigation="{
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev',
@@ -29,7 +27,7 @@
             <i class="ri-save-3-line" />
           </button>
         </swiper-slide>
-      </swiper-container>
+      </swiper>
     </div>
     <div class="flex justify-between w-full min-w-[100px]">
       <button type="button" class="swiper-button-prev pag-btn">
@@ -48,6 +46,8 @@
 import { fr } from "yup-locales"
 import { object, string, setLocale } from "yup"
 import { register } from "swiper/element/bundle"
+import { Swiper, SwiperSlide } from "swiper/vue"
+import "swiper/css"
 
 setLocale(fr)
 register()
