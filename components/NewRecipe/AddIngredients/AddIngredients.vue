@@ -8,7 +8,7 @@
       <div v-else>
         <div v-for="product in filteredList" :key="product.id">
           <div>
-            <NewRecipeAddIngredientsCard :product="product"></NewRecipeAddIngredientsCard>
+            <NewRecipeAddIngredientsAddCard :product="product"></NewRecipeAddIngredientsAddCard>
           </div>
         </div>
       </div>
@@ -28,7 +28,7 @@
         <DisclosurePanel class="flex flex-col items-center py-3 my-2 bg-light border w-[95%] mx-auto rounded-xl">
           <div v-for="product in alimentaryProduct" :key="product.id" class="w-[95%]">
             <div v-if="storeArea.id === product.store_area_id">
-              <NewRecipeAddIngredientsCard :product="product"></NewRecipeAddIngredientsCard>
+              <NewRecipeAddIngredientsAddCard :product="product"></NewRecipeAddIngredientsAddCard>
             </div>
           </div>
         </DisclosurePanel>

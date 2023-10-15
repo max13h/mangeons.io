@@ -2,7 +2,7 @@
   <div class="container h-full">
     <div v-if="recettes && recettes.length === 0" class="flex flex-col h-full justify-center items-center">
       <p>Pas de recette disponible</p>
-      <NuxtLink to="/recettes/new" class="btn-primary mt-16">
+      <NuxtLink to="/recettes/new" class="btn-secondary mt-16">
         Poster une recette
       </NuxtLink>
     </div>

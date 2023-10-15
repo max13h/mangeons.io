@@ -25,7 +25,7 @@
         </swiper-slide>
         <swiper-slide>
           <NewRecipeContent :schema="schema"></NewRecipeContent>
-          <button type="button" class="btn-primary w-full mt-4">
+          <button type="button" class="btn-secondary w-full mt-4">
             Sauvegarder
             <i class="ri-save-3-line" />
           </button>

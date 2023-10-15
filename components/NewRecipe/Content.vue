@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="text-xl mb-8">
+    <h2 class="text-xl mb-4 min-h-[56px]">
       Décrivrez <span class="underline">étape</span> par <span class="underline">étape</span> comment réussir votre recette 🔪
     </h2>
     <FormInputTextArea

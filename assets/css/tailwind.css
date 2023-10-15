@@ -78,10 +78,17 @@ input:focus, textarea:focus {
   @apply italic
 }
 
-.btn-primary {
-  @apply bg-secondary rounded-lg p-2 text-white
+.btn-secondary {
+  @apply text-white bg-secondary border-secondary border-2 rounded-lg p-2
+}
+.btn-outline-secondary {
+  @apply text-secondary border-secondary rounded-lg p-2 border-2
 }
 
 .btn-close {
   @apply text-xl absolute top-2 right-2 w-7 h-7 flex justify-center items-center rounded-full cursor-pointer
+}
+
+.absolute-center {
+  @apply absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4
 }

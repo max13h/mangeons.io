@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="text-xl mb-8">
+    <h2 class="text-xl mb-4 min-h-[56px]">
       Apportez une brève description de votre recette 😋
     </h2>
     <FormInputTextArea
