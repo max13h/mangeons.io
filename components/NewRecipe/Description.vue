@@ -3,7 +3,15 @@
     <h2 class="text-xl mb-8">
       Apportez une brève description de votre recette 😋
     </h2>
-    <FormInputTextArea label="" :placeholder="placeholder" :model="description" :error="errors.description" size="lg"></FormInputTextArea>
+    <FormInputTextArea
+      label=""
+      :placeholder="placeholder"
+      :model="description"
+      name="description"
+      :error="errors.description"
+      size="lg"
+    >
+    </FormInputTextArea>
   </div>
 </template>
 

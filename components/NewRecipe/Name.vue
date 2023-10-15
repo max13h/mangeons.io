@@ -1,8 +1,9 @@
 <template>
   <div>
     <h2 class="text-xl mb-8">
-      Donnez un nom à votre recette 🍽️</h2>
-    <FormInputText label="" placeholder="Tarte à la fraise" :model="name" type="text" :error="errors.name"></FormInputText>
+      Donnez un nom à votre recette 🍽️
+    </h2>
+    <FormInputText label="" placeholder="Tarte à la fraise" name="name" :model="name" type="text" :error="errors.name"></FormInputText>
   </div>
 </template>
 

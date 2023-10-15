@@ -6,7 +6,7 @@
 
     <div class="w-full overflow-hidden flex-grow ">
       <swiper
-        class="h-full mt-4"
+        class="h-full"
         :allow-touch-move="false"
         :space-between="30"
         :navigation="{
@@ -19,6 +19,9 @@
         </swiper-slide>
         <swiper-slide>
           <NewRecipeDescription :schema="schema"></NewRecipeDescription>
+        </swiper-slide>
+        <swiper-slide>
+          <NewRecipeIngredients></NewRecipeIngredients>
         </swiper-slide>
         <swiper-slide>
           <NewRecipeContent :schema="schema"></NewRecipeContent>

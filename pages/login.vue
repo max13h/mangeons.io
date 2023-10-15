@@ -5,9 +5,25 @@
     </h1>
 
     <form action="#" method="get" class="flex flex-col" @submit.prevent="onSubmit">
-      <FormInputText label="email" :model="email" type="email" :error="errors.email" placeholder=""></FormInputText>
+      <FormInputText
+        label="email"
+        :model="email"
+        type="email"
+        name="email"
+        :error="errors.email"
+        placeholder=""
+      >
+      </FormInputText>
 
-      <FormInputText label="mot de passe" :model="password" type="password" :error="errors.password" placeholder=""></FormInputText>
+      <FormInputText
+        label="mot de passe"
+        :model="password"
+        type="password"
+        name="password"
+        :error="errors.password"
+        placeholder=""
+      >
+      </FormInputText>
 
       <p
         v-if="authStore.statusMsg"

@@ -23,6 +23,7 @@ export interface Props {
   label: string,
   model: any,
   type: string,
+  name: string,
   error: string | null,
   placeholder: string
 }
@@ -30,6 +31,7 @@ export interface Props {
 const props = withDefaults(defineProps<Props>(), {
   label: "",
   type: "text",
+  name: "name",
   error: null,
   placeholder: ""
 })

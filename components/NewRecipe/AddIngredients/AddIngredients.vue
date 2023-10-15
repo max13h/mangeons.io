@@ -8,7 +8,7 @@
       <div v-else>
         <div v-for="product in filteredList" :key="product.id">
           <div>
-            <ModalAddIngredientsCard :product="product" @productClicked="(i) => run(i)"></ModalAddIngredientsCard>
+            <NewRecipeAddIngredientsCard :product="product" @productClicked="(i) => run(i)"></NewRecipeAddIngredientsCard>
           </div>
         </div>
       </div>
@@ -28,7 +28,7 @@
         <DisclosurePanel class="flex flex-col items-center py-3 my-2 bg-light border w-[95%] mx-auto rounded-xl">
           <div v-for="product in alimentaryProduct" :key="product.id" class="w-[95%]">
             <div v-if="storeArea.id === product.store_area_id">
-              <ModalAddIngredientsCard :product="product" @product-clicked="(i) => console.log(i)"></ModalAddIngredientsCard>
+              <NewRecipeAddIngredientsCard :product="product" @product-clicked="(i) => console.log(i)"></NewRecipeAddIngredientsCard>
             </div>
           </div>
         </DisclosurePanel>
@@ -56,8 +56,8 @@ interface StoreArea {
   name_fr: string;
 }
 
-const alimentaryProduct: Array<AlimentaryProduct> = modalStore.alimentaryProduct
-const storeAreas: Array<StoreArea> = modalStore.storeAreas
+const alimentaryProduct = ref<Array<AlimentaryProduct>>(undefined)
+const storeAreas = ref<Array<StoreArea>>(undefined)
 
 const input = ref("")
 
@@ -70,6 +70,11 @@ const filteredList = computed(() => {
 const handleProductClicked = (i) => {
 
 }
+
+watchEffect(() => {
+  alimentaryProduct.value = modalStore.alimentaryProduct
+  storeAreas.value = modalStore.storeAreas
+})
 
 </script>
 
