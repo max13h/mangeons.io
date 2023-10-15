@@ -29,8 +29,10 @@ const description = defineInputBinds("description")
 
 const placeholder = "Tarte aux pommes classique : une croûte dorée, garnie de pommes sucrées, cannelle et une touche de caramel, une délicieuse tradition gourmande"
 
-watchEffect(() => {
-  newRecipeStore.description = description.value
+onMounted(() => {
+  watchEffect(() => {
+    newRecipeStore.description = description.value
+  })
 })
 </script>
 

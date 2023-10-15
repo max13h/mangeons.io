@@ -28,8 +28,10 @@ const { defineInputBinds, errors } = useForm({
 const content = defineInputBinds("content")
 const placeholder = "1. Préchauffer le four à 180°C \n2. .."
 
-watchEffect(() => {
-  newRecipeStore.content = content.value
+onMounted(() => {
+  watchEffect(() => {
+    newRecipeStore.content = content.value
+  })
 })
 </script>
 

@@ -12,7 +12,6 @@
 
 <script setup lang="ts">
 
-
 interface Product {
   id: string;
   name_fr: string;
@@ -36,7 +35,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const onClick = () => {
-  props.product
+  console.log(props.product)
 }
 </script>
 
