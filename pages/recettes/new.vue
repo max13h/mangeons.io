@@ -1,67 +1,91 @@
 <template>
-  <div class="container mx-auto">
-    <h2 class="text-2xl mb-8">
-      Postez votre recette
-    </h2>
+  <div class="flex flex-col items-center h-full">
+    <p class="mb-4 text-center rounded-md bg-primary-100 p-2">
+      Renseignez les infomations concernant votre nouvelle recette !
+    </p>
 
-    <form action="#" method="post" class="flex flex-col" @submit.prevent="onSubmit">
-      <FormInputText label="Nom de la recette" placeholder="Tarte à la fraise" :model="name" type="text" :error="errors.name"></FormInputText>
-      <FormInputTextArea label="Brève description" placeholder="Tarte à la fraise" :model="description" :error="errors.description" size="sm"></FormInputTextArea>
-
-      <button class="btn-primary inline w-48 self-center" @click="useModalAddIngredients">
-        Add ingredients
-        <i class="ri-add-circle-line text-2xl align-middle" />
-      </button>
-
-      <Teleport v-if="modalStore.isOpen" to="#modal">
-        <ModalAddIngredients></ModalAddIngredients>
-      </Teleport>
-
-      <FormInputTextArea label="Recette detaillée" placeholder="Tarte à la fraise" :model="content" :error="errors.content" size="lg"></FormInputTextArea>
-
-      <input
-        type="submit"
-        value="Sauvegarder"
-        class="bg-secondary text-light py-1 rounded-lg on-click cursor-pointer"
+    <div class="w-full overflow-hidden flex-grow ">
+      <swiper-container
+        class="h-full"
+        allow-touch-move="false"
+        space-between="30"
+        effect="coverflow"
+        coverflow-effect-slide-shadows="false"
+        :navigation="{
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        }"
       >
-    </form>
+        <swiper-slide>
+          <NewRecipeName :schema="schema"></NewRecipeName>
+        </swiper-slide>
+        <swiper-slide>
+          <NewRecipeDescription :schema="schema"></NewRecipeDescription>
+        </swiper-slide>
+        <swiper-slide>
+          <NewRecipeContent :schema="schema"></NewRecipeContent>
+          <button type="button" class="btn-primary w-full mt-4">
+            Sauvegarder
+            <i class="ri-save-3-line" />
+          </button>
+        </swiper-slide>
+      </swiper-container>
+    </div>
+    <div class="flex justify-between w-full min-w-[100px]">
+      <button type="button" class="swiper-button-prev pag-btn">
+        <i class="ri-arrow-left-double-line" />
+        Précedent
+      </button>
+      <button type="button" class="swiper-button-next pag-btn">
+        Suivant
+        <i class="ri-arrow-right-double-line" />
+      </button>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { fr } from "yup-locales"
-import { useForm } from "vee-validate"
 import { object, string, setLocale } from "yup"
-import { useModalStore } from "../../stores/modalStore"
+import { register } from "swiper/element/bundle"
 
 setLocale(fr)
-
-const schema = object({
-  name: string().min(6).max(80).trim().required(),
-  description: string().min(6).max(120).trim().required(),
-  content: string().min(100).trim().required()
-})
-
-const { defineInputBinds, errors } = useForm({
-  validationSchema: schema
-})
-
-const name = defineInputBinds("name")
-const description = defineInputBinds("description")
-const content = defineInputBinds("content")
-
-const onSubmit = () => {
-
-}
-
-const modalStore = useModalStore()
+register()
 
 definePageMeta({
-  layout: "focus"
+  layout: "mobile-focus"
+})
+useSetPageHeading("Votre recette")
+
+const schema = object({
+  name: string()
+    .min(6, "le nom doit avoir plus de 6 caractères")
+    .max(80, "le nom doit avoir moins de 80 caractères")
+    .trim()
+    .required("Le nom est requis"),
+  description: string()
+    .min(6, "la description doit avoir plus de 6 caractères")
+    .max(120, "la description avoir moins de 120 caractères")
+    .trim()
+    .required("La description est est requise"),
+  content: string()
+    .min(100, "le nom doit avoir plus de 100 caractères")
+    .trim()
+    .required("Le contenu est est requis")
 })
 
 </script>
 
 <style scoped>
+.pag-btn {
+  @apply p-2 bg-primary-100 rounded-lg min-w-[100px]
+}
 
+.swiper-button-disabled{
+    @apply opacity-0
+}
+
+swiper-slide {
+  margin-top: 3rem;
+}
 </style>

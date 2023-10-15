@@ -7,7 +7,8 @@
       :name="props.model.value"
       autofocus
       class="w-full"
-      :class="{ 'min-h-[75px]': props.size == 'sm', 'min-h-[130px]': props.size == 'md', 'min-h-[200px]': props.size == 'lg' }"
+      :class="{ 'min-h-[75px]': props.size == 'sm', 'min-h-[130px]': props.size == 'md', 'min-h-[300px]': props.size == 'lg' }"
+      :placeholder="props.placeholder"
     />
     <span
       v-if="error"
@@ -23,13 +24,15 @@ export interface Props {
   label: string,
   model: any,
   error: string | null,
-  size: string
+  size: string,
+  placeholder: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  label: "LABEL",
+  label: "",
   type: "TYPE",
   error: null,
-  size: "sm"
+  size: "sm",
+  placeholder: ""
 })
 </script>

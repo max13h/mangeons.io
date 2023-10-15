@@ -28,9 +28,9 @@ export interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  label: "LABEL",
-  type: "TYPE",
+  label: "",
+  type: "text",
   error: null,
-  placeholder: "Some content"
+  placeholder: ""
 })
 </script>

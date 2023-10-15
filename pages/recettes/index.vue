@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 definePageMeta({
-  layout: "main-mobile-app"
+  layout: "mobile-full"
 })
 await useSetPageHeading("Recettes")
 
