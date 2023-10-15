@@ -1,6 +1,6 @@
 <template>
   <div class="border-2 shadow-sm p-1 rounded-lg bg-white mb-2 flex justify-between items-center on-click">
-    <div class="flex items-center" @click="emit('productClicked', props.product)">
+    <div class="flex items-center" @click="onClick">
       <img :src="props.product.image_url" :alt="props.product.name_fr" width="25">
       <p class="ms-2">
         {{ props.product.name_fr }}
@@ -11,6 +11,8 @@
 </template>
 
 <script setup lang="ts">
+
+
 interface Product {
   id: string;
   name_fr: string;
@@ -33,7 +35,9 @@ const props = withDefaults(defineProps<Props>(), {
   })
 })
 
-const emit = defineEmits(["productClicked"])
+const onClick = () => {
+  props.product
+}
 </script>
 
 <style scoped>

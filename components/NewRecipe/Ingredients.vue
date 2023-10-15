@@ -10,7 +10,7 @@
     <Teleport v-if="modalStore.isOpen" to="#modal">
       <NewRecipeAddIngredients></NewRecipeAddIngredients>
     </Teleport>
-    <div class="flex-grow bg-white border-dashed border-2 border-secondary w-full rounded-xl my-4 p-4">
+    <div class="flex-grow bg-white border-dashed border-2 border-secondary w-full rounded-xl my-4 p-4 overflow-y-scroll">
       hello
     </div>
   </div>

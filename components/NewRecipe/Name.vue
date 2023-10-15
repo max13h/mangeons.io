@@ -8,6 +8,9 @@
 </template>
 
 <script setup lang="ts">
+import { useNewRecipeStore } from "../../stores/newRecipeStore"
+
+const newRecipeStore = useNewRecipeStore()
 const props = defineProps(["schema"])
 
 const { defineInputBinds, errors } = useForm({
@@ -15,6 +18,10 @@ const { defineInputBinds, errors } = useForm({
 })
 
 const name = defineInputBinds("name")
+
+watchEffect(() => {
+  newRecipeStore.name = name.value
+})
 </script>
 
 <style scoped>

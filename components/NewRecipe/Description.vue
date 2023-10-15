@@ -16,6 +16,9 @@
 </template>
 
 <script setup lang="ts">
+import { useNewRecipeStore } from "../../stores/newRecipeStore"
+
+const newRecipeStore = useNewRecipeStore()
 const props = defineProps(["schema"])
 
 const { defineInputBinds, errors } = useForm({
@@ -25,6 +28,10 @@ const { defineInputBinds, errors } = useForm({
 const description = defineInputBinds("description")
 
 const placeholder = "Tarte aux pommes classique : une croûte dorée, garnie de pommes sucrées, cannelle et une touche de caramel, une délicieuse tradition gourmande"
+
+watchEffect(() => {
+  newRecipeStore.description = description.value
+})
 </script>
 
 <style scoped>
