@@ -1,12 +1,16 @@
 export const useModalStore = defineStore("modal", () => {
   const isOpen = ref(false)
+  const whatIsOpen = ref("")
 
-  const alimentaryProduct = ref([])
-  const storeAreas = ref([])
+  const open = (element: string) => {
+    isOpen.value = true
+    whatIsOpen.value = element
+  }
 
   const close = () => {
     isOpen.value = false
+    whatIsOpen.value = ""
   }
 
-  return { isOpen, alimentaryProduct, storeAreas, close }
+  return { isOpen, whatIsOpen, open, close }
 })

@@ -39,9 +39,9 @@
 
 <script setup lang="ts">
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue"
-import { useModalStore } from "../../../stores/modalStore"
+import { useNewRecipeStore } from "../../../stores/newRecipeStore"
 
-const modalStore = useModalStore()
+const newRecipeStore = useNewRecipeStore()
 
 interface AlimentaryProduct {
   id: number;
@@ -68,8 +68,8 @@ const filteredList = computed(() => {
 })
 
 watchEffect(() => {
-  alimentaryProduct.value = modalStore.alimentaryProduct
-  storeAreas.value = modalStore.storeAreas
+  alimentaryProduct.value = newRecipeStore.alimentaryProduct
+  storeAreas.value = newRecipeStore.storeAreas
 })
 
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="mb-2">
-    <label :for="props.model.value">{{ userCapitalize(props.label) }}</label>
+    <label :for="props.model.value">{{ useCapitalize(props.label) }}</label>
     <input
       :id="props.model.value"
       v-bind="props.model"
@@ -13,7 +13,7 @@
       v-if="error"
       class="pb-2 text-red-500 text-sm"
     >
-      {{ userCapitalize(error) }}
+      {{ useCapitalize(error) }}
     </span>
   </div>
 </template>

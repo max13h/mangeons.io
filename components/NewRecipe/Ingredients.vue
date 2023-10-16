@@ -1,27 +1,32 @@
 <template>
   <div class="h-full flex flex-col items-center">
-    <h2 class="text-xl mb-4 min-h-[56px]">
+    <h2 class="text-xl mb-4 self-start">
       Précisez les ingrédients requis pour votre recette 🥦
     </h2>
-    <Teleport v-if="modalStore.isOpen" to="#modal">
+    <Teleport v-if="modalStore.whatIsOpen == 'addIngredients'" to="#modal">
       <NewRecipeAddIngredients></NewRecipeAddIngredients>
     </Teleport>
-    <div class="min-h-[300px] bg-white border-dashed border-2 border-secondary w-full rounded-xl p-4 overflow-y-scroll mb-2 relative">
-      <p class="absolute-center text-center w-7/12 italic text-slate-400">
+    <div class="min-h-[300px] bg-white border-dashed border-2 border-secondary w-full rounded-xl p-4 overflow-y-scroll mb-7 relative">
+      <p v-if="newRecipeStore.ingredients.length == 0" class="absolute-center text-center w-7/12 italic text-slate-400">
         Aucun ingrédient ajouté
       </p>
+      <NewRecipeAddIngredientsIngredientCard v-for="ingredients in newRecipeStore.ingredients" v-else :key="ingredients.id" :ingredient="ingredients"></NewRecipeAddIngredientsIngredientCard>
     </div>
-    <button class="btn-outline-secondary w-full mt-5" @click="useModalAddIngredients">
-      Ajouter un ingrédient
-      <i class="ri-add-circle-line text-xl align-middle" />
-    </button>
+    <div class="pb-4">
+      <button class="btn-outline-secondary w-full" @click="useAddIngredientsModal">
+        Ajouter un ingrédient
+        <i class="ri-add-circle-line text-xl align-middle" />
+      </button>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useModalStore } from "../../stores/modalStore"
+import { useNewRecipeStore } from "../../stores/newRecipeStore"
 
 const modalStore = useModalStore()
+const newRecipeStore = useNewRecipeStore()
 </script>
 
 <style scoped>

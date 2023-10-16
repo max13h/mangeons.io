@@ -42,7 +42,7 @@ h1 {
 }
 
 body {
-    @apply bg-light h-screen
+    @apply bg-white h-screen
 }
 
 .router-link-exact-active {

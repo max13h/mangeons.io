@@ -10,6 +10,6 @@ export const useToggleSideBar = () => {
   store.isSideBarOpen = !store.isSideBarOpen
 }
 
-export const userCapitalize = (string: string) => {
+export const useCapitalize = (string: string) => {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
