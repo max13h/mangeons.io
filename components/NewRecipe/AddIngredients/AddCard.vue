@@ -8,7 +8,7 @@
     </div>
     <i
       class="text-2xl me-2"
-      :class="newRecipeStore.ingredients.includes(props.product) ? 'ri-check-line' : 'ri-add-circle-line'"
+      :class="newRecipeStore.ingredients.some(obj => obj.details === props.product) ? 'ri-check-line' : 'ri-add-circle-line'"
     />
   </div>
 </template>
@@ -41,8 +41,12 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const onClick = () => {
-  if (!newRecipeStore.ingredients.includes(props.product)) {
-    newRecipeStore.ingredients.push(props.product)
+  if (!newRecipeStore.ingredients.some(obj => obj.details === props.product)) {
+    newRecipeStore.ingredients.push({
+      details: props.product,
+      quantity: 0,
+      units: ""
+    })
   }
 }
 </script>

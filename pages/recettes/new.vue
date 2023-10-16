@@ -37,7 +37,7 @@
         <i class="ri-arrow-left-double-line" />
         Précedent
       </button>
-      <button v-if="pageNb === 4" type="button" class="btn-secondary border-none" @click="console.log('AAAA')">
+      <button v-if="pageNb === 4" type="button" class="btn-secondary border-none" @click="useSaveNewRecipe">
         Enregistrer
         <i class="ri-save-3-line" />
       </button>

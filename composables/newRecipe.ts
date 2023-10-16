@@ -11,3 +11,7 @@ export const useAddIngredientsModal = async () => {
   newRecipeStore.alimentaryProduct = alimentaryProduct
   newRecipeStore.storeAreas = storeAreas
 }
+
+export const useSaveNewRecipe = () => {
+  const newRecipeStore = useNewRecipeStore()
+}

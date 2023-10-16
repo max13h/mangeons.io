@@ -10,7 +10,7 @@
       <p v-if="newRecipeStore.ingredients.length == 0" class="absolute-center text-center w-7/12 italic text-slate-400">
         Aucun ingrédient ajouté
       </p>
-      <NewRecipeAddIngredientsIngredientCard v-for="ingredients in newRecipeStore.ingredients" v-else :key="ingredients.id" :ingredient="ingredients"></NewRecipeAddIngredientsIngredientCard>
+      <NewRecipeAddIngredientsIngredientCard v-for="ingredients in newRecipeStore.ingredients" v-else :key="ingredients.details.id" :ingredient="ingredients.details"></NewRecipeAddIngredientsIngredientCard>
     </div>
     <div class="pb-4">
       <button class="btn-outline-secondary w-full" @click="useAddIngredientsModal">

@@ -7,7 +7,7 @@
           {{ props.ingredient.name_fr }}
         </p>
       </div>
-      <i class="ri-delete-bin-line text-lg" />
+      <i class="ri-delete-bin-line text-lg" @click="remove" />
     </div>
     <div class="flex flex-col w-full">
       <p class="mb-2 italic">
@@ -24,28 +24,8 @@
         <p>kg / g / mg / l / cl / ml / louche / pincée / tranche / unité / boite ...</p>
       </Teleport>
       <div class="flex self-end">
-        <div class="max-w-[8rem] me-2">
-          <FormInputText
-            label=""
-            type="number"
-            placeholder="100"
-            :model="quantity"
-            name="quantity"
-            error=""
-          >
-          </FormInputText>
-        </div>
-        <div class="max-w-[6rem]">
-          <FormInputText
-            label=""
-            type="text"
-            placeholder="cl"
-            :model="units"
-            name="quantity"
-            error=""
-          >
-          </FormInputText>
-        </div>
+        <input v-model="quantity" name="quantity" type="number" placeholder="100" class="max-w-[8rem] me-2">
+        <input v-model="units" name="units" type="text" placeholder="cl" class="max-w-[6rem]">
       </div>
     </div>
   </div>
@@ -53,7 +33,9 @@
 
 <script setup lang="ts">
 import { useModalStore } from "../../../stores/modalStore"
+import { useNewRecipeStore } from "../../../stores/newRecipeStore"
 
+const newRecipeStore = useNewRecipeStore()
 const modalStore = useModalStore()
 
 interface Ingredient {
@@ -78,12 +60,25 @@ const props = withDefaults(defineProps<Props>(), {
   })
 })
 
-const quantity = ref(0)
+const quantity = ref("")
 const units = ref("")
 
-const quantityHint = () => {
-  useOpenModal()
+const indexInStore = ref(newRecipeStore.ingredients.findIndex(obj => obj.details.id === props.ingredient.id))
+
+const remove = () => {
+  newRecipeStore.ingredients.splice(indexInStore.value, 1)
 }
+
+watch(newRecipeStore.ingredients, () => {
+  indexInStore.value = newRecipeStore.ingredients.findIndex(obj => obj.details.id === props.ingredient.id)
+})
+watch(quantity, () => {
+  newRecipeStore.ingredients[indexInStore.value].quantity = quantity.value
+})
+watch(units, () => {
+  newRecipeStore.ingredients[indexInStore.value].units = units.value
+})
+
 </script>
 
 <style scoped>
