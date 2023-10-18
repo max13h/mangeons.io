@@ -6,10 +6,15 @@
         Poster une recette
       </NuxtLink>
     </div>
-    <div v-else class="">
-      <div v-for="recette in recettes" :key="recette.id">
-        {{ recette }}
+    <div v-else class="h-full w-full flex flex-col items-center">
+      <div v-for="recette in recettes" :key="recette.id" class="w-full mb-4">
+        <NuxtLink :to="`/recettes/${recette.id}`" class="bg-red-400">
+          <CardRecipe :recette="recette"></CardRecipe>
+        </NuxtLink>
       </div>
+      <NuxtLink to="/recettes/new" class="btn-secondary mt-16">
+        Poster une recette
+      </NuxtLink>
     </div>
   </div>
 </template>
