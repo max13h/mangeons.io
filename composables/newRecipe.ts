@@ -12,6 +12,16 @@ export const useAddIngredientsModal = async () => {
   newRecipeStore.storeAreas = storeAreas
 }
 
+export const useAddKitchenEquipmentsModal = async () => {
+  const newRecipeStore = useNewRecipeStore()
+
+  useOpenModal("addKitchenEquipments")
+
+  const { data: { value: { data: kitchenEquipments } } } = await useFetch("/api/getKitchenEquipments")
+
+  newRecipeStore.kitchenEquipments = kitchenEquipments
+}
+
 export const useSaveNewRecipe = async () => {
   const newRecipeStore = useNewRecipeStore()
   const supabase: any = useSupabaseClient()

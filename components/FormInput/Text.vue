@@ -8,6 +8,7 @@
       :name="props.model.value"
       :placeholder="props.placeholder"
       autofocus
+      tabindex="-1"
     >
     <span
       v-if="error"

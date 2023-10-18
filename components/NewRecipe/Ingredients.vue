@@ -13,7 +13,7 @@
       <NewRecipeAddIngredientsIngredientCard v-for="ingredients in newRecipeStore.ingredients" v-else :key="ingredients.details.id" :ingredient="ingredients.details"></NewRecipeAddIngredientsIngredientCard>
     </div>
     <div class="pb-4">
-      <button class="btn-outline-secondary w-full" @click="useAddIngredientsModal">
+      <button class="btn-outline-secondary w-full" tabindex="-1" @click="useAddIngredientsModal">
         Ajouter un ingrédient
         <i class="ri-add-circle-line text-xl align-middle" />
       </button>

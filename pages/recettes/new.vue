@@ -24,6 +24,9 @@
             <NewRecipeDescription :schema="schema"></NewRecipeDescription>
           </swiper-slide>
           <swiper-slide>
+            <NewRecipeCookingTimeAndKitchenEquipments :schema="schema"></NewRecipeCookingTimeAndKitchenEquipments>
+          </swiper-slide>
+          <swiper-slide>
             <NewRecipeIngredients></NewRecipeIngredients>
           </swiper-slide>
           <swiper-slide>
@@ -37,11 +40,11 @@
         <i class="ri-arrow-left-double-line" />
         Précedent
       </button>
-      <button v-if="pageNb === 4" type="button" class="btn-secondary border-none" @click="useSaveNewRecipe">
+      <button v-if="pageNb === 5" type="button" class="btn-secondary border-none" @click="useSaveNewRecipe">
         Enregistrer
         <i class="ri-save-3-line" />
       </button>
-      <button type="button" class="swiper-button-next page-btn" :class="{'hidden': pageNb === 4}">
+      <button type="button" class="swiper-button-next page-btn" :class="{'hidden': pageNb === 5}">
         Suivant
         <i class="ri-arrow-right-double-line" />
       </button>

@@ -9,6 +9,7 @@
       class="w-full"
       :class="{ 'min-h-[75px]': props.size == 'sm', 'min-h-[130px]': props.size == 'md', 'min-h-[300px]': props.size == 'lg' }"
       :placeholder="props.placeholder"
+      tabindex="-1"
     />
     <span
       v-if="error"
