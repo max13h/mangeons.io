@@ -30,7 +30,7 @@ const placeholder = "1. Préchauffer le four à 180°C \n2. .."
 
 onMounted(() => {
   watchEffect(() => {
-    newRecipeStore.content = content.value
+    newRecipeStore.content = content.value.value
   })
 })
 </script>

@@ -31,7 +31,7 @@ const placeholder = "Tarte aux pommes classique : une croûte dorée, garnie de 
 
 onMounted(() => {
   watchEffect(() => {
-    newRecipeStore.description = description.value
+    newRecipeStore.description = description.value.value
   })
 })
 </script>

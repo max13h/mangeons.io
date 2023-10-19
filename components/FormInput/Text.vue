@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-export interface Props {
+interface Props {
   label: string,
   model: any,
   type: string,

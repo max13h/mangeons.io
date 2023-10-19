@@ -1,14 +1,14 @@
 <template>
   <div class="border-2 shadow-sm p-1 rounded-lg bg-white mb-2 flex justify-between items-center on-click" @click="onClick">
     <div class="flex items-center">
-      <img :src="props.product.image_url" :alt="props.product.name_fr" width="25">
+      <img :src="props.alimentaryProduct.image_url" :alt="props.alimentaryProduct.name_fr" width="25">
       <p class="ms-2">
-        {{ props.product.name_fr }}
+        {{ props.alimentaryProduct.name_fr }}
       </p>
     </div>
     <i
       class="text-2xl me-2"
-      :class="newRecipeStore.ingredients.some(obj => obj.details === props.product) ? 'ri-check-line' : 'ri-add-circle-line'"
+      :class="newRecipeStore.selectedAlimentaryProducts.some(obj => obj.details.id === props.alimentaryProduct.id) ? 'ri-check-line' : 'ri-add-circle-line'"
     />
   </div>
 </template>
@@ -18,7 +18,7 @@ import { useNewRecipeStore } from "../../../stores/newRecipeStore"
 
 const newRecipeStore = useNewRecipeStore()
 
-interface Product {
+interface AlimentaryProduct {
   id: string;
   name_fr: string;
   store_area_id: string;
@@ -27,11 +27,11 @@ interface Product {
 }
 
 interface Props {
-  product: Product
+  alimentaryProduct: AlimentaryProduct
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  product: () => ({
+  alimentaryProduct: () => ({
     id: "NULL",
     name_fr: "NULL",
     store_area_id: "NULL",
@@ -41,9 +41,9 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const onClick = () => {
-  if (!newRecipeStore.ingredients.some(obj => obj.details === props.product)) {
-    newRecipeStore.ingredients.push({
-      details: props.product,
+  if (!newRecipeStore.selectedAlimentaryProducts.some(obj => obj.details.id === props.alimentaryProduct.id)) {
+    newRecipeStore.selectedAlimentaryProducts.push({
+      details: props.alimentaryProduct,
       quantity: 0,
       units: ""
     })

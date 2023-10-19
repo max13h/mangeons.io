@@ -6,9 +6,9 @@
         Aucun résultat
       </p>
       <div v-else>
-        <div v-for="product in filteredList" :key="product.id">
+        <div v-for="alimentaryProduct in filteredList" :key="alimentaryProduct.id">
           <div>
-            <NewRecipeAddIngredientsAddCard :product="product"></NewRecipeAddIngredientsAddCard>
+            <NewRecipeAddAlimentaryProductsAddCard :alimentary-product="alimentaryProduct"></NewRecipeAddAlimentaryProductsAddCard>
           </div>
         </div>
       </div>
@@ -26,9 +26,9 @@
         leave-to-class="opacity-0"
       >
         <DisclosurePanel class="flex flex-col items-center py-3 my-2 bg-light border w-[95%] mx-auto rounded-xl">
-          <div v-for="product in alimentaryProduct" :key="product.id" class="w-[95%]">
-            <div v-if="storeArea.id === product.store_area_id">
-              <NewRecipeAddIngredientsAddCard :product="product"></NewRecipeAddIngredientsAddCard>
+          <div v-for="alimentaryProduct in alimentaryProducts" :key="alimentaryProduct.id" class="w-[95%]">
+            <div v-if="storeArea.id === alimentaryProduct.store_area_id">
+              <NewRecipeAddAlimentaryProductsAddCard :alimentary-product="alimentaryProduct"></NewRecipeAddAlimentaryProductsAddCard>
             </div>
           </div>
         </DisclosurePanel>
@@ -48,7 +48,6 @@ interface AlimentaryProduct {
   name_fr: string;
   store_area_id: number;
   image_url: string;
-
 }
 interface StoreArea {
   id: number;
@@ -56,19 +55,19 @@ interface StoreArea {
   name_fr: string;
 }
 
-const alimentaryProduct = ref<Array<AlimentaryProduct>>([])
+const alimentaryProducts = ref<Array<AlimentaryProduct>>([])
 const storeAreas = ref<Array<StoreArea>>([])
 
 const input = ref("")
 
 const filteredList = computed(() => {
-  return alimentaryProduct.value.filter((product: AlimentaryProduct) =>
-    product.name_fr.toLowerCase().includes(input.value.toLowerCase())
+  return alimentaryProducts.value.filter((alimentaryProduct: AlimentaryProduct) =>
+    alimentaryProduct.name_fr.toLowerCase().includes(input.value.toLowerCase())
   )
 })
 
 watchEffect(() => {
-  alimentaryProduct.value = newRecipeStore.alimentaryProduct
+  alimentaryProducts.value = newRecipeStore.alimentaryProducts
   storeAreas.value = newRecipeStore.storeAreas
 })
 

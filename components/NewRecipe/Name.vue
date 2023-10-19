@@ -28,7 +28,7 @@ const { defineInputBinds, errors } = useForm({
 const name = defineInputBinds("name")
 onMounted(() => {
   watchEffect(() => {
-    newRecipeStore.name = name.value
+    newRecipeStore.name = name.value.value
   })
 })
 </script>

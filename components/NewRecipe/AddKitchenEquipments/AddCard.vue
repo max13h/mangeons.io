@@ -1,14 +1,14 @@
 <template>
   <div class="border-2 shadow-sm p-1 rounded-lg bg-white mb-2 flex justify-between items-center on-click" @click="onClick">
     <div class="flex items-center">
-      <img :src="props.equipment.image_url" :alt="props.equipment.name_fr" width="25">
+      <img :src="props.kitchenEquipment.image_url" :alt="props.kitchenEquipment.name_fr" width="25">
       <p class="ms-2">
-        {{ props.equipment.name_fr }}
+        {{ props.kitchenEquipment.name_fr }}
       </p>
     </div>
     <i
       class="text-2xl me-2"
-      :class="newRecipeStore.selectedKitchenEquipments.some(obj => obj === props.equipment) ? 'ri-check-line' : 'ri-add-circle-line'"
+      :class="newRecipeStore.selectedKitchenEquipments.some(obj => obj.id === props.kitchenEquipment.id) ? 'ri-check-line' : 'ri-add-circle-line'"
     />
   </div>
 </template>
@@ -18,18 +18,18 @@ import { useNewRecipeStore } from "../../../stores/newRecipeStore"
 
 const newRecipeStore = useNewRecipeStore()
 
-interface Equipment {
+interface KitchenEquipment {
   id: string;
   name_fr: string;
   image_url: string;
 }
 
 interface Props {
-  equipment: Equipment
+  kitchenEquipment: KitchenEquipment
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  equipment: () => ({
+  kitchenEquipment: () => ({
     id: "NULL",
     name_fr: "NULL",
     image_url: "NULL"
@@ -37,8 +37,8 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const onClick = () => {
-  if (!newRecipeStore.selectedKitchenEquipments.some(obj => obj === props.equipment)) {
-    newRecipeStore.selectedKitchenEquipments.push(props.equipment)
+  if (!newRecipeStore.selectedKitchenEquipments.some(obj => obj.id === props.kitchenEquipment.id)) {
+    newRecipeStore.selectedKitchenEquipments.push(props.kitchenEquipment)
   }
 }
 </script>

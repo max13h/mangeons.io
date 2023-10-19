@@ -19,10 +19,10 @@
       <NewRecipeAddKitchenEquipments></NewRecipeAddKitchenEquipments>
     </Teleport>
     <div class="min-h-[300px] bg-white border-dashed border-2 border-secondary w-full rounded-xl p-4 overflow-y-scroll mb-7 relative">
-      <p v-if="newRecipeStore.ingredients.length == 0" class="absolute-center text-center w-7/12 italic text-slate-400">
-        Aucun ingrédient ajouté
+      <p v-if="newRecipeStore.selectedKitchenEquipments.length == 0" class="absolute-center text-center w-7/12 italic text-slate-400">
+        Aucun matériel de cuisine ajouté
       </p>
-      <NewRecipeAddKitchenEquipmentsKitchenEquipmentCard v-for="kitchenEquipment in newRecipeStore.selectedKitchenEquipments" v-else :key="kitchenEquipment.id" :kitchenEquipment="kitchenEquipment"></NewRecipeAddKitchenEquipmentsKitchenEquipmentCard>
+      <NewRecipeAddKitchenEquipmentsShowCard v-for="kitchenEquipment in newRecipeStore.selectedKitchenEquipments" v-else :key="kitchenEquipment.id" :kitchen-equipment="kitchenEquipment"></NewRecipeAddKitchenEquipmentsShowCard>
     </div>
     <div class="pb-4">
       <button class="btn-outline-secondary w-full" tabindex="-1" @click="useAddKitchenEquipmentsModal">
@@ -39,7 +39,10 @@ import { useModalStore } from "../../stores/modalStore"
 
 const newRecipeStore = useNewRecipeStore()
 const modalStore = useModalStore()
-const props = defineProps(["schema"])
+
+const props = defineProps<{
+  schema: any
+}>()
 
 const { defineInputBinds, errors } = useForm({
   validationSchema: props.schema

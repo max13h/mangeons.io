@@ -2,9 +2,9 @@
   <div class="border-2 shadow-sm p-1 rounded-lg bg-white mb-2 flex flex-col justify-between items-center">
     <div class="flex justify-between w-full">
       <div class="flex items-center w-full mb-2">
-        <img :src="props.ingredient.image_url" :alt="props.ingredient.name_fr" width="25">
+        <img :src="props.alimentaryProduct.image_url" :alt="props.alimentaryProduct.name_fr" width="25">
         <p class="ms-2">
-          {{ props.ingredient.name_fr }}
+          {{ props.alimentaryProduct.name_fr }}
         </p>
       </div>
       <i class="ri-delete-bin-line text-lg" @click="remove" />
@@ -15,13 +15,7 @@
         <ModalHint @click="useOpenModal('quantityHint')"></ModalHint>
       </p>
       <Teleport v-if="modalStore.whatIsOpen == 'quantityHint'" to="#modal">
-        <p class="mb-4">
-          Ajoutez une unité <strong>cohérente</strong> pour la quantité de vos ingrédients !
-        </p>
-        <p class="mb-2 underline">
-          Exemple:
-        </p>
-        <p>kg / g / mg / l / cl / ml / louche / pincée / tranche / unité / boite ...</p>
+        <NewRecipeAddAlimentaryProductsQuantityHint></NewRecipeAddAlimentaryProductsQuantityHint>
       </Teleport>
       <div class="flex self-end">
         <input v-model="quantity" name="quantity" type="number" placeholder="100" class="max-w-[8rem] me-2">
@@ -38,7 +32,7 @@ import { useNewRecipeStore } from "../../../stores/newRecipeStore"
 const newRecipeStore = useNewRecipeStore()
 const modalStore = useModalStore()
 
-interface Ingredient {
+interface AlimentaryProduct {
   id: string;
   name_fr: string;
   store_area_id: string;
@@ -47,11 +41,11 @@ interface Ingredient {
 }
 
 interface Props {
-  ingredient: Ingredient
+  alimentaryProduct: AlimentaryProduct
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  ingredient: () => ({
+  alimentaryProduct: () => ({
     id: "NULL",
     name_fr: "NULL",
     store_area_id: "NULL",
@@ -63,20 +57,20 @@ const props = withDefaults(defineProps<Props>(), {
 const quantity = ref("")
 const units = ref("")
 
-const indexInStore = ref(newRecipeStore.ingredients.findIndex(obj => obj.details.id === props.ingredient.id))
+const indexInStore = ref(newRecipeStore.selectedAlimentaryProducts.findIndex(obj => obj.details.id === props.alimentaryProduct.id))
 
 const remove = () => {
-  newRecipeStore.ingredients.splice(indexInStore.value, 1)
+  newRecipeStore.selectedAlimentaryProducts.splice(indexInStore.value, 1)
 }
 
-watch(newRecipeStore.ingredients, () => {
-  indexInStore.value = newRecipeStore.ingredients.findIndex(obj => obj.details.id === props.ingredient.id)
+watch(newRecipeStore.selectedAlimentaryProducts, () => {
+  indexInStore.value = newRecipeStore.selectedAlimentaryProducts.findIndex(obj => obj.details.id === props.alimentaryProduct.id)
 })
 watch(quantity, () => {
-  newRecipeStore.ingredients[indexInStore.value].quantity = quantity.value
+  newRecipeStore.selectedAlimentaryProducts[indexInStore.value].quantity = quantity.value
 })
 watch(units, () => {
-  newRecipeStore.ingredients[indexInStore.value].units = units.value
+  newRecipeStore.selectedAlimentaryProducts[indexInStore.value].units = units.value
 })
 
 </script>

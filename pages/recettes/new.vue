@@ -27,7 +27,7 @@
             <NewRecipeCookingTimeAndKitchenEquipments :schema="schema"></NewRecipeCookingTimeAndKitchenEquipments>
           </swiper-slide>
           <swiper-slide>
-            <NewRecipeIngredients></NewRecipeIngredients>
+            <NewRecipeAlimentaryProducts></NewRecipeAlimentaryProducts>
           </swiper-slide>
           <swiper-slide>
             <NewRecipeContent :schema="schema"></NewRecipeContent>

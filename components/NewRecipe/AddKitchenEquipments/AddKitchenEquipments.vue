@@ -6,15 +6,15 @@
         Aucun résultat
       </p>
       <div v-else>
-        <div v-for="equipment in filteredList" :key="equipment.id">
+        <div v-for="kitchenEquipment in filteredList" :key="kitchenEquipment.id">
           <div>
-            <NewRecipeAddKitchenEquipmentsAddCard :equipment="equipment"></NewRecipeAddKitchenEquipmentsAddCard>
+            <NewRecipeAddKitchenEquipmentsAddCard :kitchen-equipment="kitchenEquipment"></NewRecipeAddKitchenEquipmentsAddCard>
           </div>
         </div>
       </div>
     </div>
-    <div v-for="equipment in selectedKitchenEquipments" v-else :key="equipment.id">
-      <NewRecipeAddKitchenEquipmentsAddCard :equipment="equipment"></NewRecipeAddKitchenEquipmentsAddCard>
+    <div v-for="kitchenEquipment in selectedKitchenEquipments" v-else :key="kitchenEquipment.id">
+      <NewRecipeAddKitchenEquipmentsAddCard :kitchen-equipment="kitchenEquipment"></NewRecipeAddKitchenEquipmentsAddCard>
     </div>
   </div>
 </template>
@@ -24,18 +24,18 @@ import { useNewRecipeStore } from "../../../stores/newRecipeStore"
 
 const newRecipeStore = useNewRecipeStore()
 
-interface KitchenEquipments {
-  id: number;
+interface KitchenEquipment {
+  id: string;
   name_fr: string;
   image_url: string;
 }
 
-const selectedKitchenEquipments = ref<Array<KitchenEquipments>>([])
+const selectedKitchenEquipments = ref<Array<KitchenEquipment>>([])
 
 const input = ref("")
 
 const filteredList = computed(() => {
-  return selectedKitchenEquipments.value.filter((selectedKitchenEquipment: any) =>
+  return selectedKitchenEquipments.value.filter((selectedKitchenEquipment: KitchenEquipment) =>
     selectedKitchenEquipment.name_fr.toLowerCase().includes(input.value.toLowerCase())
   )
 })
