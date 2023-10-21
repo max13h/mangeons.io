@@ -3,36 +3,26 @@
     <h2 class="text-xl mb-4 min-h-[56px]">
       Décrivrez <span class="underline">étape</span> par <span class="underline">étape</span> comment réussir votre recette 🔪
     </h2>
-    <FormInputTextArea
-      label=""
-      :placeholder="placeholder"
+    <FormTextArea
+      :model="props.content"
+      type="text"
       name="content"
-      :model="content"
-      :error="errors.content"
-      size="lg"
+      :error="props.errors.content"
+      :placeholder="placeholder"
+      :disable-tab="true"
+      class="min-h-[300px] mb-4"
     >
-    </FormInputTextArea>
+    </FormTextArea>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useNewRecipeStore } from "../../stores/newRecipeStore"
+const props = defineProps<{
+  content: any;
+  errors: any
+}>()
 
-const newRecipeStore = useNewRecipeStore()
-const props = defineProps(["schema"])
-
-const { defineInputBinds, errors } = useForm({
-  validationSchema: props.schema
-})
-
-const content = defineInputBinds("content")
 const placeholder = "1. Préchauffer le four à 180°C \n2. .."
-
-onMounted(() => {
-  watchEffect(() => {
-    newRecipeStore.content = content.value.value
-  })
-})
 </script>
 
 <style scoped>

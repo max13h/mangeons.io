@@ -18,19 +18,16 @@
           @navigation-prev="pageNb--"
         >
           <swiper-slide>
-            <NewRecipeName :schema="schema"></NewRecipeName>
+            <NewRecipeNameAndDescription :name="name" :description="description" :errors="errors"></NewRecipeNameAndDescription>
           </swiper-slide>
           <swiper-slide>
-            <NewRecipeDescription :schema="schema"></NewRecipeDescription>
-          </swiper-slide>
-          <swiper-slide>
-            <NewRecipeCookingTimeAndKitchenEquipments :schema="schema"></NewRecipeCookingTimeAndKitchenEquipments>
+            <NewRecipeCookingTimeAndKitchenEquipments :cooking-time="cookingTime" :errors="errors"></NewRecipeCookingTimeAndKitchenEquipments>
           </swiper-slide>
           <swiper-slide>
             <NewRecipeAlimentaryProducts></NewRecipeAlimentaryProducts>
           </swiper-slide>
           <swiper-slide>
-            <NewRecipeContent :schema="schema"></NewRecipeContent>
+            <NewRecipeContent :content="content" :errors="errors"></NewRecipeContent>
           </swiper-slide>
         </swiper>
       </div>
@@ -40,11 +37,11 @@
         <i class="ri-arrow-left-double-line" />
         Précedent
       </button>
-      <button v-if="pageNb === 5" type="button" class="btn-secondary border-none" @click="useSaveNewRecipe">
+      <button v-if="pageNb === 4" type="button" class="btn-secondary border-none" @click="useSaveNewRecipe">
         Enregistrer
         <i class="ri-save-3-line" />
       </button>
-      <button type="button" class="swiper-button-next page-btn" :class="{'hidden': pageNb === 5}">
+      <button type="button" class="swiper-button-next page-btn" :class="{'hidden': pageNb === 4}">
         Suivant
         <i class="ri-arrow-right-double-line" />
       </button>
@@ -54,10 +51,13 @@
 
 <script setup lang="ts">
 import { fr } from "yup-locales"
-import { object, string, setLocale } from "yup"
+import { object, string, number, setLocale } from "yup"
 import { register } from "swiper/element/bundle"
 import { Swiper, SwiperSlide } from "swiper/vue"
 import "swiper/css"
+import { useNewRecipeStore } from "../../stores/newRecipeStore"
+
+const newRecipeStore = useNewRecipeStore()
 
 setLocale(fr)
 register()
@@ -78,10 +78,33 @@ const schema = object({
     .max(120, "la description avoir moins de 120 caractères")
     .trim()
     .required("La description est est requise"),
+  cookingTime: number()
+    .max(999, "le temps de préparation de être inferieur à 999")
+    .moreThan(0, "le temps de préparation doit être superieur à 0")
+    .truncate()
+    .required("Le temps de préparation est requis"),
   content: string()
     .min(100, "le nom doit avoir plus de 100 caractères")
     .trim()
     .required("Le contenu est est requis")
+})
+
+const { defineInputBinds, errors } = useForm({
+  validationSchema: schema
+})
+
+const name = defineInputBinds("name")
+const description = defineInputBinds("description")
+const cookingTime = defineInputBinds("cookingTime")
+const content = defineInputBinds("content")
+
+onMounted(() => {
+  watchEffect(() => {
+    newRecipeStore.name = name.value.value
+    newRecipeStore.description = description.value.value
+    newRecipeStore.cookingTime = cookingTime.value.value
+    newRecipeStore.content = content.value.value
+  })
 })
 
 const pageNb = ref(1)

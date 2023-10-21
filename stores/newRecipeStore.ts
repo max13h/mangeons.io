@@ -23,7 +23,7 @@ export const useNewRecipeStore = defineStore("newRecipe", () => {
   const name: globalThis.Ref<string> = ref("")
   const description: globalThis.Ref<string> = ref("")
   const content: globalThis.Ref<string> = ref("")
-  const cookingTime: globalThis.Ref<string> = ref("")
+  const cookingTime: globalThis.Ref<number> = ref(0)
   const selectedKitchenEquipments: globalThis.Ref<SelectedKitchenEquipment[]> = ref([])
   const selectedAlimentaryProducts: globalThis.Ref<SelectedAlimentaryProduct[]> = ref([])
 

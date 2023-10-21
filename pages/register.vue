@@ -4,29 +4,29 @@
       Inscription
     </h1>
     <form action="" method="get" class="flex flex-col" @submit.prevent="onSubmit">
-      <FormInputText
+      <FormInput
         label="email"
         :model="email"
         type="email"
         :error="errors.email"
       >
-      </FormInputText>
+      </FormInput>
 
-      <FormInputText
+      <FormInput
         label="mot de passe"
         :model="password"
         type="password"
         :error="errors.password"
       >
-      </FormInputText>
+      </FormInput>
 
-      <FormInputText
+      <FormInput
         label="confirmez le mot de passe"
         :model="confirmPassword"
         type="password"
         :error="errors.confirmPassword"
       >
-      </FormInputText>
+      </FormInput>
       <p
         v-if="authStore.statusMsg"
         class="pb-2"

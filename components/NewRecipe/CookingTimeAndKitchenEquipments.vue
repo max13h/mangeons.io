@@ -1,20 +1,19 @@
 <template>
   <div>
-    <h2 class="text-xl mb-4 min-h-[56px]">
-      Indiquez le temp de préparation pour votre recette ⏲️
-    </h2>
-    <FormInputText
-      label=""
-      placeholder="20 minutes"
+    <FormInput
+      label="Temps de préparation de votre recette (en minute) ⏲️"
+      label-class="text-xl mb-4"
+      :model="props.cookingTime"
+      type="number"
       name="cookingTime"
-      :model="cookingTime"
-      type="text"
-      :error="errors.cookingTime"
+      :error="props.errors.cookingTime"
+      placeholder="20"
+      :disable-tab="true"
     >
-    </FormInputText>
-    <h2 class="text-xl my-4 min-h-[56px]">
-      Ainsi que le materiel nécessaire à votre recette 🍳
-    </h2>
+    </FormInput>
+    <p class="text-xl my-4">
+      Material nécessaire à votre recette 🍳
+    </p>
     <Teleport v-if="modalStore.whatIsOpen == 'addKitchenEquipments'" to="#modal">
       <NewRecipeAddKitchenEquipments></NewRecipeAddKitchenEquipments>
     </Teleport>
@@ -34,26 +33,16 @@
 </template>
 
 <script setup lang="ts">
-import { useNewRecipeStore } from "../../stores/newRecipeStore"
 import { useModalStore } from "../../stores/modalStore"
+import { useNewRecipeStore } from "../../stores/newRecipeStore"
 
 const newRecipeStore = useNewRecipeStore()
 const modalStore = useModalStore()
 
 const props = defineProps<{
-  schema: any
+  cookingTime: any;
+  errors: any
 }>()
-
-const { defineInputBinds, errors } = useForm({
-  validationSchema: props.schema
-})
-
-const cookingTime = defineInputBinds("cookingTime")
-onMounted(() => {
-  watchEffect(() => {
-    newRecipeStore.cookingTime = cookingTime.value.value
-  })
-})
 </script>
 
 <style scoped>

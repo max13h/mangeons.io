@@ -17,9 +17,34 @@
       <Teleport v-if="modalStore.whatIsOpen == 'quantityHint'" to="#modal">
         <NewRecipeAddAlimentaryProductsQuantityHint></NewRecipeAddAlimentaryProductsQuantityHint>
       </Teleport>
-      <div class="flex self-end">
-        <input v-model="quantity" name="quantity" type="number" placeholder="100" class="max-w-[8rem] me-2">
-        <input v-model="units" name="units" type="text" placeholder="cl" class="max-w-[6rem]">
+      <div class="flex self-end items-center">
+        <FormInput
+          :model="quantity"
+          name="quantity"
+          type="number"
+          placeholder="100"
+          class="max-w-[8rem] me-2"
+          :disable-tab="true"
+        >
+        </FormInput>
+        <FormSelect
+          :model="units"
+          name="units"
+          placeholder="cl"
+          class="max-w-[6rem]"
+          :disable-tab="true"
+          :options="options"
+        >
+        </FormSelect>
+        <!-- <FormInput
+          :model="units"
+          name="units"
+          type="text"
+          placeholder="cl"
+          class="max-w-[6rem]"
+          :disable-tab="true"
+        >
+        </FormInput> -->
       </div>
     </div>
   </div>
@@ -54,7 +79,17 @@ const props = withDefaults(defineProps<Props>(), {
   })
 })
 
-const quantity = ref("")
+const options = [
+  "kg",
+  "g",
+  "L",
+  "cL",
+  "mL",
+  "tranches",
+  "unités"
+]
+
+const quantity: globalThis.Ref<number> = ref(0)
 const units = ref("")
 
 const indexInStore = ref(newRecipeStore.selectedAlimentaryProducts.findIndex(obj => obj.details.id === props.alimentaryProduct.id))
