@@ -33,7 +33,7 @@ const remove = () => {
   newRecipeStore.selectedKitchenEquipments.splice(indexInStore.value, 1)
 }
 
-watch(newRecipeStore.selectedAlimentaryProducts, () => {
+watch(newRecipeStore.selectedKitchenEquipments, () => {
   indexInStore.value = newRecipeStore.selectedKitchenEquipments.findIndex(obj => obj.id === props.kitchenEquipment.id)
 })
 </script>

@@ -75,6 +75,34 @@ export const useSaveNewRecipe = async () => {
     name_fr: string;
   }
 
+  const schemaNewRecipe = newRecipeStore.schemaNewRecipe
+  const schemaAlimentaryProduct = newRecipeStore.schemaAlimentaryProduct
+
+  const newRecipe = {
+    name: newRecipeStore.name,
+    description: newRecipeStore.description,
+    content: newRecipeStore.content,
+    cookingTime: newRecipeStore.cookingTime
+  }
+
+  const isNewRecipeValid = schemaNewRecipe.isValidSync(newRecipe)
+
+  const areSelectedAlimentaryProductValid = () => {
+    let isValid = true
+    newRecipeStore.selectedAlimentaryProducts.forEach((alimentaryProduct) => {
+      const a = schemaAlimentaryProduct.isValidSync({
+        quantity: alimentaryProduct.quantity,
+        units: alimentaryProduct.units
+      })
+
+      if (!a) {
+        isValid = false
+      }
+    })
+
+    return isValid
+  }
+
   const _fetchUserId = async () => {
     const { data: userId, error: userError } = await supabase
       .from("users")
@@ -97,7 +125,7 @@ export const useSaveNewRecipe = async () => {
           description: newRecipeStore.description.trim(),
           content: newRecipeStore.content.trim(),
           author: userId[0].id,
-          cooking_time: newRecipeStore.cookingTime.trim()
+          cooking_time: newRecipeStore.cookingTime
         }
       ])
       .select()
@@ -174,18 +202,22 @@ export const useSaveNewRecipe = async () => {
     }
   }
 
-  try {
-    const userId = await _fetchUserId()
-    console.log(userId);
-    const recipeData = await _postRecipe(userId[0].id)
-    console.log(recipeData);
-    const recipesAlimentaryProductsData = await _postRecipesAlimentaryProducts(recipeData[0].id)
-    console.log(recipesAlimentaryProductsData);
-    const recipesKitchenEquipmentsData = await _postRecipesKitchenEquipments(recipeData[0].id)
-    console.log(recipesKitchenEquipmentsData);
+  if (isNewRecipeValid && areSelectedAlimentaryProductValid()) {
+    try {
+      const userId = await _fetchUserId()
+      console.log(userId)
+      const recipeData = await _postRecipe(userId[0].id)
+      console.log(recipeData)
+      const recipesAlimentaryProductsData = await _postRecipesAlimentaryProducts(recipeData[0].id)
+      console.log(recipesAlimentaryProductsData)
+      const recipesKitchenEquipmentsData = await _postRecipesKitchenEquipments(recipeData[0].id)
+      console.log(recipesKitchenEquipmentsData)
 
-    return navigateTo("/recettes")
-  } catch (error) {
-    console.log("ERRORRRRR:", error)
+      return navigateTo("/recettes")
+    } catch (error) {
+      console.log("ERRORRRRR:", error)
+    }
+  } else {
+    console.log("an error occures")
   }
 }

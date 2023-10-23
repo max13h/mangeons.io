@@ -64,12 +64,12 @@ body {
     transform: scale(0.99);
 }
 
-input, textarea {
+input, textarea, select {
     outline: none;
     @apply border-dashed border-2 border-secondary p-1 rounded-lg w-full px-3 py-1
 }
 
-input:focus, textarea:focus {
+input:focus, textarea:focus, select:focus {
     outline: none;
     @apply border-solid border-2 border-secondary
 }

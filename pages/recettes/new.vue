@@ -37,7 +37,7 @@
         <i class="ri-arrow-left-double-line" />
         Précedent
       </button>
-      <button v-if="pageNb === 4" type="button" class="btn-secondary border-none" @click="useSaveNewRecipe">
+      <button v-if="pageNb === 4" type="button" class="btn-secondary border-none" @click="useSaveNewRecipe(schema)">
         Enregistrer
         <i class="ri-save-3-line" />
       </button>
@@ -51,7 +51,7 @@
 
 <script setup lang="ts">
 import { fr } from "yup-locales"
-import { object, string, number, setLocale } from "yup"
+import { setLocale } from "yup"
 import { register } from "swiper/element/bundle"
 import { Swiper, SwiperSlide } from "swiper/vue"
 import "swiper/css"
@@ -67,27 +67,7 @@ definePageMeta({
 })
 useSetPageHeading("Votre recette")
 
-const schema = object({
-  name: string()
-    .min(6, "le nom doit avoir plus de 6 caractères")
-    .max(80, "le nom doit avoir moins de 80 caractères")
-    .trim()
-    .required("Le nom est requis"),
-  description: string()
-    .min(6, "la description doit avoir plus de 6 caractères")
-    .max(120, "la description avoir moins de 120 caractères")
-    .trim()
-    .required("La description est est requise"),
-  cookingTime: number()
-    .max(999, "le temps de préparation de être inferieur à 999")
-    .moreThan(0, "le temps de préparation doit être superieur à 0")
-    .truncate()
-    .required("Le temps de préparation est requis"),
-  content: string()
-    .min(100, "le nom doit avoir plus de 100 caractères")
-    .trim()
-    .required("Le contenu est est requis")
-})
+const schema = newRecipeStore.schemaNewRecipe
 
 const { defineInputBinds, errors } = useForm({
   validationSchema: schema

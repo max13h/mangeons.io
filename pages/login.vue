@@ -12,6 +12,7 @@
         name="email"
         :error="errors.email"
         placeholder=""
+        :disable-tab="false"
       >
       </FormInput>
 
@@ -22,6 +23,7 @@
         name="password"
         :error="errors.password"
         placeholder=""
+        :disable-tab="false"
       >
       </FormInput>
 
@@ -57,8 +59,8 @@ if (authStore.isError === true) {
 }
 
 const schema = object({
-  email: string().email().required(),
-  password: string().min(6).required()
+  email: string().email("L'email doit être valide").required("l'email est requis"),
+  password: string().min(6, "Le mot de passe doit faire plus de 6 caractères").required("Le mot de passe est requis")
 })
 
 const { defineInputBinds, errors } = useForm({

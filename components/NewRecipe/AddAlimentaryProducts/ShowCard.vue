@@ -17,25 +17,31 @@
       <Teleport v-if="modalStore.whatIsOpen == 'quantityHint'" to="#modal">
         <NewRecipeAddAlimentaryProductsQuantityHint></NewRecipeAddAlimentaryProductsQuantityHint>
       </Teleport>
-      <div class="flex self-end items-center">
+      <div class="flex w-full justify-end items-start">
         <FormInput
           :model="quantity"
           name="quantity"
           type="number"
           placeholder="100"
-          class="max-w-[8rem] me-2"
           :disable-tab="true"
+          :error="errors.quantity"
+          class="max-w-[8rem] me-4"
         >
         </FormInput>
-        <FormSelect
-          :model="units"
-          name="units"
-          placeholder="cl"
-          class="max-w-[6rem]"
-          :disable-tab="true"
-          :options="options"
-        >
-        </FormSelect>
+        <div class="flex flex-col">
+          <input type="text" name="units" list="unitsList" class="max-w-[6rem]" v-bind="units">
+          <datalist id="unitsList">
+            <option v-for="unit, index in options" :key="index" :value="unit" />
+          </datalist>
+          <div class="mb-4">
+            <span
+              v-if="errors.units"
+              class="text-red-500 text-sm"
+            >
+              {{ useCapitalize(errors.units) }}
+            </span>
+          </div>
+        </div>
         <!-- <FormInput
           :model="units"
           name="units"
@@ -51,9 +57,12 @@
 </template>
 
 <script setup lang="ts">
+import { fr } from "yup-locales"
+import { setLocale } from "yup"
 import { useModalStore } from "../../../stores/modalStore"
 import { useNewRecipeStore } from "../../../stores/newRecipeStore"
 
+setLocale(fr)
 const newRecipeStore = useNewRecipeStore()
 const modalStore = useModalStore()
 
@@ -79,6 +88,12 @@ const props = withDefaults(defineProps<Props>(), {
   })
 })
 
+const schema = newRecipeStore.schemaAlimentaryProduct
+
+const { defineInputBinds, errors } = useForm({
+  validationSchema: schema
+})
+
 const options = [
   "kg",
   "g",
@@ -89,8 +104,8 @@ const options = [
   "unités"
 ]
 
-const quantity: globalThis.Ref<number> = ref(0)
-const units = ref("")
+const quantity = defineInputBinds("quantity")
+const units = defineInputBinds("units")
 
 const indexInStore = ref(newRecipeStore.selectedAlimentaryProducts.findIndex(obj => obj.details.id === props.alimentaryProduct.id))
 
@@ -102,10 +117,10 @@ watch(newRecipeStore.selectedAlimentaryProducts, () => {
   indexInStore.value = newRecipeStore.selectedAlimentaryProducts.findIndex(obj => obj.details.id === props.alimentaryProduct.id)
 })
 watch(quantity, () => {
-  newRecipeStore.selectedAlimentaryProducts[indexInStore.value].quantity = quantity.value
+  newRecipeStore.selectedAlimentaryProducts[indexInStore.value].quantity = quantity.value.value
 })
 watch(units, () => {
-  newRecipeStore.selectedAlimentaryProducts[indexInStore.value].units = units.value
+  newRecipeStore.selectedAlimentaryProducts[indexInStore.value].units = units.value.value
 })
 
 </script>
