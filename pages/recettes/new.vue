@@ -65,7 +65,6 @@ register()
 definePageMeta({
   layout: "mobile-deep-focus"
 })
-useSetPageHeading("Votre recette")
 
 const schema = newRecipeStore.schemaNewRecipe
 
