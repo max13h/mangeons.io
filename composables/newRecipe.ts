@@ -124,7 +124,7 @@ export const useSaveNewRecipe = async () => {
           name: newRecipeStore.name.trim(),
           description: newRecipeStore.description.trim(),
           content: newRecipeStore.content.trim(),
-          author: userId[0].id,
+          author: userId,
           cooking_time: newRecipeStore.cookingTime
         }
       ])
@@ -132,7 +132,7 @@ export const useSaveNewRecipe = async () => {
 
     if (recipeError) {
       console.log("ON POST RECIPE")
-      console.log(userId[0].id)
+      console.log(userId)
       for(const property in recipeError) {
         console.log(property + "=" + recipeError[property])
       }
