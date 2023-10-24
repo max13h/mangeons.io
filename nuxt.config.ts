@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: false },
-  modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "@nuxtjs/supabase", "@vee-validate/nuxt"],
+  modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "@nuxtjs/supabase", "@vee-validate/nuxt", "@nuxt/image"],
   app: {
     head: {
       title: "mangeons.io",
@@ -38,5 +38,8 @@ export default defineNuxtConfig({
       callback: "/confirm",
       exclude: ["/", "/register"]
     }
+  },
+  image: {
+    quality: 90
   }
 })

@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@headlessui/vue": "^1.7.16",
+    "@nuxt/image": "^1.0.0",
     "@pinia/nuxt": "^0.4.11",
     "@vee-validate/nuxt": "^4.11.8",
     "@vee-validate/yup": "^4.11.8",
