@@ -1,7 +1,7 @@
 <template>
   <div class="border-2 shadow-sm p-1 rounded-lg bg-white mb-2 flex justify-between items-center on-click" @click="onClick">
     <div class="flex items-center">
-      <img :src="props.alimentaryProduct.image_url" :alt="props.alimentaryProduct.name_fr" width="25">
+      <NuxtImg :src="props.alimentaryProduct.image_url" :alt="props.alimentaryProduct.name_fr" width="25" />
       <p class="ms-2">
         {{ props.alimentaryProduct.name_fr }}
       </p>

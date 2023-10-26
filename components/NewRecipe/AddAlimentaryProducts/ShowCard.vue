@@ -2,7 +2,7 @@
   <div class="border-2 shadow-sm p-1 rounded-lg bg-white mb-2 flex flex-col justify-between items-center">
     <div class="flex justify-between w-full">
       <div class="flex items-center w-full mb-2">
-        <img :src="props.alimentaryProduct.image_url" :alt="props.alimentaryProduct.name_fr" width="25">
+        <NuxtImg :src="props.alimentaryProduct.image_url" :alt="props.alimentaryProduct.name_fr" width="25" />
         <p class="ms-2">
           {{ props.alimentaryProduct.name_fr }}
         </p>
