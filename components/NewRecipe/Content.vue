@@ -4,10 +4,38 @@
       Décrivrez <span class="underline">étape</span> par <span class="underline">étape</span> comment réussir votre recette 🔪
     </h2>
 
-    <div ref="el" class="overflow-hidden">
-      <div v-for="(step, index) in steps" :key="index" :data-value="step" class="flex items-center border-dashed border-2 border-secondary rounded-xl bg-slate-200 p-4 mb-2">
-        <textarea v-model="steps[index]" type="text" class="border-white me-4" />
-        <i class="ri-draggable text-2xl drag-element" />
+    <div ref="mainStepList" class="overflow-hidden">
+      <div
+        v-for="(step, index) in stepList"
+        :key="index"
+        :data-value="step"
+        class="border-dashed border-2 border-secondary rounded-xl bg-slate-200 p-4 mb-2"
+      >
+        <div class="flex items-center">
+          <textarea
+            v-model="stepList[index].value"
+            type="text"
+            class="border-white me-4"
+          />
+          <i class="ri-draggable text-2xl drag-element" />
+          <p @click="addNestedElement(index)">
+            ADD
+          </p>
+        </div>
+        <div ref="nestedStepLists" class="border-dashed border-2 border-secondary bg-slate-300 rounded-xl mt-2 p-4">
+          <div
+            v-for="(nestedElement, nestedIndex) in stepList[index].nested"
+            :key="nestedIndex"
+            class="flex items-center mb-4"
+          >
+            <textarea
+              v-model="stepList[index].nested[nestedIndex]"
+              type="text"
+              class="border-white me-4"
+            />
+            <i class="ri-draggable text-2xl drag-nested-element" />
+          </div>
+        </div>
       </div>
     </div>
     <button class="btn-secondary" @click="addStep">Add Step</button>
@@ -18,12 +46,22 @@
 <script setup lang="ts">
 import Sortable from "sortablejs"
 
-const el = ref(null)
+const mainStepList = ref(null)
+const nestedStepLists = ref([])
+
+const stepList = ref([
+  {
+    value: "first",
+    nested: ["hello", "test"]
+  },
+  {
+    value: "second",
+    nested: ["hello", "test"]
+  }
+])
 
 onMounted(() => {
-  el.value.focus()
-
-  const sortable = new Sortable(el.value, {
+  const sortable = new Sortable(mainStepList.value, {
     animation: 150,
     ghostClass: "blue-background-class",
     dataIdAttr: "data-value",
@@ -32,9 +70,20 @@ onMounted(() => {
       console.log(this.toArray())
     }
   })
+
+  nestedStepLists.value.forEach((element) => {
+    const nestedSortable = new Sortable(element, {
+      group: "nested",
+      animation: 150,
+      fallbackOnBody: true,
+      swapThreshold: 0.65
+    })
+  })
 })
 
-const steps = ref([""])
+const addNestedElement = (index) => {
+  stepList.value[index].nested.push("")
+}
 
 const addStep = () => {
   steps.value.push("")
@@ -42,6 +91,7 @@ const addStep = () => {
 const view = () => {
   console.log(steps)
 }
+
 </script>
 
 <style scoped>
