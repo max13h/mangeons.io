@@ -85,8 +85,11 @@ input:focus, textarea:focus, select:focus {
   @apply text-secondary border-secondary rounded-lg p-2 border-2
 }
 
-.btn-close {
-  @apply text-xl absolute top-2 right-2 w-7 h-7 flex justify-center items-center rounded-full cursor-pointer
+.btn-close-container {
+  @apply text-2xl w-full flex justify-end items-center
+}
+.btn-close-container>button {
+  @apply cursor-pointer
 }
 
 .absolute-center {

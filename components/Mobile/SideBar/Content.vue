@@ -1,9 +1,12 @@
 <template>
   <div class="h-full p-5 flex flex-col">
-    <i
-      class="ri-close-line btn-close"
-      @click="useToggleSideBar"
-    />
+    <div class="btn-close-container">
+      <button
+        type="button"
+        class="ri-close-line"
+        @click="useToggleSideBar"
+      />
+    </div>
     <NuxtImg src="/logos/LONG_LIGHT_LOGO.svg" class="mt-8 mb-16" />
     <ul class="grow">
       <li class="ml-2">

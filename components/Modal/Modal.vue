@@ -1,9 +1,9 @@
 <template>
   <div class="modal-backdrop">
     <div class="modal">
-      <button type="button" class="btn-close" @click="modalStore.close">
-        <i class="ri-close-line text-2xl" />
-      </button>
+      <div class="btn-close-container mb-2">
+        <button type="button" class="ri-close-line" @click="modalStore.close" />
+      </div>
       <slot />
     </div>
   </div>
@@ -35,7 +35,7 @@ const modalStore = useModalStore()
   }
 
   .modal {
-    @apply p-4 py-8 relative bg-white flex flex-col rounded-3xl border-2 border-secondary overflow-y-scroll w-full m-8;
+    @apply p-4 relative bg-white flex flex-col rounded-3xl border-2 border-secondary overflow-y-scroll w-full m-8;
     box-shadow: 0px 0px 33px 0px #00000063;
     min-width: 200px;
     min-height: 200px;
