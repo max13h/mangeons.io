@@ -63,12 +63,19 @@
     <button class="btn-secondary" @click="addStep">
       Ajouter une étape
     </button>
+    <span @click="console.log(stepList);">aaaaa</span>
   </div>
 </template>
 
 <script setup lang="ts">
 import Sortable from "sortablejs"
 import { useModalStore } from "../../stores/modalStore"
+
+interface Props {
+  content: globalThis.Ref<any>
+}
+
+const props = defineProps<Props>()
 
 const modalStore = useModalStore()
 
@@ -219,6 +226,27 @@ const _reorderTheNestedListFromHTML = (promise: Promise<any>, index: number) => 
 }
 
 let mainSortableList: any = null
+
+watch(stepList.value, () => {
+  let finalString = ""
+
+  const cloned = [...stepList.value]
+  cloned.sort((a, b) => a.index - b.index)
+
+  cloned.forEach((element, index) => {
+    finalString = finalString + `${index + 1}. ` + element.value
+    if (element.nested.length > 0) {
+      const nestedCloned = [...element.nested]
+      nestedCloned.sort((a, b) => a.index - b.index)
+
+      nestedCloned.forEach((nestedElement, nestedIndex) => {
+        finalString = finalString + "\n\t" + `${nestedIndex + 1}. ` + nestedElement.value
+      })
+    }
+    finalString = finalString + "\n"
+  })
+  console.log(finalString);
+})
 
 onMounted(() => {
   // Init sortable lists
