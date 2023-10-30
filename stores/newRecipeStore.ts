@@ -39,7 +39,7 @@ export const useNewRecipeStore = defineStore("newRecipe", () => {
       .truncate()
       .required("Le temps de préparation est requis"),
     content: string()
-      .min(100, "le nom doit avoir plus de 100 caractères")
+      .min(100, "le contenu doit avoir plus de 100 caractères")
       .trim()
       .required("Le contenu est requis")
   })

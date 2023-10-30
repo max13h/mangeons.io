@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full flex flex-col items-center">
+  <div>
     <h2 class="text-xl mb-4 self-start">
       Précisez les ingrédients requis pour votre recette 🥦
     </h2>
@@ -12,12 +12,10 @@
       </p>
       <NewRecipeAddAlimentaryProductsShowCard v-for="alimentaryProduct in newRecipeStore.selectedAlimentaryProducts" v-else :key="alimentaryProduct.details.id" :alimentary-product="alimentaryProduct.details"></NewRecipeAddAlimentaryProductsShowCard>
     </div>
-    <div class="pb-4">
-      <button class="btn-outline-secondary w-full" tabindex="-1" @click="useAddAlimentaryProductsModal">
-        Ajouter un ingrédient
-        <i class="ri-add-circle-line text-xl align-middle" />
-      </button>
-    </div>
+    <button class="btn-outline-secondary w-full mb-8" tabindex="-1" @click="useAddAlimentaryProductsModal">
+      Ajouter un ingrédient
+      <i class="ri-add-circle-line text-xl align-middle" />
+    </button>
   </div>
 </template>
 

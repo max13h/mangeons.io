@@ -23,12 +23,10 @@
       </p>
       <NewRecipeAddKitchenEquipmentsShowCard v-for="kitchenEquipment in newRecipeStore.selectedKitchenEquipments" v-else :key="kitchenEquipment.id" :kitchen-equipment="kitchenEquipment"></NewRecipeAddKitchenEquipmentsShowCard>
     </div>
-    <div class="pb-4">
-      <button class="btn-outline-secondary w-full" tabindex="-1" @click="useAddKitchenEquipmentsModal">
-        Ajouter un équipement de cuisine
-        <i class="ri-add-circle-line text-xl align-middle" />
-      </button>
-    </div>
+    <button class="btn-outline-secondary w-full mb-8" tabindex="-1" @click="useAddKitchenEquipmentsModal">
+      Ajouter un équipement de cuisine
+      <i class="ri-add-circle-line text-xl align-middle" />
+    </button>
   </div>
 </template>
 

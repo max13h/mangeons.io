@@ -60,10 +60,9 @@
         </div>
       </div>
     </div>
-    <button class="btn-secondary" @click="addStep">
+    <button class="btn-secondary w-full mt-4 mb-8" @click="addStep">
       Ajouter une étape
     </button>
-    <span @click="console.log(stepList);">aaaaa</span>
   </div>
 </template>
 
@@ -71,11 +70,7 @@
 import Sortable from "sortablejs"
 import { useModalStore } from "../../stores/modalStore"
 
-interface Props {
-  content: globalThis.Ref<any>
-}
-
-const props = defineProps<Props>()
+const emit = defineEmits(["updateContent"])
 
 const modalStore = useModalStore()
 
@@ -245,7 +240,7 @@ watch(stepList.value, () => {
     }
     finalString = finalString + "\n"
   })
-  console.log(finalString);
+  emit("updateContent", finalString)
 })
 
 onMounted(() => {

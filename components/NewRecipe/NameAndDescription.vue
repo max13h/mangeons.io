@@ -19,7 +19,7 @@
       :error="props.errors.description"
       :placeholder="placeholder"
       :disable-tab="true"
-      class="min-h-[300px]"
+      class="min-h-[300px] mb-8"
     >
     </FormTextArea>
   </div>

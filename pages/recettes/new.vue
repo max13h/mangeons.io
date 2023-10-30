@@ -27,7 +27,7 @@
             <NewRecipeAlimentaryProducts></NewRecipeAlimentaryProducts>
           </swiper-slide>
           <swiper-slide>
-            <NewRecipeContent :content="content" :errors="errors"></NewRecipeContent>
+            <NewRecipeContent @update-content="updateContent"></NewRecipeContent>
           </swiper-slide>
         </swiper>
       </div>
@@ -75,14 +75,16 @@ const { defineInputBinds, errors } = useForm({
 const name = defineInputBinds("name")
 const description = defineInputBinds("description")
 const cookingTime = defineInputBinds("cookingTime")
-const content = defineInputBinds("content")
+
+const updateContent = (updatedContent: string) => {
+  newRecipeStore.content = updatedContent
+}
 
 onMounted(() => {
   watchEffect(() => {
     newRecipeStore.name = name.value.value
     newRecipeStore.description = description.value.value
     newRecipeStore.cookingTime = cookingTime.value.value
-    newRecipeStore.content = content.value.value
   })
 })
 
