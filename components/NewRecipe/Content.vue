@@ -24,15 +24,15 @@
           <i class="ri-settings-3-line text-2xl me-4" @click="showOptions(index)" />
           <Teleport v-if="(modalStore.whatIsOpen == 'recipeStepSetting') && (optionIndex == index)" to="#modal">
             <div class="flex flex-col justify-center h-full w-full">
-              <button type="button" class="btn-outline-secondary mb-4" @click="removeStep(index)">
-                Supprimer l'étape
-              </button>
               <button
                 type="button"
-                class="btn-outline-secondary"
+                class="btn-secondary"
                 @click="addNestedStep(index)"
               >
                 Ajouter une sous-étape
+              </button>
+              <button type="button" class="btn-outline-secondary mt-4" @click="removeStep(index)">
+                Supprimer l'étape
               </button>
             </div>
           </Teleport>
@@ -54,7 +54,7 @@
               type="text"
               class="border-white mx-4"
             />
-            <i class="ri-delete-bin-line text-xl me-4" />
+            <i class="ri-delete-bin-line text-xl me-4" @click="removeNestedStep(nestedIndex, index)" />
             <i class="ri-draggable text-2xl drag-nested-element" />
           </div>
         </div>
@@ -62,9 +62,6 @@
     </div>
     <button class="btn-secondary" @click="addStep">
       Ajouter une étape
-    </button>
-    <button class="btn-secondary" @click="console.log(mainSortableList.toArray());">
-      AAAAA
     </button>
   </div>
 </template>
@@ -75,7 +72,7 @@ import { useModalStore } from "../../stores/modalStore"
 
 const modalStore = useModalStore()
 
-const mainStepList = ref(null)
+const mainStepList: globalThis.Ref<any> = ref(null)
 const nestedStepLists: globalThis.Ref<any[]> = ref([])
 const inputElements = ref([])
 
@@ -89,18 +86,16 @@ interface StepsList {
   }[];
   index: number
 }
-
 const stepList: globalThis.Ref<StepsList[]> = ref([
   {
     id: 0,
-    value: "0",
+    value: "",
     nested: [],
     index: 0
   }
 ])
 
 const optionIndex: globalThis.Ref<number> = ref(0)
-
 const showOptions = (index: number) => {
   useOpenModal("recipeStepSetting")
   optionIndex.value = index
@@ -108,9 +103,13 @@ const showOptions = (index: number) => {
 
 const addStep = () => {
   const promise = new Promise((resolve, _reject) => {
+    let highestId = -1
+    if (stepList.value.length > 0) {
+      highestId = Math.max(...stepList.value.map(obj => obj.id))
+    }
     if (stepList.value.push({
-      id: stepList.value.length,
-      value: `${stepList.value.length}`,
+      id: highestId + 1,
+      value: "",
       nested: [],
       index: stepList.value.length
     })) {
@@ -119,100 +118,113 @@ const addStep = () => {
       throw new Error("error")
     }
   })
-  _reorderTheListMainFromHTML(promise)
+  _reorderTheMainListFromHTML(promise)
 }
-
 const addNestedStep = (index: number) => {
+  let highestId = -1
+  if (stepList.value[index].nested.length > 0) {
+    highestId = Math.max(...stepList.value[index].nested.map(obj => obj.id))
+  }
   const promise = new Promise((resolve, _reject) => {
     resolve(stepList.value[index].nested.push({
-      id: stepList.value[index].nested.length,
+      id: highestId + 1,
       value: "",
       index: stepList.value[index].nested.length
     }))
   })
-  _reorderTheListNestedFromHTML(promise, index)
+  _reorderTheNestedListFromHTML(promise, index)
+
+  setTimeout(() => {
+    // Init nested sortable lists
+    nestedStepLists.value.forEach((element) => {
+      const nestedSortable = new Sortable(element, {
+        animation: 150,
+        fallbackOnBody: true,
+        swapThreshold: 0.65,
+        handle: ".drag-nested-element",
+        dataIdAttr: "data-value",
+        onUpdate: function () {
+          editEachIndexInNestedStepList(this.toArray(), index)
+        }
+      })
+    })
+  }, 300)
 
   modalStore.close()
-
-  // Init nested sortable lists
-  nestedStepLists.value.forEach((element) => {
-    const nestedSortable = new Sortable(element, {
-      animation: 150,
-      fallbackOnBody: true,
-      swapThreshold: 0.65,
-      handle: ".drag-nested-element",
-      dataIdAttr: "data-value",
-      onUpdate: function () {
-        editEachIndexInNestedStepList(this.toArray(), index)
-      }
-    })
-  })
 }
 
-// const removeStep = (index: number) => {
-//   const reorderedArray = mainSortableList.toArray()
-//   reorderedArray.splice(reorderedArray.indexOf(index.toString()), 1)
+const removeStep = (index: number) => {
+  const promise = new Promise((resolve, _reject) => {
+    if (stepList.value.splice(index, 1)) {
+      resolve(true)
+    } else {
+      throw new Error("error")
+    }
+  })
 
-//   stepList.value.splice(index, 1)
+  _reorderTheMainListFromHTML(promise)
+  modalStore.close()
+}
+const removeNestedStep = (nestedIndex: number, index: number) => {
+  const promise = new Promise((resolve, _reject) => {
+    if (stepList.value[index].nested.splice(nestedIndex, 1)) {
+      resolve(true)
+    } else {
+      throw new Error("error")
+    }
+  })
 
-//   console.log("reorderedArray", reorderedArray)
-//   console.log("stepList avant", stepList.value)
-
-//   setTimeout(() => {
-//     stepList.value.forEach((step, index) => {
-//       step.index = reorderedArray.indexOf((index + 1).toString()) + 1
-//     })
-//     console.log("stepList apres", stepList.value)
-//   }, 5000);
-
-//   modalStore.close()
-// }
+  _reorderTheNestedListFromHTML(promise, index)
+  modalStore.close()
+}
 
 const editEachIndexInStepList = (reorderedArray: string[]) => {
-  stepList.value.forEach((step, index) => {
-    step.index = reorderedArray.indexOf(index.toString())
+  stepList.value.forEach((step) => {
+    step.index = reorderedArray.indexOf(step.id.toString())
   })
 }
-
 const editEachIndexInNestedStepList = (reorderedArray: string[], index: number) => {
-  const formatedReorderedArray = reorderedArray.map(str => Number(str.split(",")[0]))
-
-  stepList.value[index].nested.forEach((nestedStep, nestedIndex) => {
-    nestedStep.index = formatedReorderedArray.indexOf(nestedIndex)
+  stepList.value[index].nested.forEach((nestedStep) => {
+    nestedStep.index = reorderedArray.indexOf(nestedStep.id.toString())
   })
 }
 
-const _reorderTheListMainFromHTML = (promise: Promise<any>) => {
+const _reorderTheMainListFromHTML = (promise: Promise<any>) => {
   promise.then(() => {
     let count = 0
-    for (const child of mainStepList.value.children) {
-      const elementId = child.dataset.value
-      const findIndex = stepList.value.findIndex(element => element.id === parseInt(elementId))
+    if (mainStepList.value) {
+      for (const child of mainStepList.value.children) {
+        const elementId = child.dataset.value
+        const findIndex = stepList.value.findIndex(element => element.id === parseInt(elementId))
 
-      stepList.value[findIndex].index = count
-      count++
+        stepList.value[findIndex].index = count
+        count++
+      }
     }
   })
 }
-const _reorderTheListNestedFromHTML = (promise: Promise<any>, index: number) => {
+const _reorderTheNestedListFromHTML = (promise: Promise<any>, index: number) => {
   promise.then(() => {
     let count = 0
-    for (const child of nestedStepLists.value[index].children) {
-      const elementId = child.dataset.value
-      const findIndex = stepList.value[index].nested.findIndex(element => element.id === parseInt(elementId))
+    if (nestedStepLists.value[index]) {
+      for (const child of nestedStepLists.value[index].children) {
+        const elementId = child.dataset.value
+        const findIndex = stepList.value[index].nested.findIndex(element => element.id === parseInt(elementId))
 
-      stepList.value[index].nested[findIndex].index = count
-      count++
+        stepList.value[index].nested[findIndex].index = count
+        count++
+      }
     }
   })
 }
 
-let mainSortableList: any
+let mainSortableList: any = null
 
 onMounted(() => {
   // Init sortable lists
   mainSortableList = new Sortable(mainStepList.value, {
     animation: 150,
+    swapThreshold: 0.5,
     dataIdAttr: "data-value",
     handle: ".drag-element",
     onUpdate: function () {
