@@ -8,15 +8,15 @@
     </div>
     <i
       class="text-2xl me-2"
-      :class="newRecipeStore.selectedKitchenEquipments.some(obj => obj.id === props.kitchenEquipment.id) ? 'ri-check-line' : 'ri-add-circle-line'"
+      :class="recipeStore.selectedKitchenEquipments.some(obj => obj.id === props.kitchenEquipment.id) ? 'ri-check-line' : 'ri-add-circle-line'"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { useNewRecipeStore } from "../../../stores/newRecipeStore"
+import { useNewRecipeStore } from "../../../stores/recipeStore"
 
-const newRecipeStore = useNewRecipeStore()
+const recipeStore = useNewRecipeStore()
 
 interface KitchenEquipment {
   id: string;
@@ -37,8 +37,8 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const onClick = () => {
-  if (!newRecipeStore.selectedKitchenEquipments.some(obj => obj.id === props.kitchenEquipment.id)) {
-    newRecipeStore.selectedKitchenEquipments.push(props.kitchenEquipment)
+  if (!recipeStore.selectedKitchenEquipments.some(obj => obj.id === props.kitchenEquipment.id)) {
+    recipeStore.selectedKitchenEquipments.push(props.kitchenEquipment)
   }
 }
 </script>

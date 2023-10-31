@@ -13,9 +13,9 @@
 </template>
 
 <script setup lang="ts">
-import { useNewRecipeStore } from "../../../stores/newRecipeStore"
+import { useNewRecipeStore } from "../../../stores/recipeStore"
 
-const newRecipeStore = useNewRecipeStore()
+const recipeStore = useNewRecipeStore()
 
 interface Props {
   kitchenEquipment: {
@@ -27,14 +27,14 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const indexInStore = ref(newRecipeStore.selectedKitchenEquipments.findIndex(obj => obj.id === props.kitchenEquipment.id))
+const indexInStore = ref(recipeStore.selectedKitchenEquipments.findIndex(obj => obj.id === props.kitchenEquipment.id))
 
 const remove = () => {
-  newRecipeStore.selectedKitchenEquipments.splice(indexInStore.value, 1)
+  recipeStore.selectedKitchenEquipments.splice(indexInStore.value, 1)
 }
 
-watch(newRecipeStore.selectedKitchenEquipments, () => {
-  indexInStore.value = newRecipeStore.selectedKitchenEquipments.findIndex(obj => obj.id === props.kitchenEquipment.id)
+watch(recipeStore.selectedKitchenEquipments, () => {
+  indexInStore.value = recipeStore.selectedKitchenEquipments.findIndex(obj => obj.id === props.kitchenEquipment.id)
 })
 </script>
 

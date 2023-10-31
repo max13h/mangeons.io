@@ -18,16 +18,16 @@
           @navigation-prev="pageNb--"
         >
           <swiper-slide>
-            <NewRecipeNameAndDescription :name="name" :description="description" :errors="errors"></NewRecipeNameAndDescription>
+            <RecipeFormNameAndDescription :name="name" :description="description" :errors="errors"></RecipeFormNameAndDescription>
           </swiper-slide>
           <swiper-slide>
-            <NewRecipeCookingTimeAndKitchenEquipments :cooking-time="cookingTime" :errors="errors"></NewRecipeCookingTimeAndKitchenEquipments>
+            <RecipeFormCookingTimeAndKitchenEquipments :cooking-time="cookingTime" :errors="errors"></RecipeFormCookingTimeAndKitchenEquipments>
           </swiper-slide>
           <swiper-slide>
-            <NewRecipeAlimentaryProducts></NewRecipeAlimentaryProducts>
+            <RecipeFormAlimentaryProducts></RecipeFormAlimentaryProducts>
           </swiper-slide>
           <swiper-slide>
-            <NewRecipeContent @update-content="updateContent"></NewRecipeContent>
+            <RecipeFormContent @update-content="updateContent"></RecipeFormContent>
           </swiper-slide>
         </swiper>
       </div>
@@ -55,9 +55,9 @@ import { setLocale } from "yup"
 import { register } from "swiper/element/bundle"
 import { Swiper, SwiperSlide } from "swiper/vue"
 import "swiper/css"
-import { useNewRecipeStore } from "../../stores/newRecipeStore"
+import { useNewRecipeStore } from "../../stores/recipeStore"
 
-const newRecipeStore = useNewRecipeStore()
+const recipeStore = useNewRecipeStore()
 
 setLocale(fr)
 register()
@@ -66,7 +66,7 @@ definePageMeta({
   layout: "mobile-deep-focus"
 })
 
-const schema = newRecipeStore.schemaNewRecipe
+const schema = recipeStore.schemaNewRecipe
 
 const { defineInputBinds, errors } = useForm({
   validationSchema: schema
@@ -77,14 +77,14 @@ const description = defineInputBinds("description")
 const cookingTime = defineInputBinds("cookingTime")
 
 const updateContent = (updatedContent: string) => {
-  newRecipeStore.content = updatedContent
+  recipeStore.content = updatedContent
 }
 
 onMounted(() => {
   watchEffect(() => {
-    newRecipeStore.name = name.value.value
-    newRecipeStore.description = description.value.value
-    newRecipeStore.cookingTime = cookingTime.value.value
+    recipeStore.name = name.value.value
+    recipeStore.description = description.value.value
+    recipeStore.cookingTime = cookingTime.value.value
   })
 })
 

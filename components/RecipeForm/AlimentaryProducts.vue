@@ -7,10 +7,10 @@
       <NewRecipeAddAlimentaryProducts></NewRecipeAddAlimentaryProducts>
     </Teleport>
     <div class="min-h-[300px] bg-white border-dashed border-2 border-secondary w-full rounded-xl p-4 overflow-y-scroll mb-7 relative">
-      <p v-if="newRecipeStore.selectedAlimentaryProducts.length == 0" class="absolute-center text-center w-7/12 italic text-slate-400">
+      <p v-if="recipeStore.selectedAlimentaryProducts.length == 0" class="absolute-center text-center w-7/12 italic text-slate-400">
         Aucun ingrédient ajouté
       </p>
-      <NewRecipeAddAlimentaryProductsShowCard v-for="alimentaryProduct in newRecipeStore.selectedAlimentaryProducts" v-else :key="alimentaryProduct.details.id" :alimentary-product="alimentaryProduct.details"></NewRecipeAddAlimentaryProductsShowCard>
+      <NewRecipeAddAlimentaryProductsShowCard v-for="alimentaryProduct in recipeStore.selectedAlimentaryProducts" v-else :key="alimentaryProduct.details.id" :alimentary-product="alimentaryProduct.details"></NewRecipeAddAlimentaryProductsShowCard>
     </div>
     <button class="btn-outline-secondary w-full mb-8" tabindex="-1" @click="useAddAlimentaryProductsModal">
       Ajouter un ingrédient
@@ -21,10 +21,10 @@
 
 <script setup lang="ts">
 import { useModalStore } from "../../stores/modalStore"
-import { useNewRecipeStore } from "../../stores/newRecipeStore"
+import { useNewRecipeStore } from "../../stores/recipeStore"
 
 const modalStore = useModalStore()
-const newRecipeStore = useNewRecipeStore()
+const recipeStore = useNewRecipeStore()
 </script>
 
 <style scoped>

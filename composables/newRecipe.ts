@@ -1,7 +1,7 @@
-import { useNewRecipeStore } from "../stores/newRecipeStore"
+import { useNewRecipeStore } from "../stores/recipeStore"
 
 export const useAddAlimentaryProductsModal = async () => {
-  const newRecipeStore = useNewRecipeStore()
+  const recipeStore = useNewRecipeStore()
 
   useOpenModal("addAlimentaryProducts")
 
@@ -36,25 +36,25 @@ export const useAddAlimentaryProductsModal = async () => {
     const alimentaryProductsResponse = await useFetch<AlimentaryProductsResponse>("/api/getAlimentaryProducts")
     const storeAreasResponse = await useFetch<StoreAreasResponse>("/api/getStoreAreas")
 
-    newRecipeStore.alimentaryProducts = alimentaryProductsResponse.data.value.data
-    newRecipeStore.storeAreas = storeAreasResponse.data.value.data
+    recipeStore.alimentaryProducts = alimentaryProductsResponse.data.value.data
+    recipeStore.storeAreas = storeAreasResponse.data.value.data
   } catch (error) {
     console.log(error)
   }
 }
 
 export const useAddKitchenEquipmentsModal = async () => {
-  const newRecipeStore = useNewRecipeStore()
+  const recipeStore = useNewRecipeStore()
 
   useOpenModal("addKitchenEquipments")
 
   const { data: { value: { data: kitchenEquipments } } } = await useFetch("/api/getKitchenEquipments")
 
-  newRecipeStore.kitchenEquipments = kitchenEquipments
+  recipeStore.kitchenEquipments = kitchenEquipments
 }
 
-export const useSaveNewRecipe = async () => {
-  const newRecipeStore = useNewRecipeStore()
+export const useSaveRecipe = async () => {
+  const recipeStore = useNewRecipeStore()
   const supabase: any = useSupabaseClient()
   const userAuth = useSupabaseUser()
 
@@ -75,21 +75,21 @@ export const useSaveNewRecipe = async () => {
     name_fr: string;
   }
 
-  const schemaNewRecipe = newRecipeStore.schemaNewRecipe
-  const schemaAlimentaryProduct = newRecipeStore.schemaAlimentaryProduct
+  const schemaNewRecipe = recipeStore.schemaNewRecipe
+  const schemaAlimentaryProduct = recipeStore.schemaAlimentaryProduct
 
   const newRecipe = {
-    name: newRecipeStore.name,
-    description: newRecipeStore.description,
-    content: newRecipeStore.content,
-    cookingTime: newRecipeStore.cookingTime
+    name: recipeStore.name,
+    description: recipeStore.description,
+    content: recipeStore.content,
+    cookingTime: recipeStore.cookingTime
   }
 
   const isNewRecipeValid = schemaNewRecipe.isValidSync(newRecipe)
 
   const areSelectedAlimentaryProductValid = () => {
     let isValid = true
-    newRecipeStore.selectedAlimentaryProducts.forEach((alimentaryProduct) => {
+    recipeStore.selectedAlimentaryProducts.forEach((alimentaryProduct) => {
       const a = schemaAlimentaryProduct.isValidSync({
         quantity: alimentaryProduct.quantity,
         units: alimentaryProduct.units
@@ -121,11 +121,11 @@ export const useSaveNewRecipe = async () => {
       .from("recipes")
       .insert([
         {
-          name: newRecipeStore.name.trim(),
-          description: newRecipeStore.description.trim(),
-          content: newRecipeStore.content.trim(),
+          name: recipeStore.name.trim(),
+          description: recipeStore.description.trim(),
+          content: recipeStore.content.trim(),
           author: userId,
-          cooking_time: newRecipeStore.cookingTime
+          cooking_time: recipeStore.cookingTime
         }
       ])
       .select()
@@ -151,7 +151,7 @@ export const useSaveNewRecipe = async () => {
 
     const formatedArray: FormatedObj[] = []
 
-    newRecipeStore.selectedAlimentaryProducts.forEach((obj: SelectedAlimentaryProduct) => {
+    recipeStore.selectedAlimentaryProducts.forEach((obj: SelectedAlimentaryProduct) => {
       const el = {
         recipe_id: recipeId,
         alimentary_product_id: obj.details.id,
@@ -181,7 +181,7 @@ export const useSaveNewRecipe = async () => {
 
     const formatedArray: FormatedObj[] = []
 
-    newRecipeStore.selectedKitchenEquipments.forEach((obj: SelectedKitchenEquipment) => {
+    recipeStore.selectedKitchenEquipments.forEach((obj: SelectedKitchenEquipment) => {
       const el = {
         recipe_id: recipeId,
         kitchen_equipment_id: obj.id

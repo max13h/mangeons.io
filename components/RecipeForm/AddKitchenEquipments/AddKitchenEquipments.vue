@@ -20,9 +20,9 @@
 </template>
 
 <script setup lang="ts">
-import { useNewRecipeStore } from "../../../stores/newRecipeStore"
+import { useNewRecipeStore } from "../../../stores/recipeStore"
 
-const newRecipeStore = useNewRecipeStore()
+const recipeStore = useNewRecipeStore()
 
 interface KitchenEquipment {
   id: string;
@@ -41,7 +41,7 @@ const filteredList = computed(() => {
 })
 
 watchEffect(() => {
-  selectedKitchenEquipments.value = newRecipeStore.kitchenEquipments
+  selectedKitchenEquipments.value = recipeStore.kitchenEquipments
 })
 </script>
 

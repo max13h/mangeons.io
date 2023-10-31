@@ -60,10 +60,10 @@
 import { fr } from "yup-locales"
 import { setLocale } from "yup"
 import { useModalStore } from "../../../stores/modalStore"
-import { useNewRecipeStore } from "../../../stores/newRecipeStore"
+import { useNewRecipeStore } from "../../../stores/recipeStore"
 
 setLocale(fr)
-const newRecipeStore = useNewRecipeStore()
+const recipeStore = useNewRecipeStore()
 const modalStore = useModalStore()
 
 interface AlimentaryProduct {
@@ -88,7 +88,7 @@ const props = withDefaults(defineProps<Props>(), {
   })
 })
 
-const schema = newRecipeStore.schemaAlimentaryProduct
+const schema = recipeStore.schemaAlimentaryProduct
 
 const { defineInputBinds, errors } = useForm({
   validationSchema: schema
@@ -107,20 +107,20 @@ const options = [
 const quantity = defineInputBinds("quantity")
 const units = defineInputBinds("units")
 
-const indexInStore = ref(newRecipeStore.selectedAlimentaryProducts.findIndex(obj => obj.details.id === props.alimentaryProduct.id))
+const indexInStore = ref(recipeStore.selectedAlimentaryProducts.findIndex(obj => obj.details.id === props.alimentaryProduct.id))
 
 const remove = () => {
-  newRecipeStore.selectedAlimentaryProducts.splice(indexInStore.value, 1)
+  recipeStore.selectedAlimentaryProducts.splice(indexInStore.value, 1)
 }
 
-watch(newRecipeStore.selectedAlimentaryProducts, () => {
-  indexInStore.value = newRecipeStore.selectedAlimentaryProducts.findIndex(obj => obj.details.id === props.alimentaryProduct.id)
+watch(recipeStore.selectedAlimentaryProducts, () => {
+  indexInStore.value = recipeStore.selectedAlimentaryProducts.findIndex(obj => obj.details.id === props.alimentaryProduct.id)
 })
 watch(quantity, () => {
-  newRecipeStore.selectedAlimentaryProducts[indexInStore.value].quantity = quantity.value.value
+  recipeStore.selectedAlimentaryProducts[indexInStore.value].quantity = quantity.value.value
 })
 watch(units, () => {
-  newRecipeStore.selectedAlimentaryProducts[indexInStore.value].units = units.value.value
+  recipeStore.selectedAlimentaryProducts[indexInStore.value].units = units.value.value
 })
 
 </script>
