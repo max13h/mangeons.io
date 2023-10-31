@@ -1,18 +1,24 @@
 <template>
   <div>
     <div v-if="recipe.author.id === publicUser.id">
-      <button type="button" class="btn-primary">Edit</button>
+      <NuxtLink :to="`/recettes/${route.params.id}/edit`" type="button" class="btn-outline-secondary">
+        Edit
+      </NuxtLink>
     </div>
-    <h2 class="text-2xl">{{ useCapitalize(recipe.name) }}</h2>
+    <h2 class="text-2xl">
+      {{ useCapitalize(recipe.name) }}
+    </h2>
     <p>by {{ recipe.author.username || "undefined" }}</p>
     <p class="w-full text-center">
       Temps de préparation: {{ recipe.cooking_time }} minutes
     </p>
     <div class="bg-slate-200 rounded-xl p-4 mt-8">
-      <p class="break-words">{{ recipe.description }}</p>
+      <p class="whitespace-pre">
+        {{ recipe.description }}
+      </p>
     </div>
     <div class="p-4">
-      <p class="break-words">
+      <p class="whitespace-pre">
         {{ recipe.content }}
       </p>
     </div>
@@ -39,6 +45,8 @@ const publicUser = publicUserData.value.data[0]
 definePageMeta({
   layout: "mobile-focus"
 })
+
+console.log(route.params.id);
 
 </script>
 
