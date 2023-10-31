@@ -222,8 +222,6 @@ const _reorderTheNestedListFromHTML = (promise: Promise<any>, index: number) => 
   })
 }
 
-let mainSortableList: any = null
-
 watch(stepList.value, () => {
   let finalString = ""
 
@@ -247,7 +245,7 @@ watch(stepList.value, () => {
 
 onMounted(() => {
   // Init sortable lists
-  mainSortableList = new Sortable(mainStepList.value, {
+  const mainSortableList = new Sortable(mainStepList.value, {
     animation: 150,
     swapThreshold: 0.5,
     dataIdAttr: "data-value",

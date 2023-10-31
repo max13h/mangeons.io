@@ -45,9 +45,6 @@ const publicUser = publicUserData.value.data[0]
 definePageMeta({
   layout: "mobile-focus"
 })
-
-console.log(route.params.id);
-
 </script>
 
 <style scoped>
