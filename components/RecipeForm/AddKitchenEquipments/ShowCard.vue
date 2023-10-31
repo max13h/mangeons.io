@@ -13,9 +13,9 @@
 </template>
 
 <script setup lang="ts">
-import { useNewRecipeStore } from "../../../stores/recipeStore"
+import { useRecipeStore } from "../../../stores/recipeStore"
 
-const recipeStore = useNewRecipeStore()
+const recipeStore = useRecipeStore()
 
 interface Props {
   kitchenEquipment: {

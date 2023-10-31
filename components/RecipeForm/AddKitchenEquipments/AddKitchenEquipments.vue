@@ -8,21 +8,21 @@
       <div v-else>
         <div v-for="kitchenEquipment in filteredList" :key="kitchenEquipment.id">
           <div>
-            <NewRecipeAddKitchenEquipmentsAddCard :kitchen-equipment="kitchenEquipment"></NewRecipeAddKitchenEquipmentsAddCard>
+            <RecipeFormAddKitchenEquipmentsAddCard :kitchen-equipment="kitchenEquipment"></RecipeFormAddKitchenEquipmentsAddCard>
           </div>
         </div>
       </div>
     </div>
     <div v-for="kitchenEquipment in selectedKitchenEquipments" v-else :key="kitchenEquipment.id">
-      <NewRecipeAddKitchenEquipmentsAddCard :kitchen-equipment="kitchenEquipment"></NewRecipeAddKitchenEquipmentsAddCard>
+      <RecipeFormAddKitchenEquipmentsAddCard :kitchen-equipment="kitchenEquipment"></RecipeFormAddKitchenEquipmentsAddCard>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useNewRecipeStore } from "../../../stores/recipeStore"
+import { useRecipeStore } from "../../../stores/recipeStore"
 
-const recipeStore = useNewRecipeStore()
+const recipeStore = useRecipeStore()
 
 interface KitchenEquipment {
   id: string;

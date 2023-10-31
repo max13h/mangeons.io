@@ -15,13 +15,13 @@
       Material nécessaire à votre recette 🍳
     </p>
     <Teleport v-if="modalStore.whatIsOpen == 'addKitchenEquipments'" to="#modal">
-      <NewRecipeAddKitchenEquipments></NewRecipeAddKitchenEquipments>
+      <RecipeFormAddKitchenEquipments></RecipeFormAddKitchenEquipments>
     </Teleport>
     <div class="min-h-[300px] bg-white border-dashed border-2 border-secondary w-full rounded-xl p-4 overflow-y-scroll mb-7 relative">
       <p v-if="recipeStore.selectedKitchenEquipments.length == 0" class="absolute-center text-center w-7/12 italic text-slate-400">
         Aucun matériel de cuisine ajouté
       </p>
-      <NewRecipeAddKitchenEquipmentsShowCard v-for="kitchenEquipment in recipeStore.selectedKitchenEquipments" v-else :key="kitchenEquipment.id" :kitchen-equipment="kitchenEquipment"></NewRecipeAddKitchenEquipmentsShowCard>
+      <RecipeFormAddKitchenEquipmentsShowCard v-for="kitchenEquipment in recipeStore.selectedKitchenEquipments" v-else :key="kitchenEquipment.id" :kitchen-equipment="kitchenEquipment"></RecipeFormAddKitchenEquipmentsShowCard>
     </div>
     <button class="btn-outline-secondary w-full mb-8" tabindex="-1" @click="useAddKitchenEquipmentsModal">
       Ajouter un équipement de cuisine
@@ -32,9 +32,9 @@
 
 <script setup lang="ts">
 import { useModalStore } from "../../stores/modalStore"
-import { useNewRecipeStore } from "../../stores/recipeStore"
+import { useRecipeStore } from "../../stores/recipeStore"
 
-const recipeStore = useNewRecipeStore()
+const recipeStore = useRecipeStore()
 const modalStore = useModalStore()
 
 const props = defineProps<{

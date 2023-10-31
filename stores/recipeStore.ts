@@ -1,6 +1,6 @@
 import { object, string, number } from "yup"
 
-export const useNewRecipeStore = defineStore("newRecipe", () => {
+export const useRecipeStore = defineStore("recipe", () => {
   const alimentaryProducts: globalThis.Ref<any[]> = ref([])
   const storeAreas: globalThis.Ref<any[]> = ref([])
   const kitchenEquipments: globalThis.Ref<any[]> = ref([])

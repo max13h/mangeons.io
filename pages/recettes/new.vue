@@ -37,7 +37,7 @@
         <i class="ri-arrow-left-double-line" />
         Précedent
       </button>
-      <button v-if="pageNb === 4" type="button" class="btn-secondary border-none" @click="useSaveNewRecipe">
+      <button v-if="pageNb === 4" type="button" class="btn-secondary border-none" @click="useSaveRecipe">
         Enregistrer
         <i class="ri-save-3-line" />
       </button>
@@ -55,9 +55,9 @@ import { setLocale } from "yup"
 import { register } from "swiper/element/bundle"
 import { Swiper, SwiperSlide } from "swiper/vue"
 import "swiper/css"
-import { useNewRecipeStore } from "../../stores/recipeStore"
+import { useRecipeStore } from "../../stores/recipeStore"
 
-const recipeStore = useNewRecipeStore()
+const recipeStore = useRecipeStore()
 
 setLocale(fr)
 register()

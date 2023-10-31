@@ -1,7 +1,7 @@
-import { useNewRecipeStore } from "../stores/recipeStore"
+import { useRecipeStore } from "../stores/recipeStore"
 
 export const useAddAlimentaryProductsModal = async () => {
-  const recipeStore = useNewRecipeStore()
+  const recipeStore = useRecipeStore()
 
   useOpenModal("addAlimentaryProducts")
 
@@ -44,7 +44,7 @@ export const useAddAlimentaryProductsModal = async () => {
 }
 
 export const useAddKitchenEquipmentsModal = async () => {
-  const recipeStore = useNewRecipeStore()
+  const recipeStore = useRecipeStore()
 
   useOpenModal("addKitchenEquipments")
 
@@ -54,7 +54,7 @@ export const useAddKitchenEquipmentsModal = async () => {
 }
 
 export const useSaveRecipe = async () => {
-  const recipeStore = useNewRecipeStore()
+  const recipeStore = useRecipeStore()
   const supabase: any = useSupabaseClient()
   const userAuth = useSupabaseUser()
 

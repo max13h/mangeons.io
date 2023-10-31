@@ -15,7 +15,7 @@
         <ModalHint @click="useOpenModal('quantityHint')"></ModalHint>
       </p>
       <Teleport v-if="modalStore.whatIsOpen == 'quantityHint'" to="#modal">
-        <NewRecipeAddAlimentaryProductsQuantityHint></NewRecipeAddAlimentaryProductsQuantityHint>
+        <RecipeFormAddAlimentaryProductsQuantityHint></RecipeFormAddAlimentaryProductsQuantityHint>
       </Teleport>
       <div class="flex w-full justify-end items-start">
         <FormInput
@@ -60,10 +60,10 @@
 import { fr } from "yup-locales"
 import { setLocale } from "yup"
 import { useModalStore } from "../../../stores/modalStore"
-import { useNewRecipeStore } from "../../../stores/recipeStore"
+import { useRecipeStore } from "../../../stores/recipeStore"
 
 setLocale(fr)
-const recipeStore = useNewRecipeStore()
+const recipeStore = useRecipeStore()
 const modalStore = useModalStore()
 
 interface AlimentaryProduct {
