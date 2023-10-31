@@ -20,6 +20,7 @@
             v-model="step.value"
             type="text"
             class="border-white mx-4"
+            tabindex="-1"
           />
           <i class="ri-settings-3-line text-2xl me-4" @click="showOptions(index)" />
           <Teleport v-if="(modalStore.whatIsOpen == 'recipeStepSetting') && (optionIndex == index)" to="#modal">
@@ -53,6 +54,7 @@
               v-model="stepList[index].nested[nestedIndex].value"
               type="text"
               class="border-white mx-4"
+              tabindex="-1"
             />
             <i class="ri-delete-bin-line text-xl me-4" @click="removeNestedStep(nestedIndex, index)" />
             <i class="ri-draggable text-2xl drag-nested-element" />
@@ -60,7 +62,7 @@
         </div>
       </div>
     </div>
-    <button class="btn-secondary w-full mt-4 mb-8" @click="addStep">
+    <button class="btn-secondary w-full mt-4 mb-8" tabindex="-1" @click="addStep">
       Ajouter une étape
     </button>
   </div>
