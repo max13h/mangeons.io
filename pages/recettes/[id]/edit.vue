@@ -27,7 +27,7 @@
             <RecipeFormAlimentaryProducts></RecipeFormAlimentaryProducts>
           </swiper-slide>
           <swiper-slide>
-            <RecipeFormContent @update-content="updateContent"></RecipeFormContent>
+            <RecipeFormContent :content="content" @update-content="updateContent"></RecipeFormContent>
           </swiper-slide>
         </swiper>
       </div>
@@ -37,7 +37,7 @@
         <i class="ri-arrow-left-double-line" />
         Précedent
       </button>
-      <button v-if="pageNb === 4" type="button" class="btn-secondary border-none" @click="useSaveRecipe">
+      <button v-if="pageNb === 4" type="button" class="btn-secondary border-none" @click="useSaveExistingRecipe(route.params.id)">
         Enregistrer
         <i class="ri-save-3-line" />
       </button>
@@ -57,15 +57,15 @@ import { Swiper, SwiperSlide } from "swiper/vue"
 import "swiper/css"
 import { useRecipeStore } from "../../../stores/recipeStore"
 
+definePageMeta({
+  layout: "mobile-deep-focus"
+})
+
 const recipeStore = useRecipeStore()
 const route = useRoute()
 
 setLocale(fr)
 register()
-
-definePageMeta({
-  layout: "mobile-deep-focus"
-})
 
 const schema = recipeStore.schemaNewRecipe
 
@@ -85,10 +85,28 @@ const { data: recipeData, error: recipeError } = await useFetch("/api/getRecipeB
   query: { id: route.params.id }
 })
 
+name.value.value = recipeData.value.data[0].name
+description.value.value = recipeData.value.data[0].description
+cookingTime.value.value = recipeData.value.data[0].cookingTime
+
+interface nestedStepList {
+  id: number;
+  value: string;
+  index: number
+}
+interface StepList {
+  id: number;
+  value: string;
+  nested: nestedStepList[];
+  index: number
+}
+
+const content: StepList = useParseStringToStepListObject(recipeData.value.data[0].content)
+
 onMounted(() => {
-  name.value.value = recipeStore.name
-  description.value.value = recipeStore.description
-  cookingTime.value.value = recipeStore.cookingTime
+  recipeStore.name = name.value.value
+  recipeStore.description = description.value.value
+  recipeStore.cookingTime = cookingTime.value.value
 
   watchEffect(() => {
     recipeStore.name = name.value.value

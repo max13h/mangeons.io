@@ -80,16 +80,22 @@ const mainStepList: globalThis.Ref<any> = ref(null)
 const nestedStepLists: globalThis.Ref<any[]> = ref([])
 const inputElements = ref([])
 
+interface nestedStepList {
+  id: number;
+  value: string;
+  index: number
+}
 interface StepsList {
   id: number;
   value: string;
-  nested: {
-    id: number;
-    value: string;
-    index: number
-  }[];
+  nested: nestedStepList[];
   index: number
 }
+
+const props = defineProps<{
+  content?: StepsList
+}>()
+
 const stepList: globalThis.Ref<StepsList[]> = ref([
   {
     id: 0,
@@ -98,6 +104,10 @@ const stepList: globalThis.Ref<StepsList[]> = ref([
     index: 0
   }
 ])
+
+if (props.content) {
+  stepList.value = props.content
+}
 
 const optionIndex: globalThis.Ref<number> = ref(0)
 const showOptions = (index: number) => {
@@ -242,6 +252,8 @@ watch(stepList.value, () => {
   })
   emit("updateContent", finalString)
 })
+
+
 
 onMounted(() => {
   // Init sortable lists
