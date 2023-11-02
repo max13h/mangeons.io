@@ -86,9 +86,9 @@ const { data: recipeData, error: recipeError } = await useFetch("/api/getRecipeB
 })
 
 onMounted(() => {
-  name.value.value = recipeData.value.data[0].name
-  description.value.value = recipeData.value.data[0].description
-  cookingTime.value.value = recipeData.value.data[0].cookingTime
+  name.value.value = recipeStore.name
+  description.value.value = recipeStore.description
+  cookingTime.value.value = recipeStore.cookingTime
 
   watchEffect(() => {
     recipeStore.name = name.value.value

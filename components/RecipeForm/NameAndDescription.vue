@@ -9,6 +9,7 @@
       :error="props.errors.name"
       placeholder="Tarte à la fraise"
       :disable-tab="true"
+      :value="props.name.value"
     >
     </FormInput>
     <FormTextArea
@@ -20,6 +21,7 @@
       :placeholder="placeholder"
       :disable-tab="true"
       class="min-h-[300px] mb-8"
+      :value="props.description.value"
     >
     </FormTextArea>
   </div>

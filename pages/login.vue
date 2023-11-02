@@ -13,6 +13,7 @@
         :error="errors.email"
         placeholder=""
         :disable-tab="false"
+        :value="email.value"
       >
       </FormInput>
 
@@ -24,6 +25,7 @@
         :error="errors.password"
         placeholder=""
         :disable-tab="false"
+        :value="password.value"
       >
       </FormInput>
 

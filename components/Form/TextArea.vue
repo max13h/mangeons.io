@@ -15,6 +15,7 @@
       :tabindex="props.disableTab ? '-1' : '0'"
       :class="props.class"
       autofocus
+      :value="props.value"
     />
     <div class="mb-4">
       <span
@@ -36,7 +37,8 @@ interface Props {
   error?: string;
   placeholder?: string;
   disableTab: boolean;
-  class?: string
+  class?: string;
+  value?: string
 }
 
 const props = defineProps<Props>()
