@@ -6,26 +6,18 @@
 
     <form action="#" method="get" class="flex flex-col" @submit.prevent="onSubmit">
       <FormInput
-        label="email"
-        :model="email"
-        type="email"
         name="email"
-        :error="errors.email"
-        placeholder=""
+        type="email"
+        label="email"
         :disable-tab="false"
-        :value="email.value"
       >
       </FormInput>
 
       <FormInput
-        label="mot de passe"
-        :model="password"
-        type="password"
         name="password"
-        :error="errors.password"
-        placeholder=""
+        type="password"
+        label="mot de passe"
         :disable-tab="false"
-        :value="password.value"
       >
       </FormInput>
 
@@ -49,33 +41,19 @@
 </template>
 
 <script setup lang="ts">
-import { fr } from "yup-locales"
-import { useForm } from "vee-validate"
-import { object, string, setLocale } from "yup"
-import { useAuthStore } from "../stores/authStore"
-
-setLocale(fr)
 const authStore = useAuthStore()
 if (authStore.isError === true) {
   authStore.resetAuthStore()
 }
 
-const schema = object({
-  email: string().email("L'email doit être valide").required("l'email est requis"),
-  password: string().min(6, "Le mot de passe doit faire plus de 6 caractères").required("Le mot de passe est requis")
+const { handleSubmit } = useForm({
+  validationSchema: authStore.loginSchema
 })
 
-const { defineInputBinds, errors } = useForm({
-  validationSchema: schema
-})
-
-const email = defineInputBinds("email")
-const password = defineInputBinds("password")
-
-const onSubmit = async () => {
+const onSubmit = handleSubmit(async (values) => {
   authStore.resetAuthStore()
-  await useLogIn(email.value.value, password.value.value)
-}
+  await useLogIn(values.email, values.password)
+})
 
 definePageMeta({
   layout: "auth"

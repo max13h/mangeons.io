@@ -9,7 +9,7 @@
       :error="props.errors.cookingTime"
       placeholder="20"
       :disable-tab="true"
-      :value="parseInt(props.cookingTime.value)"
+      :value="parseInt(props.cookingTime.value) || undefined"
     >
     </FormInput>
     <p class="text-xl my-4">

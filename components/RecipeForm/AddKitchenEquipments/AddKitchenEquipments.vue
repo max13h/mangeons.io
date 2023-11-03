@@ -20,17 +20,16 @@
 </template>
 
 <script setup lang="ts">
-import { useRecipeStore } from "../../../stores/recipeStore"
-
 const recipeStore = useRecipeStore()
 
 const selectedKitchenEquipments = ref<Array<KitchenEquipment>>([])
 
 const input = ref("")
 
+// Search function
 const filteredList = computed(() => {
   return selectedKitchenEquipments.value.filter((selectedKitchenEquipment: KitchenEquipment) =>
-    selectedKitchenEquipment.name_fr.toLowerCase().includes(input.value.toLowerCase())
+    selectedKitchenEquipment.name_fr!.toLowerCase().includes(input.value.toLowerCase())
   )
 })
 

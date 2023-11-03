@@ -28,7 +28,6 @@
 </template>
 
 <script setup lang="ts">
-
 const props = defineProps<{
   name: any
   description: any
@@ -36,7 +35,6 @@ const props = defineProps<{
 }>()
 
 const placeholder = "Tarte aux pommes classique : une croûte dorée, garnie de pommes sucrées, cannelle et une touche de caramel, une délicieuse tradition gourmande"
-
 </script>
 
 <style scoped>

@@ -9,21 +9,21 @@
       {{ useCapitalize(props.label) }}
     </label>
     <input
-      v-bind="props.model"
+      v-model="value"
       :name="props.name"
       :type="props.type"
       :placeholder="props.placeholder"
       :tabindex="props.disableTab ? '-1' : '0'"
       :class="props.class"
       autofocus
-      :value="props.value"
+      :value="value"
     >
     <div class="mb-4">
       <span
-        v-if="props.error"
+        v-if="errorMessage"
         class="text-red-500 text-sm"
       >
-        {{ useCapitalize(props.error) }}
+        {{ useCapitalize(errorMessage) }}
       </span>
     </div>
   </div>
@@ -31,17 +31,17 @@
 
 <script setup lang="ts">
 interface Props {
+  name: string;
+  type: string;
+  placeholder?: string;
+  value?: string | number
+  class?: string;
+  disableTab: boolean;
   label?: string;
   labelClass?: string;
-  model: any;
-  type: string;
-  name: string;
-  error?: string;
-  placeholder?: string;
-  disableTab: boolean;
-  class?: string;
-  value?: string | number
 }
 
 const props = defineProps<Props>()
+
+const { value, errorMessage } = useField(() => props.name)
 </script>

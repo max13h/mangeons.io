@@ -5,26 +5,26 @@
     </h1>
     <form action="" method="get" class="flex flex-col" @submit.prevent="onSubmit">
       <FormInput
-        label="email"
-        :model="email"
+        name="email"
         type="email"
-        :error="errors.email"
+        label="email"
+        :disable-tab="false"
       >
       </FormInput>
 
       <FormInput
+        name="password"
+        type="email"
         label="mot de passe"
-        :model="password"
-        type="password"
-        :error="errors.password"
+        :disable-tab="false"
       >
       </FormInput>
 
       <FormInput
-        label="confirmez le mot de passe"
-        :model="confirmPassword"
+        name="confirmPassword"
         type="password"
-        :error="errors.confirmPassword"
+        label="confirmer le mot de passer"
+        :disable-tab="false"
       >
       </FormInput>
       <p
@@ -49,34 +49,19 @@
 <script setup lang="ts">
 import { fr } from "yup-locales"
 import { useForm } from "vee-validate"
-import { object, string, setLocale, ref } from "yup"
-import { useAuthStore } from "../stores/authStore"
-
-setLocale(fr)
 
 const authStore = useAuthStore()
 authStore.resetAuthStore()
 
-const schema = object({
-  email: string().email().required(),
-  password: string().min(6).required(),
-  confirmPassword: string().oneOf([ref("password")], "Les mots de passe doivent être identiques")
+const { handleSubmit } = useForm({
+  validationSchema: authStore.registerSchema
 })
 
-const { defineInputBinds, errors } = useForm({
-  validationSchema: schema
-})
-
-const email = defineInputBinds("email")
-const password = defineInputBinds("password")
-const confirmPassword = defineInputBinds("confirmPassword")
-
-const onSubmit = async () => {
+const onSubmit = handleSubmit(async (values) => {
   authStore.resetAuthStore()
-  if (useArePasswordsNotSimilar(password.value.value, confirmPassword.value.value)) { return }
-
-  await useSignIn(email.value.value, password.value.value)
-}
+  if (useArePasswordsNotSimilar(values.password, values.confirmPassword)) { return }
+  await useSignIn(values.email, values.password)
+})
 
 definePageMeta({
   layout: "auth"

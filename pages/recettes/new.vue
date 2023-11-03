@@ -84,7 +84,7 @@ onMounted(() => {
   watchEffect(() => {
     recipeStore.name = name.value.value
     recipeStore.description = description.value.value
-    recipeStore.cookingTime = cookingTime.value.value
+    recipeStore.cookingTime = parseInt(cookingTime.value.value)
   })
 })
 
