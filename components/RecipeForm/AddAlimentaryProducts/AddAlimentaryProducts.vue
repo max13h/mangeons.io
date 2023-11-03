@@ -43,18 +43,6 @@ import { useRecipeStore } from "../../../stores/recipeStore"
 
 const recipeStore = useRecipeStore()
 
-interface AlimentaryProduct {
-  id: number;
-  name_fr: string;
-  store_area_id: number;
-  image_url: string;
-}
-interface StoreArea {
-  id: number;
-  name: string;
-  name_fr: string;
-}
-
 const alimentaryProducts = ref<Array<AlimentaryProduct>>([])
 const storeAreas = ref<Array<StoreArea>>([])
 

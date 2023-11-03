@@ -3,36 +3,9 @@ export const useAddAlimentaryProductsModal = async () => {
 
   useOpenModal("addAlimentaryProducts")
 
-  interface AlimentaryProduct {
-    id: number;
-    name_fr: string;
-    store_area_id: number;
-    image_url: string;
-  }
-  interface StoreArea {
-    id: number;
-    name: string;
-    name_fr: string;
-  }
-
-  interface AlimentaryProductsResponse {
-    data: {
-      value: {
-        data: AlimentaryProduct[]; // Define the type for AlimentaryProduct
-      };
-    };
-  }
-  interface StoreAreasResponse {
-    data: {
-      value: {
-        data: StoreArea[]; // Define the type for StoreArea
-      };
-    };
-  }
-
   try {
-    const alimentaryProductsResponse = await useFetch<AlimentaryProductsResponse>("/api/getAlimentaryProducts")
-    const storeAreasResponse = await useFetch<StoreAreasResponse>("/api/getStoreAreas")
+    const alimentaryProductsResponse = await useFetch("/api/getAlimentaryProducts")
+    const storeAreasResponse = await useFetch("/api/getStoreAreas")
 
     recipeStore.alimentaryProducts = alimentaryProductsResponse.data.value.data
     recipeStore.storeAreas = storeAreasResponse.data.value.data
@@ -55,23 +28,6 @@ export const useSaveRecipe = async () => {
   const recipeStore = useRecipeStore()
   const supabase: any = useSupabaseClient()
   const userAuth = useSupabaseUser()
-
-  interface SelectedAlimentaryProduct {
-    details: {
-      id: string;
-      name_fr: string;
-      store_area_id: string;
-      guide_price: string;
-      image_url: string;
-    };
-    quantity: number;
-    units: string;
-  }
-  interface SelectedKitchenEquipment {
-    id: string;
-    image_url: string;
-    name_fr: string;
-  }
 
   const schemaNewRecipe = recipeStore.schemaNewRecipe
   const schemaAlimentaryProduct = recipeStore.schemaAlimentaryProduct
@@ -140,14 +96,7 @@ export const useSaveRecipe = async () => {
     }
   }
   const _postRecipesAlimentaryProducts = async (recipeId: string) => {
-    interface FormatedObj {
-      recipe_id: string;
-      alimentary_product_id: string;
-      quantity: number;
-      units: string;
-    }
-
-    const formatedArray: FormatedObj[] = []
+    const formatedArray: RecipesAlimentaryProducts[] = []
 
     recipeStore.selectedAlimentaryProducts.forEach((obj: SelectedAlimentaryProduct) => {
       const el = {
@@ -172,14 +121,9 @@ export const useSaveRecipe = async () => {
     }
   }
   const _postRecipesKitchenEquipments = async (recipeId: string) => {
-    interface FormatedObj {
-      recipe_id: string;
-      kitchen_equipment_id: string;
-    }
+    const formatedArray: RecipesKitchenEquipments[] = []
 
-    const formatedArray: FormatedObj[] = []
-
-    recipeStore.selectedKitchenEquipments.forEach((obj: SelectedKitchenEquipment) => {
+    recipeStore.selectedKitchenEquipments.forEach((obj: KitchenEquipment) => {
       const el = {
         recipe_id: recipeId,
         kitchen_equipment_id: obj.id

@@ -59,34 +59,16 @@
 <script setup lang="ts">
 import { fr } from "yup-locales"
 import { setLocale } from "yup"
-import { useModalStore } from "../../../stores/modalStore"
-import { useRecipeStore } from "../../../stores/recipeStore"
 
 setLocale(fr)
 const recipeStore = useRecipeStore()
 const modalStore = useModalStore()
 
-interface AlimentaryProduct {
-  id: string;
-  name_fr: string;
-  store_area_id: string;
-  guide_price: string;
-  image_url: string;
-}
-
 interface Props {
   alimentaryProduct: AlimentaryProduct
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  alimentaryProduct: () => ({
-    id: "NULL",
-    name_fr: "NULL",
-    store_area_id: "NULL",
-    guide_price: "NULL",
-    image_url: "NULL"
-  })
-})
+const props = defineProps<Props>()
 
 const schema = recipeStore.schemaAlimentaryProduct
 

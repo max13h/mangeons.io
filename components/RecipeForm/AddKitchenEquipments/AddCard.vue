@@ -18,12 +18,6 @@ import { useRecipeStore } from "../../../stores/recipeStore"
 
 const recipeStore = useRecipeStore()
 
-interface KitchenEquipment {
-  id: string;
-  name_fr: string;
-  image_url: string;
-}
-
 interface Props {
   kitchenEquipment: KitchenEquipment
 }

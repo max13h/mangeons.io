@@ -5,23 +5,6 @@ export const useRecipeStore = defineStore("recipe", () => {
   const storeAreas: globalThis.Ref<any[]> = ref([])
   const kitchenEquipments: globalThis.Ref<any[]> = ref([])
 
-  interface SelectedAlimentaryProduct {
-    details: {
-      id: string;
-      name_fr: string;
-      store_area_id: string;
-      guide_price: string;
-      image_url: string;
-    };
-    quantity: number;
-    units: string;
-  }
-  interface SelectedKitchenEquipment {
-    id: string;
-    image_url: string;
-    name_fr: string;
-  }
-
   const schemaNewRecipe = object({
     name: string()
       .min(6, "le nom doit avoir plus de 6 caractères")
@@ -59,7 +42,7 @@ export const useRecipeStore = defineStore("recipe", () => {
   const description: globalThis.Ref<string> = ref("")
   const content: globalThis.Ref<string> = ref("")
   const cookingTime: globalThis.Ref<number> = ref(0)
-  const selectedKitchenEquipments: globalThis.Ref<SelectedKitchenEquipment[]> = ref([])
+  const selectedKitchenEquipments: globalThis.Ref<KitchenEquipment[]> = ref([])
   const selectedAlimentaryProducts: globalThis.Ref<SelectedAlimentaryProduct[]> = ref([])
 
   return {
