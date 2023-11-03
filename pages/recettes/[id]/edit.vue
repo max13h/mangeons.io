@@ -37,7 +37,7 @@
         <i class="ri-arrow-left-double-line" />
         Précedent
       </button>
-      <button v-if="pageNb === 4" type="button" class="btn-secondary border-none" @click="useSaveExistingRecipe(route.params.id)">
+      <button v-if="pageNb === 4" type="button" class="btn-secondary border-none" @click="useSaveExistingRecipe(route.params.id as string)">
         Enregistrer
         <i class="ri-save-3-line" />
       </button>
@@ -88,18 +88,6 @@ const { data: recipeData, error: recipeError } = await useFetch("/api/getRecipeB
 name.value.value = recipeData.value.data[0].name
 description.value.value = recipeData.value.data[0].description
 cookingTime.value.value = recipeData.value.data[0].cookingTime
-
-interface nestedStepList {
-  id: number;
-  value: string;
-  index: number
-}
-interface StepList {
-  id: number;
-  value: string;
-  nested: nestedStepList[];
-  index: number
-}
 
 const content: StepList = useParseStringToStepListObject(recipeData.value.data[0].content)
 

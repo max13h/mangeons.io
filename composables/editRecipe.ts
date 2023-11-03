@@ -1,3 +1,5 @@
+import { useRecipeStore } from "../stores/recipeStore"
+
 export const useParseStringToStepListObject = (listString: string) => {
   // Split the string into lines and remove the empty line
   const lines = listString.split("\n")
@@ -32,4 +34,11 @@ export const useParseStringToStepListObject = (listString: string) => {
     }
   }
   return finalArrayOfObjects
+}
+
+export const useSaveExistingRecipe = (recipeId: string) => {
+  // const recipeStore = useRecipeStore()
+  // const supabase: any = useSupabaseClient()
+  // const userAuth = useSupabaseUser()
+  console.log("SAVE EDIT RECIPE");
 }

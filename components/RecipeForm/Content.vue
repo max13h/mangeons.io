@@ -70,7 +70,6 @@
 
 <script setup lang="ts">
 import Sortable from "sortablejs"
-import { useModalStore } from "../../stores/modalStore"
 
 const emit = defineEmits(["updateContent"])
 
@@ -79,18 +78,6 @@ const modalStore = useModalStore()
 const mainStepList: globalThis.Ref<any> = ref(null)
 const nestedStepLists: globalThis.Ref<any[]> = ref([])
 const inputElements = ref([])
-
-interface nestedStepList {
-  id: number;
-  value: string;
-  index: number
-}
-interface StepsList {
-  id: number;
-  value: string;
-  nested: nestedStepList[];
-  index: number
-}
 
 const props = defineProps<{
   content?: StepsList

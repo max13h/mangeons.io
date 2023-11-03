@@ -1,5 +1,3 @@
-import { useRecipeStore } from "../stores/recipeStore"
-
 export const useAddAlimentaryProductsModal = async () => {
   const recipeStore = useRecipeStore()
 
