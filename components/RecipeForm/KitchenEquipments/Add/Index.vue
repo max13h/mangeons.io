@@ -8,13 +8,13 @@
       <div v-else>
         <div v-for="kitchenEquipment in filteredList" :key="kitchenEquipment.id">
           <div>
-            <RecipeFormAddKitchenEquipmentsAddCard :kitchen-equipment="kitchenEquipment"></RecipeFormAddKitchenEquipmentsAddCard>
+            <RecipeFormKitchenEquipmentsAddCard :kitchen-equipment="kitchenEquipment"></RecipeFormKitchenEquipmentsAddCard>
           </div>
         </div>
       </div>
     </div>
-    <div v-for="kitchenEquipment in selectedKitchenEquipments" v-else :key="kitchenEquipment.id">
-      <RecipeFormAddKitchenEquipmentsAddCard :kitchen-equipment="kitchenEquipment"></RecipeFormAddKitchenEquipmentsAddCard>
+    <div v-for="kitchenEquipment in kitchenEquipments" v-else :key="kitchenEquipment.id">
+      <RecipeFormKitchenEquipmentsAddCard :kitchen-equipment="kitchenEquipment"></RecipeFormKitchenEquipmentsAddCard>
     </div>
   </div>
 </template>
@@ -22,19 +22,19 @@
 <script setup lang="ts">
 const recipeStore = useRecipeStore()
 
-const selectedKitchenEquipments = ref<Array<KitchenEquipment>>([])
+const kitchenEquipments = ref<Array<KitchenEquipment>>([])
 
 const input = ref("")
 
 // Search function
 const filteredList = computed(() => {
-  return selectedKitchenEquipments.value.filter((selectedKitchenEquipment: KitchenEquipment) =>
-    selectedKitchenEquipment.name_fr!.toLowerCase().includes(input.value.toLowerCase())
+  return kitchenEquipments.value.filter((kitchenEquipment: KitchenEquipment) =>
+    kitchenEquipment.name_fr!.toLowerCase().includes(input.value.toLowerCase())
   )
 })
 
 watchEffect(() => {
-  selectedKitchenEquipments.value = recipeStore.kitchenEquipments
+  kitchenEquipments.value = recipeStore.kitchenEquipments
 })
 </script>
 

@@ -14,43 +14,29 @@
         Quantité
         <ModalHint @click="useOpenModal('quantityHint')"></ModalHint>
       </p>
-      <Teleport v-if="modalStore.whatIsOpen == 'quantityHint'" to="#modal">
-        <RecipeFormAddAlimentaryProductsQuantityHint></RecipeFormAddAlimentaryProductsQuantityHint>
-      </Teleport>
       <div class="flex w-full justify-end items-start">
-        <FormInput
-          :model="quantity"
-          name="quantity"
+        <input
+          v-model="quantity"
           type="number"
+          name="quantity"
           placeholder="100"
-          :disable-tab="true"
-          :error="errors.quantity"
-          class="max-w-[8rem] me-4"
+          class="max-w-[6rem] me-4"
+          tabindex="-1"
         >
-        </FormInput>
         <div class="flex flex-col">
-          <input type="text" name="units" list="unitsList" class="max-w-[6rem]" v-bind="units">
+          <input
+            v-model="units"
+            type="text"
+            name="units"
+            list="unitsList"
+            placeholder="g"
+            class="max-w-[6rem]"
+            tabindex="-1"
+          >
           <datalist id="unitsList">
             <option v-for="unit, index in options" :key="index" :value="unit" />
           </datalist>
-          <div class="mb-4">
-            <span
-              v-if="errors.units"
-              class="text-red-500 text-sm"
-            >
-              {{ useCapitalize(errors.units) }}
-            </span>
-          </div>
         </div>
-        <!-- <FormInput
-          :model="units"
-          name="units"
-          type="text"
-          placeholder="cl"
-          class="max-w-[6rem]"
-          :disable-tab="true"
-        >
-        </FormInput> -->
       </div>
     </div>
   </div>
@@ -58,19 +44,11 @@
 
 <script setup lang="ts">
 const recipeStore = useRecipeStore()
-const modalStore = useModalStore()
 
 interface Props {
   alimentaryProduct: AlimentaryProduct
 }
-
 const props = defineProps<Props>()
-
-const schema = recipeStore.schemaAlimentaryProduct
-
-const { defineInputBinds, errors } = useForm({
-  validationSchema: schema
-})
 
 const options = [
   "kg",
@@ -82,8 +60,8 @@ const options = [
   "unités"
 ]
 
-const quantity = defineInputBinds("quantity")
-const units = defineInputBinds("units")
+const quantity: globalThis.Ref<number | undefined> = ref(undefined)
+const units: globalThis.Ref<string> = ref("")
 
 const indexInStore = ref(recipeStore.selectedAlimentaryProducts.findIndex(obj => obj.details.id === props.alimentaryProduct.id))
 
@@ -95,12 +73,11 @@ watch(recipeStore.selectedAlimentaryProducts, () => {
   indexInStore.value = recipeStore.selectedAlimentaryProducts.findIndex(obj => obj.details.id === props.alimentaryProduct.id)
 })
 watch(quantity, () => {
-  recipeStore.selectedAlimentaryProducts[indexInStore.value].quantity = quantity.value.value
+  recipeStore.selectedAlimentaryProducts[indexInStore.value].quantity = quantity.value
 })
 watch(units, () => {
-  recipeStore.selectedAlimentaryProducts[indexInStore.value].units = units.value.value
+  recipeStore.selectedAlimentaryProducts[indexInStore.value].units = units.value
 })
-
 </script>
 
 <style scoped>

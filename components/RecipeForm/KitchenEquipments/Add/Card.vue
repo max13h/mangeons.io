@@ -14,21 +14,13 @@
 </template>
 
 <script setup lang="ts">
-import { useRecipeStore } from "../../../stores/recipeStore"
-
 const recipeStore = useRecipeStore()
 
 interface Props {
   kitchenEquipment: KitchenEquipment
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  kitchenEquipment: () => ({
-    id: "NULL",
-    name_fr: "NULL",
-    image_url: "NULL"
-  })
-})
+const props = defineProps<Props>()
 
 const onClick = () => {
   if (!recipeStore.selectedKitchenEquipments.some(obj => obj.id === props.kitchenEquipment.id)) {

@@ -13,8 +13,6 @@
 </template>
 
 <script setup lang="ts">
-import { useRecipeStore } from "../../../stores/recipeStore"
-
 const recipeStore = useRecipeStore()
 
 interface Props {

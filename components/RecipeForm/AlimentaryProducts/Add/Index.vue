@@ -8,7 +8,7 @@
       <div v-else>
         <div v-for="alimentaryProduct in filteredList" :key="alimentaryProduct.id">
           <div>
-            <RecipeFormAddAlimentaryProductsAddCard :alimentary-product="alimentaryProduct"></RecipeFormAddAlimentaryProductsAddCard>
+            <RecipeFormAlimentaryProductsAddCard :alimentary-product="alimentaryProduct"></RecipeFormAlimentaryProductsAddCard>
           </div>
         </div>
       </div>
@@ -28,7 +28,7 @@
         <DisclosurePanel class="flex flex-col items-center py-3 my-2 bg-light border w-[95%] mx-auto rounded-xl">
           <div v-for="alimentaryProduct in alimentaryProducts" :key="alimentaryProduct.id" class="w-[95%]">
             <div v-if="storeArea.id === alimentaryProduct.store_area_id">
-              <RecipeFormAddAlimentaryProductsAddCard :alimentary-product="alimentaryProduct"></RecipeFormAddAlimentaryProductsAddCard>
+              <RecipeFormAlimentaryProductsAddCard :alimentary-product="alimentaryProduct"></RecipeFormAlimentaryProductsAddCard>
             </div>
           </div>
         </DisclosurePanel>
@@ -39,7 +39,6 @@
 
 <script setup lang="ts">
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue"
-import { useRecipeStore } from "../../../stores/recipeStore"
 
 const recipeStore = useRecipeStore()
 

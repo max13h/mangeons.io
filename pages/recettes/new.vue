@@ -75,9 +75,23 @@ onMounted(() => {
   })
 })
 
-const onSubmit = handleSubmit((values) => {
-  console.log("ça passe", values);
-})
+interface Recipe {
+  name: string;
+  description: string;
+  cookingTime: number;
+  content: string
+}
+
+const onSuccess = (values) => {
+  console.log("ça passe", values)
+}
+
+const onInvalidSubmit = ({ values, errors }) => {
+  console.log(errors)
+  console.log(values)
+}
+
+const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
 
 const pageNb = ref(1)
 </script>
