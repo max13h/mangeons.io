@@ -1,15 +1,12 @@
 <template>
   <div>
     <FormInput
+      name="cookingTime"
+      type="number"
       label="Temps de préparation de votre recette (en minute) ⏲️"
       label-class="text-xl mb-4"
-      :model="props.cookingTime"
-      type="number"
-      name="cookingTime"
-      :error="props.errors.cookingTime"
       placeholder="20"
       :disable-tab="true"
-      :value="parseInt(props.cookingTime.value) || undefined"
     >
     </FormInput>
     <p class="text-xl my-4">
@@ -32,16 +29,8 @@
 </template>
 
 <script setup lang="ts">
-import { useModalStore } from "../../stores/modalStore"
-import { useRecipeStore } from "../../stores/recipeStore"
-
 const recipeStore = useRecipeStore()
 const modalStore = useModalStore()
-
-const props = defineProps<{
-  cookingTime: any;
-  errors: any
-}>()
 </script>
 
 <style scoped>

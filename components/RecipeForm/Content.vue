@@ -80,7 +80,7 @@ const nestedStepLists: globalThis.Ref<any[]> = ref([])
 const inputElements = ref([])
 
 const props = defineProps<{
-  content?: StepsList
+  content?: StepsList[]
 }>()
 
 const stepList: globalThis.Ref<StepsList[]> = ref([
@@ -239,8 +239,6 @@ watch(stepList.value, () => {
   })
   emit("updateContent", finalString)
 })
-
-
 
 onMounted(() => {
   // Init sortable lists

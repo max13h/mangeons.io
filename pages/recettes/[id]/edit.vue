@@ -50,12 +50,9 @@
 </template>
 
 <script setup lang="ts">
-import { fr } from "yup-locales"
-import { setLocale } from "yup"
 import { register } from "swiper/element/bundle"
 import { Swiper, SwiperSlide } from "swiper/vue"
 import "swiper/css"
-import { useRecipeStore } from "../../../stores/recipeStore"
 
 definePageMeta({
   layout: "mobile-deep-focus"
@@ -64,7 +61,6 @@ definePageMeta({
 const recipeStore = useRecipeStore()
 const route = useRoute()
 
-setLocale(fr)
 register()
 
 const schema = recipeStore.schemaNewRecipe

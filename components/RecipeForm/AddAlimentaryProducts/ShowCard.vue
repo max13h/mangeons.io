@@ -57,10 +57,6 @@
 </template>
 
 <script setup lang="ts">
-import { fr } from "yup-locales"
-import { setLocale } from "yup"
-
-setLocale(fr)
 const recipeStore = useRecipeStore()
 const modalStore = useModalStore()
 

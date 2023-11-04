@@ -18,10 +18,10 @@
           @navigation-prev="pageNb--"
         >
           <swiper-slide>
-            <RecipeFormNameAndDescription :name="name" :description="description" :errors="errors"></RecipeFormNameAndDescription>
+            <RecipeFormNameAndDescription></RecipeFormNameAndDescription>
           </swiper-slide>
           <swiper-slide>
-            <RecipeFormCookingTimeAndKitchenEquipments :cooking-time="cookingTime" :errors="errors"></RecipeFormCookingTimeAndKitchenEquipments>
+            <RecipeFormCookingTimeAndKitchenEquipments></RecipeFormCookingTimeAndKitchenEquipments>
           </swiper-slide>
           <swiper-slide>
             <RecipeFormAlimentaryProducts></RecipeFormAlimentaryProducts>
@@ -50,26 +50,20 @@
 </template>
 
 <script setup lang="ts">
-import { fr } from "yup-locales"
-import { setLocale } from "yup"
 import { register } from "swiper/element/bundle"
 import { Swiper, SwiperSlide } from "swiper/vue"
 import "swiper/css"
-import { useRecipeStore } from "../../stores/recipeStore"
 
 const recipeStore = useRecipeStore()
 
-setLocale(fr)
 register()
 
 definePageMeta({
   layout: "mobile-deep-focus"
 })
 
-const schema = recipeStore.schemaNewRecipe
-
-const { defineInputBinds, errors } = useForm({
-  validationSchema: schema
+const { handleSubmit } = useForm({
+  validationSchema: recipeStore.schemaNewRecipe
 })
 
 const name = defineInputBinds("name")

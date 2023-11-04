@@ -47,7 +47,6 @@
 </template>
 
 <script setup lang="ts">
-import { fr } from "yup-locales"
 import { useForm } from "vee-validate"
 
 const authStore = useAuthStore()

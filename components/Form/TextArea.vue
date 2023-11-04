@@ -2,27 +2,27 @@
   <div>
     <label
       v-if="props.label"
+      :for="props.name"
       class="inline-block"
       :class="props.labelClass"
-      :for="props.name"
     >
       {{ useCapitalize(props.label) }}
     </label>
     <textarea
-      v-bind="props.model"
+      v-model="value"
       :name="props.name"
+      :type="props.type"
       :placeholder="props.placeholder"
       :tabindex="props.disableTab ? '-1' : '0'"
       :class="props.class"
       autofocus
-      :value="props.value"
     />
     <div class="mb-4">
       <span
-        v-if="props.error"
+        v-if="errorMessage"
         class="text-red-500 text-sm"
       >
-        {{ useCapitalize(props.error) }}
+        {{ useCapitalize(errorMessage) }}
       </span>
     </div>
   </div>
@@ -30,16 +30,16 @@
 
 <script setup lang="ts">
 interface Props {
+  name: string;
+  disableTab: boolean;
+  placeholder?: string;
+  value?: string | number
+  class?: string;
   label?: string;
   labelClass?: string;
-  model: any;
-  name: string;
-  error?: string;
-  placeholder?: string;
-  disableTab: boolean;
-  class?: string;
-  value?: string
 }
 
 const props = defineProps<Props>()
+
+const { value, errorMessage } = useField(() => props.name)
 </script>
