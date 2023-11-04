@@ -62,6 +62,12 @@
         </div>
       </div>
     </div>
+    <span
+      v-if="errorMessage"
+      class="text-red-500 text-sm"
+    >
+      {{ useCapitalize(errorMessage) }}
+    </span>
     <button class="btn-secondary w-full mt-4 mb-8" tabindex="-1" @click="addStep">
       Ajouter une étape
     </button>
@@ -71,7 +77,7 @@
 <script setup lang="ts">
 import Sortable from "sortablejs"
 
-const emit = defineEmits(["updateContent"])
+const { value, errorMessage } = useField(() => "content")
 
 const modalStore = useModalStore()
 
@@ -237,7 +243,8 @@ watch(stepList.value, () => {
     }
     finalString = finalString + "\n"
   })
-  emit("updateContent", finalString)
+  // emit("updateContent", finalString)
+  value.value = finalString
 })
 
 onMounted(() => {

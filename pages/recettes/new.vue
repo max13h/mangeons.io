@@ -37,7 +37,7 @@
         <i class="ri-arrow-left-double-line" />
         Précedent
       </button>
-      <button v-if="pageNb === 4" type="button" class="btn-secondary border-none" @click="useSaveRecipe">
+      <button v-if="pageNb === 4" type="button" class="btn-secondary border-none" @click="onSubmit">
         Enregistrer
         <i class="ri-save-3-line" />
       </button>
@@ -66,20 +66,17 @@ const { handleSubmit } = useForm({
   validationSchema: recipeStore.schemaNewRecipe
 })
 
-const name = defineInputBinds("name")
-const description = defineInputBinds("description")
-const cookingTime = defineInputBinds("cookingTime")
-
 const updateContent = (updatedContent: string) => {
   recipeStore.content = updatedContent
 }
 
 onMounted(() => {
   watchEffect(() => {
-    recipeStore.name = name.value.value
-    recipeStore.description = description.value.value
-    recipeStore.cookingTime = parseInt(cookingTime.value.value)
   })
+})
+
+const onSubmit = handleSubmit((values) => {
+  console.log("ça passe", values);
 })
 
 const pageNb = ref(1)
