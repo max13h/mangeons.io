@@ -1,4 +1,28 @@
-import { useRecipeStore } from "../stores/recipeStore"
+export const useAddAlimentaryProductsModal = async () => {
+  const recipeStore = useRecipeStore()
+
+  useOpenModal("addAlimentaryProducts")
+
+  try {
+    const alimentaryProductsResponse = await useFetch("/api/getAlimentaryProducts")
+    const storeAreasResponse = await useFetch("/api/getStoreAreas")
+
+    recipeStore.alimentaryProducts = alimentaryProductsResponse.data.value.data
+    recipeStore.storeAreas = storeAreasResponse.data.value.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const useAddKitchenEquipmentsModal = async () => {
+  const recipeStore = useRecipeStore()
+
+  useOpenModal("addKitchenEquipments")
+
+  const { data: { value: { data: kitchenEquipments } } } = await useFetch("/api/getKitchenEquipments")
+
+  recipeStore.kitchenEquipments = kitchenEquipments
+}
 
 export const useParseStringToStepListObject = (listString: string) => {
   // Split the string into lines and remove the empty line
@@ -34,11 +58,4 @@ export const useParseStringToStepListObject = (listString: string) => {
     }
   }
   return finalArrayOfObjects
-}
-
-export const useSaveExistingRecipe = (recipeId: string) => {
-  // const recipeStore = useRecipeStore()
-  // const supabase: any = useSupabaseClient()
-  // const userAuth = useSupabaseUser()
-  console.log("SAVE EDIT RECIPE");
 }

@@ -71,8 +71,7 @@ register()
 const reachEnd = ref(false)
 
 definePageMeta({
-  layout: "mobile-deep-focus",
-  middleware: ["preventLeavePage"]
+  layout: "mobile-deep-focus"
 })
 
 const { handleSubmit } = useForm({
@@ -81,11 +80,13 @@ const { handleSubmit } = useForm({
 
 const arrayOfErrors: globalThis.Ref<string[]> = ref([])
 
-interface StringObject {
-  [key: string]: string;
-}
-const onSuccess = (values: StringObject) => {
-  console.log("ça passe", values)
+const onSuccess = async (values: any) => {
+  const saveRecipe = await useFetch("/api/recipe", {
+    method: "post",
+    body: values
+  })
+
+  console.log(saveRecipe)
 }
 
 const onInvalidSubmit = ({ errors }: {errors: any}) => {

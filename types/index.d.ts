@@ -1,9 +1,9 @@
 declare global {
   interface AlimentaryProduct {
-    id: number;
+    id: string;
     name?: string;
     name_fr?: string;
-    store_area_id?: number;
+    store_area_id?: string;
     guide_price?: number
     image_url?: string;
   }
@@ -13,7 +13,7 @@ declare global {
     units?: string;
   }
   interface StoreArea {
-    id: number;
+    id: string;
     name?: string;
     name_fr?: string;
   }
@@ -22,6 +22,14 @@ declare global {
     name?: string;
     name_fr?: string;
     image_url?: string;
+  }
+  interface Recipe {
+    name: string;
+    description: string;
+    cookingTime: number;
+    content: string;
+    selectedAlimentaryProducts: SelectedAlimentaryProduct[];
+    selectedKitchenEquipments: KitchenEquipment[]
   }
   interface RecipesAlimentaryProducts {
     recipe_id: string;
