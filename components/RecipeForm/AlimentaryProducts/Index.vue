@@ -44,8 +44,6 @@ const { value, errorMessage } = useField("selectedAlimentaryProducts")
 
 watch(recipeStore.selectedAlimentaryProducts, () => {
   value.value = recipeStore.selectedAlimentaryProducts
-  console.log(errorMessage.value);
-  console.log(value);
 })
 </script>
 

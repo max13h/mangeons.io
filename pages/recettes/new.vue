@@ -1,5 +1,15 @@
 <template>
   <div class="flex flex-col items-center h-full">
+    <Teleport v-if="modalStore.whatIsOpen === 'recipeFormInvalid'" to="#modal">
+      <p class="mb-4 text-lg">
+        Oups, des problèmes ont été repérés 🚨
+      </p>
+      <ol>
+        <li v-for="(error, index) in arrayOfErrors" :key="index" class="mb-2">
+          {{ index + 1 }}. <span class="italic">{{ error }}</span>
+        </li>
+      </ol>
+    </Teleport>
     <div class="flex flex-col items-center h-full w-full overflow-x-hidden flex-grow pt-4 pl-4 pr-4">
       <p class="mb-4 text-center rounded-md bg-primary-100 p-2">
         Renseignez les infomations concernant votre nouvelle recette !
@@ -16,6 +26,7 @@
           }"
           @navigation-next="pageNb++"
           @navigation-prev="pageNb--"
+          @reach-end="reachEnd = true"
         >
           <swiper-slide>
             <RecipeFormNameAndDescription></RecipeFormNameAndDescription>
@@ -27,7 +38,7 @@
             <RecipeFormAlimentaryProducts></RecipeFormAlimentaryProducts>
           </swiper-slide>
           <swiper-slide>
-            <RecipeFormContent @update-content="updateContent"></RecipeFormContent>
+            <RecipeFormContent></RecipeFormContent>
           </swiper-slide>
         </swiper>
       </div>
@@ -35,14 +46,12 @@
     <div class="flex justify-between w-full min-w-[100px] my-shadow z-20 p-4 relative bg-light">
       <button type="button" class="swiper-button-prev page-btn">
         <i class="ri-arrow-left-double-line" />
-        Précedent
       </button>
-      <button v-if="pageNb === 4" type="button" class="btn-secondary border-none" @click="onSubmit">
+      <button v-if="reachEnd" type="button" class="btn-secondary border-none flex items-center" @click="onSubmit">
         Enregistrer
-        <i class="ri-save-3-line" />
+        <i class="ri-save-3-line inline-block text-2xl w-8" />
       </button>
-      <button type="button" class="swiper-button-next page-btn" :class="{'hidden': pageNb === 4}">
-        Suivant
+      <button type="button" class="swiper-button-next page-btn">
         <i class="ri-arrow-right-double-line" />
       </button>
     </div>
@@ -55,40 +64,33 @@ import { Swiper, SwiperSlide } from "swiper/vue"
 import "swiper/css"
 
 const recipeStore = useRecipeStore()
+const modalStore = useModalStore()
 
 register()
 
+const reachEnd = ref(false)
+
 definePageMeta({
-  layout: "mobile-deep-focus"
+  layout: "mobile-deep-focus",
+  middleware: ["preventLeavePage"]
 })
 
 const { handleSubmit } = useForm({
   validationSchema: recipeStore.schemaNewRecipe
 })
 
-const updateContent = (updatedContent: string) => {
-  recipeStore.content = updatedContent
+const arrayOfErrors: globalThis.Ref<string[]> = ref([])
+
+interface StringObject {
+  [key: string]: string;
 }
-
-onMounted(() => {
-  watchEffect(() => {
-  })
-})
-
-interface Recipe {
-  name: string;
-  description: string;
-  cookingTime: number;
-  content: string
-}
-
-const onSuccess = (values) => {
+const onSuccess = (values: StringObject) => {
   console.log("ça passe", values)
 }
 
-const onInvalidSubmit = ({ values, errors }) => {
-  console.log(errors)
-  console.log(values)
+const onInvalidSubmit = ({ errors }: {errors: any}) => {
+  arrayOfErrors.value = Object.values(errors)
+  useOpenModal("recipeFormInvalid")
 }
 
 const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
@@ -98,7 +100,7 @@ const pageNb = ref(1)
 
 <style scoped>
 .page-btn {
-  @apply p-2 bg-primary-100 rounded-lg min-w-[100px]
+  @apply p-2 bg-primary-100 rounded-lg w-16 text-2xl
 }
 
 .swiper-button-disabled{

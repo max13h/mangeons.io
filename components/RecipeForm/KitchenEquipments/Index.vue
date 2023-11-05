@@ -34,6 +34,8 @@ const recipeStore = useRecipeStore()
 
 const { value: selectedKitchenEquipmentsValue, errorMessage: selectedKitchenEquipmentsErrorMessage } = useField(() => "selectedKitchenEquipments")
 
+selectedKitchenEquipmentsValue.value = []
+
 watch(recipeStore.selectedKitchenEquipments, () => {
   selectedKitchenEquipmentsValue.value = recipeStore.selectedKitchenEquipments
 })

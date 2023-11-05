@@ -243,7 +243,6 @@ watch(stepList.value, () => {
     }
     finalString = finalString + "\n"
   })
-  // emit("updateContent", finalString)
   value.value = finalString
 })
 
