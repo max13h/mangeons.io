@@ -63,16 +63,15 @@ import { register } from "swiper/element/bundle"
 import { Swiper, SwiperSlide } from "swiper/vue"
 import "swiper/css"
 
+definePageMeta({
+  layout: "mobile-deep-focus"
+})
 const recipeStore = useRecipeStore()
 const modalStore = useModalStore()
 
 register()
-
 const reachEnd = ref(false)
-
-definePageMeta({
-  layout: "mobile-deep-focus"
-})
+const pageNb = ref(1)
 
 const { handleSubmit } = useForm({
   validationSchema: recipeStore.schemaNewRecipe
@@ -86,7 +85,16 @@ const onSuccess = async (values: any) => {
     body: values
   })
 
-  console.log(saveRecipe)
+  if (saveRecipe.status.value === "success") {
+    return navigateTo({
+      path: `/recettes/${saveRecipe.data.value}`,
+      query: {
+        backPageURL: "/recettes"
+      }
+    })
+  } else {
+    console.log("error")
+  }
 }
 
 const onInvalidSubmit = ({ errors }: {errors: any}) => {
@@ -95,8 +103,6 @@ const onInvalidSubmit = ({ errors }: {errors: any}) => {
 }
 
 const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
-
-const pageNb = ref(1)
 </script>
 
 <style scoped>
