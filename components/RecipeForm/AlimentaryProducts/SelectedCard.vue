@@ -16,7 +16,7 @@
       </p>
       <div class="flex w-full justify-end items-start">
         <input
-          v-model="quantity"
+          v-model.number="quantity"
           type="number"
           name="quantity"
           placeholder="100"
@@ -73,6 +73,9 @@ watch(recipeStore.selectedAlimentaryProducts, () => {
   indexInStore.value = recipeStore.selectedAlimentaryProducts.findIndex(obj => obj.details.id === props.alimentaryProduct.id)
 })
 watch(quantity, () => {
+  if (typeof quantity.value !== "number") {
+    quantity.value = undefined
+  }
   recipeStore.selectedAlimentaryProducts[indexInStore.value].quantity = quantity.value
 })
 watch(units, () => {

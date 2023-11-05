@@ -11,23 +11,22 @@ export const useRecipeStore = defineStore("recipe", () => {
     image_url: string().required()
   })
   const _schemaSelectedAlimentaryProduct = object({
-    details: object(
+    details: object().shape(
       {
         id: string(),
         name_fr: string(),
         store_area_id: string(),
         guide_price: number(),
         image_url: string()
-      })
-      .required(),
+      }),
     quantity: number()
       .max(9999, "La quantité doit être inferieur à 9999")
       .moreThan(0, "La quantité doit être superieur à 0")
-      .required(),
+      .required("La quantité est requise"),
     units: string()
       .min(1, "l'unité doit avoir plus de 1 caractère")
-      .max(80, "l'unité doit avoir moins de 30 caractères")
-      .required()
+      .max(30, "l'unité doit avoir moins de 30 caractères")
+      .required("L'unité est requise")
   })
 
   const schemaNewRecipe = object({
@@ -50,24 +49,13 @@ export const useRecipeStore = defineStore("recipe", () => {
       .moreThan(0, "le temps de préparation doit être superieur à 0")
       .truncate()
       .required("Le temps de préparation est requis"),
-    selectedKitchenEquipments: array()
-      .of(_schemaSelectedKitchenEquipment)
+    selectedKitchenEquipments: array(_schemaSelectedKitchenEquipment)
       .notRequired(),
     selectedAlimentaryProducts: array()
       .of(_schemaSelectedAlimentaryProduct)
       .min(1, "Votre recette à besoin au moins d'un ingrédient")
+      .required("Au moins un ingrédient est requis à votre recette")
   })
-
-  // const schemaAlimentaryProduct = object({
-  //   quantity: number()
-  //     .moreThan(0.1, "la quantité doit être supérieur à 0.1")
-  //     .max(9999, "la quantité doit être inférieur à 9999")
-  //     .truncate()
-  //     .required("la quantité est requise"),
-  //   units: string()
-  //     .matches(/^[a-zA-Z]+$/, "L'unité ne doit comprendre que des lettres")
-  //     .required("L'unité est requise")
-  // })
 
   const name: globalThis.Ref<string> = ref("")
   const description: globalThis.Ref<string> = ref("")

@@ -15,7 +15,7 @@
       label-class="text-xl mb-4"
       :placeholder="placeholder"
       :disable-tab="true"
-      class="min-h-[300px] mb-8"
+      class="min-h-[300px]"
     >
     </FormTextArea>
   </div>

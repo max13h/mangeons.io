@@ -14,7 +14,15 @@
         :kitchen-equipment="kitchenEquipment"
       />
     </div>
-    <button class="btn-outline-secondary w-full mb-8" tabindex="-1" @click="useAddKitchenEquipmentsModal">
+    <div class="mb-4">
+      <span
+        v-if="selectedKitchenEquipmentsErrorMessage"
+        class="text-red-500 text-sm"
+      >
+        {{ useCapitalize(selectedKitchenEquipmentsErrorMessage) }}
+      </span>
+    </div>
+    <button class="btn-outline-secondary w-full mb-4" tabindex="-1" @click="useAddKitchenEquipmentsModal">
       Ajouter un équipement de cuisine
       <i class="ri-add-circle-line text-xl align-middle" />
     </button>
@@ -25,6 +33,10 @@
 const recipeStore = useRecipeStore()
 
 const { value: selectedKitchenEquipmentsValue, errorMessage: selectedKitchenEquipmentsErrorMessage } = useField(() => "selectedKitchenEquipments")
+
+watch(recipeStore.selectedKitchenEquipments, () => {
+  selectedKitchenEquipmentsValue.value = recipeStore.selectedKitchenEquipments
+})
 </script>
 
 <style scoped>

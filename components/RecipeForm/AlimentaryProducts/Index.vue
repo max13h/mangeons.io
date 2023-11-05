@@ -14,14 +14,19 @@
       <p v-if="recipeStore.selectedAlimentaryProducts.length == 0" class="absolute-center text-center w-7/12 italic text-slate-400">
         Aucun ingrédient ajouté
       </p>
-      <RecipeFormAlimentaryProductsSelectedCard v-for="alimentaryProduct in recipeStore.selectedAlimentaryProducts" v-else :key="alimentaryProduct.details.id" :alimentary-product="alimentaryProduct.details"></RecipeFormAlimentaryProductsSelectedCard>
+      <RecipeFormAlimentaryProductsSelectedCard
+        v-for="alimentaryProduct in recipeStore.selectedAlimentaryProducts"
+        v-else
+        :key="alimentaryProduct.details.id"
+        :alimentary-product="alimentaryProduct.details"
+      />
     </div>
     <div class="mb-4">
       <span
-        v-if="selectedAlimentaryProductsErrorMessage"
+        v-if="errorMessage"
         class="text-red-500 text-sm"
       >
-        {{ useCapitalize(selectedAlimentaryProductsErrorMessage) }}
+        {{ useCapitalize(errorMessage) }}
       </span>
     </div>
     <button class="btn-outline-secondary w-full mb-8" tabindex="-1" @click="useAddAlimentaryProductsModal">
@@ -35,12 +40,12 @@
 const modalStore = useModalStore()
 const recipeStore = useRecipeStore()
 
-const { value: selectedAlimentaryProductsValue, errorMessage: selectedAlimentaryProductsErrorMessage } = useField(() => "selectedAlimentaryProducts")
+const { value, errorMessage } = useField("selectedAlimentaryProducts")
 
 watch(recipeStore.selectedAlimentaryProducts, () => {
-  selectedAlimentaryProductsValue.value = recipeStore.selectedAlimentaryProducts
-  console.log(selectedAlimentaryProductsValue)
-  console.log(selectedAlimentaryProductsErrorMessage);
+  value.value = recipeStore.selectedAlimentaryProducts
+  console.log(errorMessage.value);
+  console.log(value);
 })
 </script>
 
