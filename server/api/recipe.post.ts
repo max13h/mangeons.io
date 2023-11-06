@@ -47,7 +47,7 @@ export default eventHandler(async (event) => {
         recipe_id: currentRecipeId,
         alimentary_product_id: obj.details.id,
         quantity: obj.quantity,
-        units: obj.units
+        unit: obj.unit
       }
       formatedArray.push(formatedObject)
     })

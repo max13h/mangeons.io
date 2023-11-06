@@ -33,7 +33,7 @@ export const useEditRecipeStore = defineStore("editRecipe", () => {
       .max(9999, "la quantité doit être inférieur à 9999")
       .truncate()
       .required("la quantité est requise"),
-    units: string()
+    unit: string()
       .matches(/^[a-zA-Z]+$/, "L'unité ne doit comprendre que des lettres")
       .required("L'unité est requise")
   })

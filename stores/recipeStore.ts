@@ -23,7 +23,7 @@ export const useRecipeStore = defineStore("recipe", () => {
       .max(9999, "La quantité doit être inferieur à 9999")
       .moreThan(0, "La quantité doit être superieur à 0")
       .required("La quantité est requise"),
-    units: string()
+    unit: string()
       .min(1, "l'unité doit avoir plus de 1 caractère")
       .max(30, "l'unité doit avoir moins de 30 caractères")
       .required("L'unité est requise")
@@ -57,10 +57,6 @@ export const useRecipeStore = defineStore("recipe", () => {
       .required("Au moins un ingrédient est requis à votre recette")
   })
 
-  const name: globalThis.Ref<string> = ref("")
-  const description: globalThis.Ref<string> = ref("")
-  const content: globalThis.Ref<string> = ref("")
-  const cookingTime: globalThis.Ref<number> = ref(0)
   const selectedKitchenEquipments: globalThis.Ref<KitchenEquipment[]> = ref([])
   const selectedAlimentaryProducts: globalThis.Ref<SelectedAlimentaryProduct[]> = ref([])
 
@@ -69,11 +65,7 @@ export const useRecipeStore = defineStore("recipe", () => {
     storeAreas,
     kitchenEquipments,
     schemaNewRecipe,
-    name,
-    description,
-    content,
     selectedAlimentaryProducts,
-    selectedKitchenEquipments,
-    cookingTime
+    selectedKitchenEquipments
   }
 })

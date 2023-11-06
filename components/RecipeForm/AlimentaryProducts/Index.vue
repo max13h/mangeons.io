@@ -15,10 +15,11 @@
         Aucun ingrédient ajouté
       </p>
       <RecipeFormAlimentaryProductsSelectedCard
-        v-for="alimentaryProduct in recipeStore.selectedAlimentaryProducts"
+        v-for="(alimentaryProduct, index) in recipeStore.selectedAlimentaryProducts"
         v-else
         :key="alimentaryProduct.details.id"
         :alimentary-product="alimentaryProduct.details"
+        :index-in-store="index"
       />
     </div>
     <div class="mb-4">

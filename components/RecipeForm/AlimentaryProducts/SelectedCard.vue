@@ -25,16 +25,16 @@
         >
         <div class="flex flex-col">
           <input
-            v-model="units"
+            v-model="unit"
             type="text"
-            name="units"
+            name="unit"
             list="unitsList"
             placeholder="g"
             class="max-w-[6rem]"
             tabindex="-1"
           >
           <datalist id="unitsList">
-            <option v-for="unit, index in options" :key="index" :value="unit" />
+            <option v-for="unitName, index in options" :key="index" :value="unitName" />
           </datalist>
         </div>
       </div>
@@ -47,6 +47,7 @@ const recipeStore = useRecipeStore()
 
 interface Props {
   alimentaryProduct: AlimentaryProduct
+  indexInStore: number
 }
 const props = defineProps<Props>()
 
@@ -60,8 +61,8 @@ const options = [
   "unités"
 ]
 
-const quantity: globalThis.Ref<number | undefined> = ref(undefined)
-const units: globalThis.Ref<string> = ref("")
+const quantity: globalThis.Ref<number | undefined> = ref(recipeStore.selectedAlimentaryProducts[props.indexInStore].quantity)
+const unit: globalThis.Ref<string> = ref(recipeStore.selectedAlimentaryProducts[props.indexInStore].unit)
 
 const indexInStore = ref(recipeStore.selectedAlimentaryProducts.findIndex(obj => obj.details.id === props.alimentaryProduct.id))
 
@@ -78,8 +79,8 @@ watch(quantity, () => {
   }
   recipeStore.selectedAlimentaryProducts[indexInStore.value].quantity = quantity.value
 })
-watch(units, () => {
-  recipeStore.selectedAlimentaryProducts[indexInStore.value].units = units.value
+watch(unit, () => {
+  recipeStore.selectedAlimentaryProducts[indexInStore.value].unit = unit.value
 })
 </script>
 

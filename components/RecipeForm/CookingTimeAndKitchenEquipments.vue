@@ -24,7 +24,7 @@
 const modalStore = useModalStore()
 
 const props = defineProps<{
-  cookingTime: number
+  cookingTime?: number
 }>()
 </script>
 

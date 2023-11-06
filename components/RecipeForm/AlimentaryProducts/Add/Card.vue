@@ -35,7 +35,7 @@ const onClick = () => {
     recipeStore.selectedAlimentaryProducts.push({
       details: props.alimentaryProduct,
       quantity: 0,
-      units: ""
+      unit: ""
     })
   }
 }

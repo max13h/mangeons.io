@@ -1,5 +1,3 @@
-import type { string } from "yup";
-
 declare global {
   interface AlimentaryProduct {
     id: string;
@@ -12,7 +10,7 @@ declare global {
   interface SelectedAlimentaryProduct {
     details: AlimentaryProduct;
     quantity?: number;
-    units?: string;
+    unit?: string;
   }
   interface StoreArea {
     id: string;
@@ -41,15 +39,15 @@ declare global {
     content: string;
     is_public: string;
     author: {
-    id: '89507049-fecb-4abe-baff-fe7ebebb9e51';
-    username: 'max13h'
+      id: '89507049-fecb-4abe-baff-fe7ebebb9e51';
+      username: 'max13h'
     }
   }
   interface RecipesAlimentaryProducts {
     recipe_id: string;
     alimentary_product_id: string;
     quantity?: number;
-    units?: string;
+    unit?: string;
   }
   interface RecipesKitchenEquipments {
     recipe_id: string;

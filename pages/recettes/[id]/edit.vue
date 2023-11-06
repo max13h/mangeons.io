@@ -29,16 +29,16 @@
           @reach-end="reachEnd = true"
         >
           <swiper-slide>
-            <RecipeFormNameAndDescription :name="recipeObject.name" :description="recipeObject.description" />
+            <RecipeFormNameAndDescription v-if="formatedRecipe" :name="formatedRecipe[0].name" :description="formatedRecipe[0].description" />
           </swiper-slide>
           <swiper-slide>
-            <RecipeFormCookingTimeAndKitchenEquipments :cooking-time="recipeObject.cooking_time" />
+            <RecipeFormCookingTimeAndKitchenEquipments v-if="formatedRecipe" :cooking-time="formatedRecipe[0].cooking_time" />
           </swiper-slide>
           <swiper-slide>
             <RecipeFormAlimentaryProducts />
           </swiper-slide>
           <swiper-slide>
-            <RecipeFormContent :content="recipeObject.content"></RecipeFormContent>
+            <RecipeFormContent v-if="formatedRecipe" :content="formatedRecipe[0].content"></RecipeFormContent>
           </swiper-slide>
         </swiper>
       </div>
@@ -73,17 +73,29 @@ const route = useRoute()
 register()
 const reachEnd = ref(false)
 const pageNb = ref(1)
+
 const arrayOfErrors: globalThis.Ref<string[]> = ref([])
 
-const { data: recipeData, error: recipeError }: { data: any, error: any} = await useFetch("/api/getRecipeById", {
-  query: { id: route.params.id }
+const formatedRecipe: globalThis.Ref<fetchRecipe[] | null> = ref(null)
+
+onMounted(async () => {
+  const {
+    recipeData: { value: { data: recipe } },
+    kitchenEquipmentsData: { value: { data: kitchenEquipments } },
+    alimentaryProductsData: { value: { data: alimentaryProducts } }
+  } = await useFetchRecipeData(route.params.id)
+
+  const formatedAlimentaryProducts = alimentaryProducts.map((item: any) => {
+    item.details = item.alimentary_product_id
+    delete item.alimentary_product_id
+    return item
+  })
+  const formatedKitchenEquipments = kitchenEquipments.map((item: any) => item.kitchen_equipment_id)
+
+  formatedRecipe.value = recipe
+  recipeStore.selectedAlimentaryProducts = formatedAlimentaryProducts
+  recipeStore.selectedKitchenEquipments = formatedKitchenEquipments
 })
-
-if (!recipeData.value || recipeError.value) {
-  throw new Error("Error on useFetch")
-}
-
-const recipeObject: fetchRecipe = recipeData.value.data[0]
 
 const { handleSubmit } = useForm({
   validationSchema: recipeStore.schemaNewRecipe
