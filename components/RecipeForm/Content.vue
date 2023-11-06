@@ -77,16 +77,16 @@
 <script setup lang="ts">
 import Sortable from "sortablejs"
 
-const { value, errorMessage } = useField(() => "content")
-
 const modalStore = useModalStore()
+
+const { value, errorMessage } = useField(() => "content")
 
 const mainStepList: globalThis.Ref<any> = ref(null)
 const nestedStepLists: globalThis.Ref<any[]> = ref([])
 const inputElements = ref([])
 
 const props = defineProps<{
-  content?: StepsList[]
+  content?: string
 }>()
 
 const stepList: globalThis.Ref<StepsList[]> = ref([
@@ -99,7 +99,7 @@ const stepList: globalThis.Ref<StepsList[]> = ref([
 ])
 
 if (props.content) {
-  stepList.value = props.content
+  stepList.value = useParseStringToStepListObject(props.content)
 }
 
 const optionIndex: globalThis.Ref<number> = ref(0)

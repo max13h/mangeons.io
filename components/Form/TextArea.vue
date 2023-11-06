@@ -11,7 +11,6 @@
     <textarea
       v-model="value"
       :name="props.name"
-      :type="props.type"
       :placeholder="props.placeholder"
       :tabindex="props.disableTab ? '-1' : '0'"
       :class="props.class"
@@ -42,4 +41,8 @@ interface Props {
 const props = defineProps<Props>()
 
 const { value, errorMessage } = useField(() => props.name)
+
+if (props.value) {
+  value.value = props.value
+}
 </script>

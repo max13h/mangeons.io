@@ -7,6 +7,7 @@
       :disable-tab="true"
       label="Nom de votre recette 🍽️"
       label-class="text-xl mb-4"
+      :value="props.name"
     >
     </FormInput>
     <FormTextArea
@@ -16,12 +17,18 @@
       :placeholder="placeholder"
       :disable-tab="true"
       class="min-h-[300px]"
+      :value="props.description"
     >
     </FormTextArea>
   </div>
 </template>
 
 <script setup lang="ts">
+const props = defineProps<{
+  name?: string;
+  description?: string
+}>()
+
 const placeholder = "Tarte aux pommes classique : une croûte dorée, garnie de pommes sucrées, cannelle et une touche de caramel, une délicieuse tradition gourmande"
 </script>
 

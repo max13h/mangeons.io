@@ -14,6 +14,7 @@
       label-class="text-xl mb-4"
       placeholder="20"
       :disable-tab="true"
+      :value="props.cookingTime"
     />
     <RecipeFormKitchenEquipments />
   </div>
@@ -21,6 +22,10 @@
 
 <script setup lang="ts">
 const modalStore = useModalStore()
+
+const props = defineProps<{
+  cookingTime: number
+}>()
 </script>
 
 <style scoped>

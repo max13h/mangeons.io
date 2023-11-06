@@ -1,3 +1,5 @@
+import type { string } from "yup";
+
 declare global {
   interface AlimentaryProduct {
     id: string;
@@ -30,6 +32,18 @@ declare global {
     content: string;
     selectedAlimentaryProducts: SelectedAlimentaryProduct[];
     selectedKitchenEquipments: KitchenEquipment[]
+  }
+  interface fetchRecipe {
+    id: string;
+    name: string;
+    description: string;
+    cooking_time: number;
+    content: string;
+    is_public: string;
+    author: {
+    id: '89507049-fecb-4abe-baff-fe7ebebb9e51';
+    username: 'max13h'
+    }
   }
   interface RecipesAlimentaryProducts {
     recipe_id: string;

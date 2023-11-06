@@ -1,8 +1,18 @@
 <template>
   <div class="flex flex-col items-center h-full">
+    <Teleport v-if="modalStore.whatIsOpen === 'recipeFormInvalid'" to="#modal">
+      <p class="mb-4 text-lg">
+        Oups, des problèmes ont été repérés 🚨
+      </p>
+      <ol>
+        <li v-for="(error, index) in arrayOfErrors" :key="index" class="mb-2">
+          {{ index + 1 }}. <span class="italic">{{ error }}</span>
+        </li>
+      </ol>
+    </Teleport>
     <div class="flex flex-col items-center h-full w-full overflow-x-hidden flex-grow pt-4 pl-4 pr-4">
       <p class="mb-4 text-center rounded-md bg-primary-100 p-2">
-        Vous êtes entrain d'éditer votre recette "{{ recipeData.data[0].name }}"
+        Renseignez les infomations concernant votre nouvelle recette !
       </p>
 
       <div class="w-full overflow-x-hidden flex-grow ">
@@ -16,18 +26,19 @@
           }"
           @navigation-next="pageNb++"
           @navigation-prev="pageNb--"
+          @reach-end="reachEnd = true"
         >
           <swiper-slide>
-            <RecipeFormNameAndDescription :name="name" :description="description" :errors="errors"></RecipeFormNameAndDescription>
+            <RecipeFormNameAndDescription :name="recipeObject.name" :description="recipeObject.description" />
           </swiper-slide>
           <swiper-slide>
-            <RecipeFormCookingTimeAndKitchenEquipments :cooking-time="cookingTime" :errors="errors"></RecipeFormCookingTimeAndKitchenEquipments>
+            <RecipeFormCookingTimeAndKitchenEquipments :cooking-time="recipeObject.cooking_time" />
           </swiper-slide>
           <swiper-slide>
-            <RecipeFormAlimentaryProducts></RecipeFormAlimentaryProducts>
+            <RecipeFormAlimentaryProducts />
           </swiper-slide>
           <swiper-slide>
-            <RecipeFormContent :content="content" @update-content="updateContent"></RecipeFormContent>
+            <RecipeFormContent :content="recipeObject.content"></RecipeFormContent>
           </swiper-slide>
         </swiper>
       </div>
@@ -35,14 +46,12 @@
     <div class="flex justify-between w-full min-w-[100px] my-shadow z-20 p-4 relative bg-light">
       <button type="button" class="swiper-button-prev page-btn">
         <i class="ri-arrow-left-double-line" />
-        Précedent
       </button>
-      <button v-if="pageNb === 4" type="button" class="btn-secondary border-none" @click="useSaveExistingRecipe(route.params.id as string)">
+      <button v-if="reachEnd" type="button" class="btn-secondary border-none flex items-center" @click="onSubmit">
         Enregistrer
-        <i class="ri-save-3-line" />
+        <i class="ri-save-3-line inline-block text-2xl w-8" />
       </button>
-      <button type="button" class="swiper-button-next page-btn" :class="{'hidden': pageNb === 4}">
-        Suivant
+      <button type="button" class="swiper-button-next page-btn">
         <i class="ri-arrow-right-double-line" />
       </button>
     </div>
@@ -57,54 +66,56 @@ import "swiper/css"
 definePageMeta({
   layout: "mobile-deep-focus"
 })
-
 const recipeStore = useRecipeStore()
+const modalStore = useModalStore()
 const route = useRoute()
 
 register()
+const reachEnd = ref(false)
+const pageNb = ref(1)
+const arrayOfErrors: globalThis.Ref<string[]> = ref([])
 
-const schema = recipeStore.schemaNewRecipe
-
-const { defineInputBinds, errors } = useForm({
-  validationSchema: schema
-})
-
-const name = defineInputBinds("name")
-const description = defineInputBinds("description")
-const cookingTime = defineInputBinds("cookingTime")
-
-const updateContent = (updatedContent: string) => {
-  recipeStore.content = updatedContent
-}
-
-const { data: recipeData, error: recipeError } = await useFetch("/api/getRecipeById", {
+const { data: recipeData, error: recipeError }: { data: any, error: any} = await useFetch("/api/getRecipeById", {
   query: { id: route.params.id }
 })
 
-name.value.value = recipeData.value.data[0].name
-description.value.value = recipeData.value.data[0].description
-cookingTime.value.value = recipeData.value.data[0].cookingTime
+if (!recipeData.value || recipeError.value) {
+  throw new Error("Error on useFetch")
+}
 
-const content: StepList = useParseStringToStepListObject(recipeData.value.data[0].content)
+const recipeObject: fetchRecipe = recipeData.value.data[0]
 
-onMounted(() => {
-  recipeStore.name = name.value.value
-  recipeStore.description = description.value.value
-  recipeStore.cookingTime = cookingTime.value.value
-
-  watchEffect(() => {
-    recipeStore.name = name.value.value
-    recipeStore.description = description.value.value
-    recipeStore.cookingTime = cookingTime.value.value
-  })
+const { handleSubmit } = useForm({
+  validationSchema: recipeStore.schemaNewRecipe
 })
 
-const pageNb = ref(1)
+const onSuccess = async (values: any) => {
+  const saveRecipe = await useFetch("/api/recipe", {
+    method: "post",
+    body: values
+  })
+
+  if (saveRecipe.status.value === "success") {
+    return navigateTo({
+      path: `/recettes/${saveRecipe.data.value}`,
+      query: {
+        backPageURL: "/recettes"
+      }
+    })
+  } else {
+    console.log("error")
+  }
+}
+const onInvalidSubmit = ({ errors }: {errors: any}) => {
+  arrayOfErrors.value = Object.values(errors)
+  useOpenModal("recipeFormInvalid")
+}
+const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
 </script>
 
 <style scoped>
 .page-btn {
-  @apply p-2 bg-primary-100 rounded-lg min-w-[100px]
+  @apply p-2 bg-primary-100 rounded-lg w-16 text-2xl
 }
 
 .swiper-button-disabled{

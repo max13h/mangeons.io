@@ -44,4 +44,8 @@ interface Props {
 const props = defineProps<Props>()
 
 const { value, errorMessage } = useField(() => props.name)
+
+if (props.value) {
+  value.value = props.value
+}
 </script>
