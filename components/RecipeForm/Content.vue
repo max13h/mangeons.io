@@ -99,6 +99,7 @@ const stepList: globalThis.Ref<StepsList[]> = ref([
 ])
 
 if (props.content) {
+  value.value = props.content
   stepList.value = useParseStringToStepListObject(props.content)
 }
 

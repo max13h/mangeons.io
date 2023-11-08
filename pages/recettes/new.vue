@@ -93,7 +93,7 @@ const onSuccess = async (values: any) => {
       }
     })
   } else {
-    console.log("error")
+    throw new Error("Error during POST recipe");
   }
 }
 

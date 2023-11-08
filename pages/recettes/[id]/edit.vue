@@ -17,6 +17,7 @@
 
       <div class="w-full overflow-x-hidden flex-grow ">
         <swiper
+          v-if="formatedRecipe"
           class="h-full"
           :allow-touch-move="false"
           :space-between="30"
@@ -29,16 +30,16 @@
           @reach-end="reachEnd = true"
         >
           <swiper-slide>
-            <RecipeFormNameAndDescription v-if="formatedRecipe" :name="formatedRecipe[0].name" :description="formatedRecipe[0].description" />
+            <RecipeFormNameAndDescription :name="formatedRecipe[0].name" :description="formatedRecipe[0].description" />
           </swiper-slide>
           <swiper-slide>
-            <RecipeFormCookingTimeAndKitchenEquipments v-if="formatedRecipe" :cooking-time="formatedRecipe[0].cooking_time" />
+            <RecipeFormCookingTimeAndKitchenEquipments :cooking-time="formatedRecipe[0].cooking_time" />
           </swiper-slide>
           <swiper-slide>
             <RecipeFormAlimentaryProducts />
           </swiper-slide>
           <swiper-slide>
-            <RecipeFormContent v-if="formatedRecipe" :content="formatedRecipe[0].content"></RecipeFormContent>
+            <RecipeFormContent :content="formatedRecipe[0].content"></RecipeFormContent>
           </swiper-slide>
         </swiper>
       </div>
@@ -102,25 +103,32 @@ const { handleSubmit } = useForm({
 })
 
 const onSuccess = async (values: any) => {
-  const saveRecipe = await useFetch("/api/recipe", {
-    method: "post",
-    body: values
-  })
+  values.id = route.params.id
+  // const saveRecipe = await useFetch("/api/recipe", {
+  //   method: "put",
+  //   body: values
+  // })
 
-  if (saveRecipe.status.value === "success") {
-    return navigateTo({
-      path: `/recettes/${saveRecipe.data.value}`,
-      query: {
-        backPageURL: "/recettes"
-      }
-    })
-  } else {
-    console.log("error")
-  }
+  // if (saveRecipe.status.value === "success") {
+  //   return navigateTo({
+  //     path: `/recettes/${saveRecipe.data.value}`,
+  //     query: {
+  //       backPageURL: "/recettes"
+  //     }
+  //   })
+  // } else {
+  //   console.log("error")
+  // }
+  console.log(values);
+
+  const supabase = useSupabaseClient()
+  const a = await supabase.rpc("update_recipe_entirely", { recipe_object: values })
+  console.log(a)
 }
-const onInvalidSubmit = ({ errors }: {errors: any}) => {
+const onInvalidSubmit = ({ values, errors }: {errors: any}) => {
   arrayOfErrors.value = Object.values(errors)
   useOpenModal("recipeFormInvalid")
+  console.log(values);
 }
 const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
 </script>

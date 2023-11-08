@@ -45,6 +45,11 @@ const { value, errorMessage } = useField("selectedAlimentaryProducts")
 
 watch(recipeStore.selectedAlimentaryProducts, () => {
   value.value = recipeStore.selectedAlimentaryProducts
+  console.log(value.value)
+})
+
+onMounted(() => {
+  value.value = recipeStore.selectedAlimentaryProducts
 })
 </script>
 

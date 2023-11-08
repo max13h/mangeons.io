@@ -62,7 +62,7 @@ const options = [
 ]
 
 const quantity: globalThis.Ref<number | undefined> = ref(recipeStore.selectedAlimentaryProducts[props.indexInStore].quantity)
-const unit: globalThis.Ref<string> = ref(recipeStore.selectedAlimentaryProducts[props.indexInStore].unit)
+const unit: globalThis.Ref<string | undefined> = ref(recipeStore.selectedAlimentaryProducts[props.indexInStore].unit)
 
 const indexInStore = ref(recipeStore.selectedAlimentaryProducts.findIndex(obj => obj.details.id === props.alimentaryProduct.id))
 

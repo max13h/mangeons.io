@@ -16,10 +16,10 @@
     </div>
     <div class="mb-4">
       <span
-        v-if="selectedKitchenEquipmentsErrorMessage"
+        v-if="errorMessage"
         class="text-red-500 text-sm"
       >
-        {{ useCapitalize(selectedKitchenEquipmentsErrorMessage) }}
+        {{ useCapitalize(errorMessage) }}
       </span>
     </div>
     <button class="btn-outline-secondary w-full mb-4" tabindex="-1" @click="useAddKitchenEquipmentsModal">
@@ -32,12 +32,16 @@
 <script setup lang="ts">
 const recipeStore = useRecipeStore()
 
-const { value: selectedKitchenEquipmentsValue, errorMessage: selectedKitchenEquipmentsErrorMessage } = useField(() => "selectedKitchenEquipments")
+const { value, errorMessage } = useField(() => "selectedKitchenEquipments")
 
-selectedKitchenEquipmentsValue.value = []
+value.value = []
 
 watch(recipeStore.selectedKitchenEquipments, () => {
-  selectedKitchenEquipmentsValue.value = recipeStore.selectedKitchenEquipments
+  value.value = recipeStore.selectedKitchenEquipments
+})
+
+onMounted(() => {
+  value.value = recipeStore.selectedKitchenEquipments
 })
 </script>
 
