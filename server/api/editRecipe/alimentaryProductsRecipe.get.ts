@@ -6,7 +6,7 @@ export default eventHandler(async (event) => {
 
   const { data, error } = await supabase
     .from("recipes_alimentary_products")
-    .select("alimentary_product_id (name_fr, image_url), quantity, unit")
+    .select("alimentary_product_id (id, name_fr, image_url), quantity, unit")
     .eq("recipe_id", query.id)
 
   return { data, error }

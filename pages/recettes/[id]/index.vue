@@ -42,6 +42,14 @@ const { data: publicUserData, error: publicUserError } = await useFetch("/api/ge
 const recipe = recipeData.value.data[0]
 const publicUser = publicUserData.value.data[0]
 
+const test = await useFetch("/api/test", {
+  method: "put",
+  body: { id: route.params.id }
+})
+
+// console.log(test.data.value);
+console.log("test response", test.data.value[0]);
+
 definePageMeta({
   layout: "mobile-focus"
 })
