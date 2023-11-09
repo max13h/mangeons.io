@@ -88,26 +88,21 @@ const onSuccess = async (values: any) => {
     body: { recipe_data: values }
   })
 
-  if (error) {
-    throw new Error(`rror on useFetch => \n${JSON.stringify(error)}`)
-  }
-
   if (status.value === "success") {
-    console.log("Successs", data)
-    // return navigateTo({
-    // path: `/recettes/${data.data.value}`,
-    // query: {
-    //   backPageURL: "/recettes"
-    // }
-    // })
+    return navigateTo({
+      path: `/recettes/${data.value}`,
+      query: {
+        backPageURL: "/recettes"
+      }
+    })
+  } else {
+    throw new Error(`Error on useFetch => ${JSON.stringify(error)}`)
   }
 }
-
 const onInvalidSubmit = ({ errors }: {errors: any}) => {
   arrayOfErrors.value = Object.values(errors)
   useOpenModal("recipeFormInvalid")
 }
-
 const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
 </script>
 

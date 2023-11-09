@@ -7,7 +7,5 @@ export default eventHandler(async (event) => {
   const { data, error } = await supabase.rpc("post_all_data_of_new_recipe", { recipe_data: recipeObject.recipe_data })
 
   useHandleSupabaseReturnError(error)
-  const response = useErrorIfSupabaseReturnEmptyArray(data)
-
-  return response
+  return data
 })
