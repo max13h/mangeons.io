@@ -80,20 +80,26 @@ const { handleSubmit } = useForm({
 const arrayOfErrors: globalThis.Ref<string[]> = ref([])
 
 const onSuccess = async (values: any) => {
-  const saveRecipe = await useFetch("/api/recipe", {
+  const publicUser = await useGetPublicUser()
+  values.author = publicUser.value.id
+
+  const { data, error, status } = await useFetch("/api/recipe", {
     method: "post",
-    body: values
+    body: { recipe_data: values }
   })
 
-  if (saveRecipe.status.value === "success") {
-    return navigateTo({
-      path: `/recettes/${saveRecipe.data.value}`,
-      query: {
-        backPageURL: "/recettes"
-      }
-    })
-  } else {
-    throw new Error("Error during POST recipe");
+  if (error) {
+    throw new Error(`rror on useFetch => \n${JSON.stringify(error)}`)
+  }
+
+  if (status.value === "success") {
+    console.log("Successs", data)
+    // return navigateTo({
+    // path: `/recettes/${data.data.value}`,
+    // query: {
+    //   backPageURL: "/recettes"
+    // }
+    // })
   }
 }
 

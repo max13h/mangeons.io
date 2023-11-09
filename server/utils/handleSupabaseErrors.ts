@@ -4,10 +4,10 @@ export const useHandleSupabaseReturnError = (error) => {
   }
 }
 
-export const useHandleSupabaseReturnEmptyArray = (data) => {
-  if (data.length === 0) {
-    return null
+export const useErrorIfSupabaseReturnEmptyArray = (data) => {
+  if (!data || data.length === 0) {
+    throw new Error("Supabase has return null or an empty array");
   } else {
-    return data
+    return data[0]
   }
 }

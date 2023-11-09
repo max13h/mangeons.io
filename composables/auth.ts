@@ -66,3 +66,13 @@ const _translateErrorMessage = (errorMsg: string) => {
     return "Une erreur est survenue, veuillez réessayer"
   }
 }
+
+export const useGetPublicUser = async () => {
+  const { data, error } = await useFetch("/api/publicUser")
+
+  if (error.value) {
+    throw new Error("Error during the useFetch call")
+  }
+
+  return data
+}

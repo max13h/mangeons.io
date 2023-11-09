@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="recipeData.author.id === publicUser.id">
+    <div v-if="publicUser.id == recipeData.author.id">
       <NuxtLink :to="`/recettes/${route.params.id}/edit`" type="button" class="btn-outline-secondary">
         Edit
       </NuxtLink>
@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 const route = useRoute()
-const user = useSupabaseUser()
+const publicUser = await useGetPublicUser()
 
 const { data: recipeData, error: recipeError } = await useFetch("/api/recipe", {
   method: "get",
@@ -37,10 +37,6 @@ const { data: recipeData, error: recipeError } = await useFetch("/api/recipe", {
 if (recipeError.value) {
   throw new Error("Error during the useFetch call")
 }
-
-const { data: publicUserData, error: publicUserError } = await useFetch("/api/getPublicUser")
-
-const publicUser = publicUserData.value.data[0]
 
 definePageMeta({
   layout: "mobile-focus"

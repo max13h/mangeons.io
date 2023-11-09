@@ -1,4 +1,3 @@
-import { useHandleSupabaseReturnError, useHandleSupabaseReturnEmptyArray } from "../utils/handleSupabaseErrors"
 import { serverSupabaseClient } from "#supabase/server"
 
 export default eventHandler(async (event) => {
@@ -8,7 +7,8 @@ export default eventHandler(async (event) => {
   const { data, error } = await supabase.rpc("get_all_data_of_recipe", { recipe_id: recipeObject.id })
 
   useHandleSupabaseReturnError(error)
-  const reponse = useHandleSupabaseReturnEmptyArray(data)
 
-  return reponse[0]
+  const response = useErrorIfSupabaseReturnEmptyArray(data)
+
+  return response
 })
