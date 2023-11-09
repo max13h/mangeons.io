@@ -1,13 +1,14 @@
+import { useHandleSupabaseReturnError, useHandleSupabaseReturnEmptyArray } from "../utils/handleSupabaseErrors"
 import { serverSupabaseClient } from "#supabase/server"
 
 export default eventHandler(async (event) => {
   const supabase = await serverSupabaseClient(event)
-  const query = getQuery(event) as { id: string }
+  const recipeObject = getQuery(event)
 
-  const { data, error } = await supabase
-    .from("recipes")
-    .select("id, name, author (id, username), is_public, description, content, cooking_time")
-    .eq("id", query.id)
+  const { data, error } = await supabase.rpc("get_all_data_of_recipe", { recipe_id: recipeObject.id })
 
-  return { data, error }
+  useHandleSupabaseReturnError(error)
+  const reponse = useHandleSupabaseReturnEmptyArray(data)
+
+  return reponse[0]
 })

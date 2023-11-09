@@ -4,7 +4,9 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "@nuxtjs/supabase", "@vee-validate/nuxt", "@nuxt/image"
   ],
   imports: {
-    dirs: ["stores", "types"]
+    dirs: ["stores",
+      "types"
+    ]
   },
   app: {
     head: {

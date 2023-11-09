@@ -1,25 +1,25 @@
 <template>
   <div>
-    <div v-if="recipe.author.id === publicUser.id">
+    <div v-if="recipeData.author.id === publicUser.id">
       <NuxtLink :to="`/recettes/${route.params.id}/edit`" type="button" class="btn-outline-secondary">
         Edit
       </NuxtLink>
     </div>
     <h2 class="text-2xl">
-      {{ useCapitalize(recipe.name) }}
+      {{ useCapitalize(recipeData.name) }}
     </h2>
-    <p>by {{ recipe.author.username || "undefined" }}</p>
+    <p>by {{ recipeData.author.username || "undefined" }}</p>
     <p class="w-full text-center">
-      Temps de préparation: {{ recipe.cooking_time }} minutes
+      Temps de préparation: {{ recipeData.cooking_time }} minutes
     </p>
     <div class="bg-slate-200 rounded-xl p-4 mt-8">
       <p class="whitespace-pre">
-        {{ recipe.description }}
+        {{ recipeData.description }}
       </p>
     </div>
     <div class="p-4">
       <p class="whitespace-pre">
-        {{ recipe.content }}
+        {{ recipeData.content }}
       </p>
     </div>
   </div>
@@ -29,26 +29,18 @@
 const route = useRoute()
 const user = useSupabaseUser()
 
-const { data: recipeData, error: recipeError } = await useFetch("/api/getRecipeById", {
+const { data: recipeData, error: recipeError } = await useFetch("/api/recipe", {
+  method: "get",
   query: { id: route.params.id }
 })
 
-if (recipeError.value || recipeData.value.error || recipeData.value.data.length === 0) {
-  throw new Error("No such recipe")
+if (recipeError.value) {
+  throw new Error("Error during the useFetch call")
 }
 
 const { data: publicUserData, error: publicUserError } = await useFetch("/api/getPublicUser")
 
-const recipe = recipeData.value.data[0]
 const publicUser = publicUserData.value.data[0]
-
-const test = await useFetch("/api/test", {
-  method: "put",
-  body: { id: route.params.id }
-})
-
-// console.log(test.data.value);
-console.log("test response", test.data.value[0]);
 
 definePageMeta({
   layout: "mobile-focus"
