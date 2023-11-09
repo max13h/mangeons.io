@@ -17,7 +17,7 @@
 
       <div class="w-full overflow-x-hidden flex-grow ">
         <swiper
-          v-if="formatedRecipe"
+          v-if="recipe"
           class="h-full"
           :allow-touch-move="false"
           :space-between="30"
@@ -30,16 +30,16 @@
           @reach-end="reachEnd = true"
         >
           <swiper-slide>
-            <RecipeFormNameAndDescription :name="formatedRecipe[0].name" :description="formatedRecipe[0].description" />
+            <RecipeFormNameAndDescription :name="recipe.name" :description="recipe.description" />
           </swiper-slide>
           <swiper-slide>
-            <RecipeFormCookingTimeAndKitchenEquipments :cooking-time="formatedRecipe[0].cooking_time" />
+            <RecipeFormCookingTimeAndKitchenEquipments :cooking-time="recipe.cooking_time" />
           </swiper-slide>
           <swiper-slide>
             <RecipeFormAlimentaryProducts />
           </swiper-slide>
           <swiper-slide>
-            <RecipeFormContent :content="formatedRecipe[0].content"></RecipeFormContent>
+            <RecipeFormContent :content="recipe.content"></RecipeFormContent>
           </swiper-slide>
         </swiper>
       </div>
@@ -77,25 +77,20 @@ const pageNb = ref(1)
 
 const arrayOfErrors: globalThis.Ref<string[]> = ref([])
 
-const formatedRecipe: globalThis.Ref<fetchRecipe[] | null> = ref(null)
+const recipe: globalThis.Ref<any> = ref(null)
 
 onMounted(async () => {
-  const {
-    recipeData: { value: { data: recipe } },
-    kitchenEquipmentsData: { value: { data: kitchenEquipments } },
-    alimentaryProductsData: { value: { data: alimentaryProducts } }
-  } = await useFetchRecipeData(route.params.id)
-
-  const formatedAlimentaryProducts = alimentaryProducts.map((item: any) => {
-    item.details = item.alimentary_product_id
-    delete item.alimentary_product_id
-    return item
+  const { data, error } = await useFetch("/api/recipe", {
+    query: { id: route.params.id }
   })
-  const formatedKitchenEquipments = kitchenEquipments.map((item: any) => item.kitchen_equipment_id)
 
-  formatedRecipe.value = recipe
-  recipeStore.selectedAlimentaryProducts = formatedAlimentaryProducts
-  recipeStore.selectedKitchenEquipments = formatedKitchenEquipments
+  if (error.value) {
+    throw new Error("Error on fetch")
+  }
+
+  recipe.value = data.value
+  recipeStore.selectedAlimentaryProducts = data.value.alimentary_products
+  recipeStore.selectedKitchenEquipments = data.value.kitchen_equipments
 })
 
 const { handleSubmit } = useForm({
@@ -104,26 +99,22 @@ const { handleSubmit } = useForm({
 
 const onSuccess = async (values: any) => {
   values.id = route.params.id
-  // const saveRecipe = await useFetch("/api/recipe", {
-  //   method: "put",
-  //   body: values
-  // })
 
-  // if (saveRecipe.status.value === "success") {
-  //   return navigateTo({
-  //     path: `/recettes/${saveRecipe.data.value}`,
-  //     query: {
-  //       backPageURL: "/recettes"
-  //     }
-  //   })
-  // } else {
-  //   console.log("error")
-  // }
-  console.log(values);
+  const { error, status } = await useFetch("/api/recipe", {
+    method: "put",
+    body: { recipe_data: values }
+  })
 
-  const supabase = useSupabaseClient()
-  const a = await supabase.rpc("update_recipe_entirely", { recipe_object: values })
-  console.log(a)
+  if (status.value === "success") {
+    return navigateTo({
+      path: `/recettes/${route.params.id}`,
+      query: {
+        backPageURL: "/recettes"
+      }
+    })
+  } else {
+    throw new Error(`Error on useFetch => ${JSON.stringify(error)}`)
+  }
 }
 const onInvalidSubmit = ({ values, errors }: {errors: any}) => {
   arrayOfErrors.value = Object.values(errors)
