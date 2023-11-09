@@ -4,7 +4,7 @@
       name="name"
       type="text"
       placeholder="Tarte à la fraise"
-      :disable-tab="true"
+      :disable-tab="false"
       label="Nom de votre recette 🍽️"
       label-class="text-xl mb-4"
       :value="props.name"
@@ -15,7 +15,7 @@
       label="Description de votre recette 😋"
       label-class="text-xl mb-4"
       :placeholder="placeholder"
-      :disable-tab="true"
+      :disable-tab="false"
       class="min-h-[300px]"
       :value="props.description"
     >

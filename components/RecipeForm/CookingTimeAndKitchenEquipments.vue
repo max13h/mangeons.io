@@ -13,7 +13,7 @@
       label="Temps de préparation de votre recette (en minute) ⏲️"
       label-class="text-xl mb-4"
       placeholder="20"
-      :disable-tab="true"
+      :disable-tab="false"
       :value="props.cookingTime"
     />
     <RecipeFormKitchenEquipments />

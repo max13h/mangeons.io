@@ -30,7 +30,7 @@
         {{ useCapitalize(errorMessage) }}
       </span>
     </div>
-    <button class="btn-outline-secondary w-full mb-8" tabindex="-1" @click="useAddAlimentaryProductsModal">
+    <button class="btn-outline-secondary w-full mb-8" @click="useAddAlimentaryProductsModal">
       Ajouter un ingrédient
       <i class="ri-add-circle-line text-xl align-middle" />
     </button>

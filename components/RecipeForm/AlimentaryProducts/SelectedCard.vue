@@ -21,7 +21,6 @@
           name="quantity"
           placeholder="100"
           class="max-w-[6rem] me-4"
-          tabindex="-1"
         >
         <div class="flex flex-col">
           <input
@@ -31,7 +30,6 @@
             list="unitsList"
             placeholder="g"
             class="max-w-[6rem]"
-            tabindex="-1"
           >
           <datalist id="unitsList">
             <option v-for="unitName, index in options" :key="index" :value="unitName" />

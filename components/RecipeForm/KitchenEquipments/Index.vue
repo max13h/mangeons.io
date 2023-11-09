@@ -22,7 +22,7 @@
         {{ useCapitalize(errorMessage) }}
       </span>
     </div>
-    <button class="btn-outline-secondary w-full mb-4" tabindex="-1" @click="useAddKitchenEquipmentsModal">
+    <button class="btn-outline-secondary w-full mb-4" @click="useAddKitchenEquipmentsModal">
       Ajouter un équipement de cuisine
       <i class="ri-add-circle-line text-xl align-middle" />
     </button>
