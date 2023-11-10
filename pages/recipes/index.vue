@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <NuxtLink to="/recipes/">Mes recettes</NuxtLink>
+    <NuxtLink to="/recipes/private" class="btn-outline-secondary inline-block text-center  w-full mb-4">
+      Mes recettes
+    </NuxtLink>
     <div v-if="recipes && recipes.length === 0" class="flex flex-col h-full justify-center items-center">
       <p>Pas de recette disponible</p>
       <NuxtLink to="/recipes/new" class="btn-secondary mt-16">

@@ -16,7 +16,7 @@
         </NuxtLink>
       </li>
       <li class="ml-2">
-        <NuxtLink to="/liste-de-course" class="flex items-center on-click" exact-active-class="none">
+        <NuxtLink to="/shopping-list" class="flex items-center on-click" exact-active-class="none">
           <i class="ri-todo-line mr-1" />
           <p>Mes listes de courses</p>
         </NuxtLink>

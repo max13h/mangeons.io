@@ -1,7 +1,7 @@
 <template>
   <div>
     <button type="button" ></button>
-    <NuxtLink to="/liste-de-course/new" class=" inline-block p-5 bg-primary rounded-3xl on-click">Créer une Liste</NuxtLink>
+    <NuxtLink to="/shopping-list/new" class=" inline-block p-5 bg-primary rounded-3xl on-click">Créer une Liste</NuxtLink>
   </div>
 </template>
 
