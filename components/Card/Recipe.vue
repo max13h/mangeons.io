@@ -8,16 +8,28 @@
       <p class="text-sm truncate italic">
         {{ props.recipe.description }}
       </p>
-      <p class="w-full text-end text-xs mt-2">
-        <i class="ri-time-line" />
-        {{ props.recipe.cooking_time }} min
-      </p>
+      <div class="flex justify-between">
+        <p v-if="props.showIsPublic" class="w-full text-xs mt-2">
+          <i
+            class=""
+            :class="[
+              props.recipe.is_public ? 'text-green-500' : 'text-black',
+              props.recipe.is_public ? 'ri-checkbox-circle-line' : 'ri-lock-line'
+            ]"
+          />
+          {{ props.recipe.is_public ? "Publié" : "Privé" }}
+        </p>
+        <p class="w-full text-end text-xs mt-2">
+          <i class="ri-time-line" />
+          {{ props.recipe.cooking_time }} min
+        </p>
+      </div>
     </div>
   </NuxtLink>
 </template>
 
 <script setup lang="ts">
-const props = defineProps(["recipe"])
+const props = defineProps(["recipe", "showIsPublic"])
 </script>
 
 <style scoped>

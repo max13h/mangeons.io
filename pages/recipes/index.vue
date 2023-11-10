@@ -11,7 +11,7 @@
     </div>
     <div v-else class="flex flex-col items-center">
       <div v-for="recipe in recipes" :key="recipe.id" class="w-full mb-4">
-        <CardRecipe :recipe="recipe"></CardRecipe>
+        <CardRecipe :recipe="recipe" :show-is-public="false"></CardRecipe>
       </div>
       <NuxtLink to="/recipes/new" class="btn-secondary mt-16">
         Poster une recette

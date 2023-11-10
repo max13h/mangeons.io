@@ -3,9 +3,12 @@
     <div v-if="recipes && recipes.length === 0" class="flex flex-col h-full justify-center items-center">
       <p>Vous n'avez pas encore créé de recettes</p>
     </div>
-    <div v-else class="flex flex-col items-center">
-      <div v-for="recipe in recipes" :key="recipe.id" class="w-full mb-4">
-        <CardRecipe :recipe="recipe"></CardRecipe>
+    <div v-else class="flex flex-col w-full">
+      <div v-for="publicRecipe in publicRecipes" :key="publicRecipe.id" class="w-full mb-4">
+        <CardRecipe :recipe="publicRecipe" :show-is-public="true"></CardRecipe>
+      </div>
+      <div v-for="privateRecipe in privateRecipes" :key="privateRecipe.id" class="w-full mb-4">
+        <CardRecipe :recipe="privateRecipe" :show-is-public="true"></CardRecipe>
       </div>
     </div>
     <NuxtLink to="/recipes/new" class="btn-secondary mt-16">
@@ -30,6 +33,12 @@ const { data: recipes, error } = await useFetch("/api/recipes/userRecipes", {
 if (error.value) {
   throw new Error(JSON.stringify(error.value))
 }
+
+const publicRecipes = recipes.value.filter((recipe) => recipe.is_public === true)
+const privateRecipes = recipes.value.filter((recipe) => recipe.is_public === false)
+
+console.log(publicRecipes)
+console.log(privateRecipes)
 </script>
 
 <style scoped>
