@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="publicUser.id == recipeData.author.id">
-      <NuxtLink :to="`/recettes/${route.params.id}/edit`" type="button" class="btn-outline-secondary">
+      <NuxtLink :to="`/recipes/${route.params.id}/edit`" type="button" class="btn-outline-secondary">
         Edit
       </NuxtLink>
     </div>

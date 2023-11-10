@@ -22,7 +22,7 @@
         </NuxtLink>
       </li>
       <li class="ml-2">
-        <NuxtLink to="/recettes" class="flex items-center on-click" exact-active-class="none">
+        <NuxtLink to="/recipes" class="flex items-center on-click" exact-active-class="none">
           <i class="ri-restaurant-2-line mr-1" />
           <p>Recettes</p>
         </NuxtLink>
