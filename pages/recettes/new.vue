@@ -83,7 +83,7 @@ const onSuccess = async (values: any) => {
   const publicUser = await useGetPublicUser()
   values.author = publicUser.value.id
 
-  const { data, error, status } = await useFetch("/api/recipe", {
+  const { data, error, status } = await useFetch("/api/recipe/recipe", {
     method: "post",
     body: { recipe_data: values }
   })

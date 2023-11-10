@@ -29,7 +29,7 @@
 const route = useRoute()
 const publicUser = await useGetPublicUser()
 
-const { data: recipeData, error: recipeError } = await useFetch("/api/recipe", {
+const { data: recipeData, error: recipeError } = await useFetch("/api/recipe/recipe", {
   method: "get",
   query: { id: route.params.id }
 })

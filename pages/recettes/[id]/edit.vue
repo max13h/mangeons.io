@@ -80,7 +80,7 @@ const arrayOfErrors: globalThis.Ref<string[]> = ref([])
 const recipe: globalThis.Ref<any> = ref(null)
 
 onMounted(async () => {
-  const { data, error } = await useFetch("/api/recipe", {
+  const { data, error } = await useFetch("/api/recipe/recipe", {
     query: { id: route.params.id }
   })
 
@@ -100,7 +100,7 @@ const { handleSubmit } = useForm({
 const onSuccess = async (values: any) => {
   values.id = route.params.id
 
-  const { error, status } = await useFetch("/api/recipe", {
+  const { error, status } = await useFetch("/api/recipe/recipe", {
     method: "put",
     body: { recipe_data: values }
   })
