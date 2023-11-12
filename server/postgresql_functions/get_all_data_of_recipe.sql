@@ -7,6 +7,7 @@ or replace function get_all_data_of_recipe (recipe_id uuid) returns table (
   description text,
   content text,
   cooking_time smallint,
+  image_url text,
   alimentary_products jsonb[],
   kitchen_equipments jsonb[]
 ) as $$
@@ -23,6 +24,7 @@ begin
     r.description,
     r.content,
     r.cooking_time,
+    r.image_url,
     array(
       select
         jsonb_build_object(

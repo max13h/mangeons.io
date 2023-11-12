@@ -36,9 +36,6 @@ if (error.value) {
 
 const publicRecipes = recipes.value.filter((recipe) => recipe.is_public === true)
 const privateRecipes = recipes.value.filter((recipe) => recipe.is_public === false)
-
-console.log(publicRecipes)
-console.log(privateRecipes)
 </script>
 
 <style scoped>

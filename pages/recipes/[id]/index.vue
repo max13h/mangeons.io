@@ -1,10 +1,6 @@
 <template>
   <div>
-    <div v-if="publicUser.id == recipeData.author.id">
-      <NuxtLink :to="`/recipes/${route.params.id}/edit`" type="button" class="btn-outline-secondary">
-        Edit
-      </NuxtLink>
-    </div>
+    <RecipeImage :image-url="recipeData.image_url" />
     <h2 class="text-2xl">
       {{ useCapitalize(recipeData.name) }}
     </h2>
@@ -22,10 +18,18 @@
         {{ recipeData.content }}
       </p>
     </div>
+    <div v-if="publicUser.id == recipeData.author.id">
+      <NuxtLink :to="`/recipes/${route.params.id}/edit`" type="button" class="btn-outline-secondary">
+        Edit
+      </NuxtLink>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  layout: "mobile-focus"
+})
 const route = useRoute()
 const publicUser = await useGetPublicUser()
 
@@ -37,10 +41,6 @@ const { data: recipeData, error: recipeError } = await useFetch("/api/recipe/rec
 if (recipeError.value) {
   throw new Error("Error during the useFetch call")
 }
-
-definePageMeta({
-  layout: "mobile-focus"
-})
 </script>
 
 <style scoped>
