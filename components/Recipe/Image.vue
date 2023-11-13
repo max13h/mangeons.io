@@ -5,6 +5,7 @@
       <p v-if="uploadedFile" class="font-bold w-full text-center mt-4">
         {{ uploadedFile.name }}
       </p>
+      <NuxtImg v-if="tempURL" :src="tempURL" />
       <button type="button" class="btn-secondary w-full mt-4" @click="handleConfirmImageUpload">
         Confirmer
       </button>
@@ -12,9 +13,10 @@
         Annuler
       </button>
     </Teleport>
+
     <div class="relative overflow-hidden rounded-xl w-full h-32 mb-4 border-2 bg-slate-200">
-      <div v-if="props.imageUrl">
-        <NuxtImg :src="props.imageUrl" alt="recipe image" quality="0" fit="contain" class="absolute absolute-center" />
+      <div v-if="imageUrl">
+        <NuxtImg :src="imageUrl" alt="recipe image" class="absolute absolute-center object-cover w-full h-full" />
         <label for="recipe-image" class="absolute bottom-0 right-0 w-8 h-8 z-10">
           <input type="file" accept="image/*" name="recipe-image" class="border-none opacity-0 w-full h-full cursor-pointer absolute absolute-center z-50" @change="handleChangeRecipeImage">
           <i class="ri-image-edit-line text-2xl absolute absolute-center z-10" />
@@ -35,25 +37,29 @@
 
 <script setup lang="ts">
 const modalStore = useModalStore()
-const uploadedFile = ref(undefined)
+const uploadedFile: any = ref(undefined)
+const tempURL: globalThis.Ref<string> = ref("")
 const route = useRoute()
-
 const props = defineProps<{
   imageUrl: string
 }>()
+const imageUrl: globalThis.Ref<string> = ref(props.imageUrl)
 
-const handleChangeRecipeImage = (event) => {
+const handleChangeRecipeImage = (event: any) => {
   const file = event.target.files[0]
   if (!file) {
     return false
   }
+
   uploadedFile.value = file
+  tempURL.value = URL.createObjectURL(file)
 
   useOpenModal("confirmeRecipeImageChange")
 }
 const handleCancelImageUpload = () => {
   modalStore.close()
   uploadedFile.value = undefined
+  tempURL.value = ""
 }
 const handleConfirmImageUpload = async () => {
   modalStore.close()
@@ -62,13 +68,30 @@ const handleConfirmImageUpload = async () => {
   const user = useSupabaseUser()
 
   if (user.value) {
-    const { data, error } = await supabase.storage
+    const { error: uploadError } = await supabase.storage
       .from("recipes")
       .upload(`${user.value.id}/${route.params.id}`, uploadedFile.value, {
         upsert: true
       })
-    console.log("data", data)
-    console.log("error", error)
+
+    if (uploadError) {
+      throw new Error("Error on upload image")
+    }
+
+    const { data: publicUrlData } = await supabase.storage
+      .from("recipes")
+      .getPublicUrl(`${user.value.id}/${route.params.id}`)
+
+    imageUrl.value = tempURL.value
+
+    const { error: insertError } = await supabase
+      .from("recipes")
+      .update({ image_url: publicUrlData.publicUrl })
+      .eq("id", route.params.id)
+
+    if (insertError) {
+      throw new Error("Error on upsert new public url")
+    }
   }
 }
 </script>

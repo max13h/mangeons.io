@@ -44,8 +44,5 @@ export default defineNuxtConfig({
       callback: "/confirm",
       exclude: ["/", "/register"]
     }
-  },
-  image: {
-    quality: 90
   }
 })

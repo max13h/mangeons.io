@@ -1,6 +1,13 @@
 <template>
   <NuxtLink :to="`/recipes/${recipe.id}`" class="bg-light rounded-xl shadow w-full h-full flex">
-    <NuxtImg src="/default/recipe.png" alt="default recipe image" width="100px" class="rounded-l-xl object-cover" />
+    <NuxtImg
+      :src="props.recipe.image_url || '/default/recipe.png'"
+      alt="default recipe image"
+      width="100px"
+      height="100px"
+      class="rounded-l-xl object-cover min-w-[100px]"
+      placeholder
+    />
     <div class="p-4 flex-grow overflow-hidden">
       <p class="text-lg truncate w-full">
         {{ props.recipe.name }}
@@ -29,7 +36,10 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps(["recipe", "showIsPublic"])
+const props = defineProps<{
+  recipe: any;
+  showIsPublic: boolean
+}>()
 </script>
 
 <style scoped>

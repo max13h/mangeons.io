@@ -5,10 +5,10 @@
     </div>
     <div v-else class="flex flex-col w-full">
       <div v-for="publicRecipe in publicRecipes" :key="publicRecipe.id" class="w-full mb-4">
-        <CardRecipe :recipe="publicRecipe" :show-is-public="true"></CardRecipe>
+        <RecipeCard :recipe="publicRecipe" :show-is-public="true" />
       </div>
       <div v-for="privateRecipe in privateRecipes" :key="privateRecipe.id" class="w-full mb-4">
-        <CardRecipe :recipe="privateRecipe" :show-is-public="true"></CardRecipe>
+        <RecipeCard :recipe="privateRecipe" :show-is-public="true" />
       </div>
     </div>
     <NuxtLink to="/recipes/new" class="btn-secondary mt-16">
