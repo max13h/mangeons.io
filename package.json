@@ -20,6 +20,7 @@
     "@types/node": "^18.17.3",
     "eslint": "^8.48.0",
     "nuxt": "^3.6.5",
+    "supabase": "^1.110.1",
     "typescript": "^5.2.2"
   },
   "dependencies": {
