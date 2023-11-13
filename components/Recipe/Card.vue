@@ -26,10 +26,15 @@
           />
           {{ props.recipe.is_public ? "Publié" : "Privé" }}
         </p>
-        <p class="w-full text-end text-xs mt-2">
-          <i class="ri-time-line" />
-          {{ props.recipe.cooking_time }} min
-        </p>
+        <div class="flex justify-between w-full mt-2">
+          <p class="text-xs">
+            {{ props.recipe.meal_category_id.name_fr }}
+          </p>
+          <p class="text-xs ">
+            <i class="ri-time-line" />
+            {{ props.recipe.cooking_time }} min
+          </p>
+        </div>
       </div>
     </div>
   </NuxtLink>

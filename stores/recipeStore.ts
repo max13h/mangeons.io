@@ -49,6 +49,8 @@ export const useRecipeStore = defineStore("recipe", () => {
       .moreThan(0, "le temps de préparation doit être superieur à 0")
       .truncate()
       .required("Le temps de préparation est requis"),
+    category: string()
+      .required("La catégorie est requise"),
     selectedKitchenEquipments: array(_schemaSelectedKitchenEquipment)
       .notRequired(),
     selectedAlimentaryProducts: array()

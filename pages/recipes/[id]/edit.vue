@@ -30,7 +30,7 @@
           @reach-end="reachEnd = true"
         >
           <swiper-slide>
-            <RecipeFormNameAndDescription :name="recipe.name" :description="recipe.description" />
+            <RecipeFormNameDescriptionAndCategory :name="recipe.name" :description="recipe.description" :category="recipe.meal_category_id" />
           </swiper-slide>
           <swiper-slide>
             <RecipeFormCookingTimeAndKitchenEquipments :cooking-time="recipe.cooking_time" />
@@ -91,6 +91,8 @@ onMounted(async () => {
   recipe.value = data.value
   recipeStore.selectedAlimentaryProducts = data.value.alimentary_products
   recipeStore.selectedKitchenEquipments = data.value.kitchen_equipments
+
+  console.log();
 })
 
 const { handleSubmit } = useForm({

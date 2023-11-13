@@ -1,6 +1,6 @@
 <template>
   <div>
-    <RecipeImage :image-url="recipeData.image_url" @update-image="reloadPage" />
+    <RecipeImage :image-url="recipeData.image_url" />
     <h2 class="text-2xl">
       {{ useCapitalize(recipeData.name) }}
     </h2>
@@ -37,12 +37,6 @@ const { data: recipeData, error: recipeError } = await useFetch("/api/recipe/rec
   method: "get",
   query: { id: route.params.id }
 })
-
-const reloadPage = () => {
-  setTimeout(() => {
-    reloadNuxtApp()
-  }, 3000)
-}
 
 if (recipeError.value) {
   throw new Error("Error during the useFetch call")

@@ -9,28 +9,28 @@
       {{ useCapitalize(props.label) }}
     </label>
     <select
-      v-bind="props.model"
+      v-model="value"
       :name="props.name"
       :placeholder="props.placeholder"
       :tabindex="props.disableTab ? '-1' : '0'"
       :class="props.class"
-      class="h-[2rem]"
       autofocus
     >
       <option
         v-for="option, index in props.options"
         :key="index"
-        :value="option"
+        :value="Array.isArray(option) ? option[0] : option"
+        :selected="props.value === (Array.isArray(option) ? option[0] : option) ? true : false"
       >
-        {{ option }}
+        {{ Array.isArray(option) ? option[1] : option }}
       </option>
     </select>
     <div class="mb-4">
       <span
-        v-if="props.error"
+        v-if="errorMessage"
         class="text-red-500 text-sm"
       >
-        {{ useCapitalize(props.error) }}
+        {{ useCapitalize(errorMessage) }}
       </span>
     </div>
   </div>
@@ -38,18 +38,23 @@
 
 <script setup lang="ts">
 interface Props {
+  options: any[]
+  name: string;
+  placeholder?: string;
+  value?: string;
+  class?: string;
+  disableTab: boolean;
   label?: string;
   labelClass?: string;
-  model: any;
-  name: string;
-  error?: string;
-  placeholder?: string;
-  disableTab: boolean;
-  class?: string;
-  options: string[]
 }
 
 const props = defineProps<Props>()
+
+const { value, errorMessage } = useField(() => props.name)
+
+if (props.value) {
+  value.value = props.value
+}
 </script>
 
 <style scoped>

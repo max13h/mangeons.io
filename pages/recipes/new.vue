@@ -29,7 +29,7 @@
           @reach-end="reachEnd = true"
         >
           <swiper-slide>
-            <RecipeFormNameAndDescription></RecipeFormNameAndDescription>
+            <RecipeFormNameDescriptionAndCategory />
           </swiper-slide>
           <swiper-slide>
             <RecipeFormCookingTimeAndKitchenEquipments></RecipeFormCookingTimeAndKitchenEquipments>
