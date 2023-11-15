@@ -634,10 +634,7 @@ type flow_stateParentsInputs<TPath extends string[]> = {
 
 };
 type flow_stateChildrenInputs<TPath extends string[]> = {
-  /**
-  * Relationship from table `flow_state` to table `saml_relay_states` through the column `saml_relay_states.flow_state_id`.
-  */
-  saml_relay_states: OmitChildInputs<saml_relay_statesChildInputs<[...TPath, "saml_relay_states"]>, "flow_state" | "flow_state_id">;
+
 };
 type flow_stateInputs<TPath extends string[]> = Inputs<
   flow_stateScalars,
@@ -1793,16 +1790,8 @@ type saml_relay_statesScalars = {
    * Column `saml_relay_states.updated_at`.
    */
   updated_at: string | null;
-  /**
-   * Column `saml_relay_states.flow_state_id`.
-   */
-  flow_state_id: string | null;
 }
 type saml_relay_statesParentsInputs<TPath extends string[]> = {
-  /**
-   * Relationship from table `saml_relay_states` to table `flow_state` through the column `saml_relay_states.flow_state_id`.
-   */
-  flow_state: OmitParentInputs<flow_stateParentInputs<[...TPath, "flow_state"]>, "saml_relay_states", [...TPath, "flow_state"]>;
   /**
    * Relationship from table `saml_relay_states` to table `sso_providers` through the column `saml_relay_states.sso_provider_id`.
    */
@@ -2455,7 +2444,7 @@ type flow_stateParentsGraph = {
 
 };
 type flow_stateChildrenGraph = {
- saml_relay_states: OmitParentGraph<saml_relay_statesGraph, "flow_state">;
+
 };
 type flow_stateGraph = Array<{
   Scalars: flow_stateScalars;
@@ -2738,7 +2727,6 @@ type saml_providersGraph = Array<{
   Children: saml_providersChildrenGraph;
 }>;
 type saml_relay_statesParentsGraph = {
- flow_state: OmitChildGraph<flow_stateGraph, "saml_relay_states">;
  sso_providers: OmitChildGraph<sso_providersGraph, "saml_relay_states">;
 };
 type saml_relay_statesChildrenGraph = {
@@ -3007,7 +2995,6 @@ type Override = {
       created_at?: string;
       updated_at?: string;
       authentication_method?: string;
-      saml_relay_states?: string;
     };
   }
   hooks?: {
@@ -3319,8 +3306,6 @@ type Override = {
       from_ip_address?: string;
       created_at?: string;
       updated_at?: string;
-      flow_state_id?: string;
-      flow_state?: string;
       sso_providers?: string;
     };
   }

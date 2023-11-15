@@ -260,7 +260,6 @@ interface Table_auth_saml_relay_states {
   from_ip_address: string | null;
   created_at: string | null;
   updated_at: string | null;
-  flow_state_id: string | null;
 }
 interface Table_auth_schema_migrations {
   version: string;
@@ -488,14 +487,6 @@ interface Tables_relationships {
        objects_bucketId_fkey: "storage.objects";
     };
   };
-  "auth.flow_state": {
-    parent: {
-
-    };
-    children: {
-       saml_relay_states_flow_state_id_fkey: "auth.saml_relay_states";
-    };
-  };
   "public.households": {
     parent: {
        households_user_id_fkey: "public.users";
@@ -663,7 +654,6 @@ interface Tables_relationships {
   };
   "auth.saml_relay_states": {
     parent: {
-       saml_relay_states_flow_state_id_fkey: "auth.flow_state";
        saml_relay_states_sso_provider_id_fkey: "auth.sso_providers";
     };
     children: {
