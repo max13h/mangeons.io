@@ -19,17 +19,14 @@ export default defineNuxtConfig({
       title: "mangeons.io",
       meta: [
         { name: "viewport", content: "width=device-width, initial-scale=1" },
-        {
-          name: "description",
-          content:
-            "Optimises la préparation des repas et simplifier tes courses !"
-        }
+        { name: "description", content: "Optimises la préparation des repas et simplifie tes courses !" },
+        { name: "theme-color", content: "#14cc60" }
       ],
       link: [
-        {
-          rel: "stylesheet",
-          href: "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
-        }
+        { rel: "stylesheet", href: "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" },
+        { rel: "icon", href: "/favicon.ico" },
+        { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
+        { rel: "mask-icon", href: "/mask-icon.svg", color: "#FFFFFF" }
       ],
       noscript: [{ children: "JavaScript is required" }]
     }
