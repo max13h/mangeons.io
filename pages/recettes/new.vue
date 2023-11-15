@@ -90,9 +90,9 @@ const onSuccess = async (values: any) => {
 
   if (status.value === "success") {
     return navigateTo({
-      path: `/recipes/${data.value}`,
+      path: `/recettes/${data.value}`,
       query: {
-        backPageURL: "/recipes"
+        backPageURL: "/recettes"
       }
     })
   } else {

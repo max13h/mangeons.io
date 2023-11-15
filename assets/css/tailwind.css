@@ -45,7 +45,7 @@ body {
     @apply bg-white h-screen
 }
 
-.router-link-exact-active {
+/* .router-link-exact-active {
     @apply text-primary-200 relative;
 
 }
@@ -58,10 +58,10 @@ body {
     background-color: #8aead0;
     height: 2px;
     border-radius: 15px;
-}
+} */
 
 .on-click:active {
-    transform: scale(0.99);
+    transform: scale(0.95);
 }
 
 input, textarea, select {

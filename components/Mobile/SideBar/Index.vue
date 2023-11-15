@@ -9,6 +9,5 @@
 </template>
 
 <script setup lang="ts">
-import { usePageStore } from "../../stores/pageStore"
 const pageStore = usePageStore()
 </script>

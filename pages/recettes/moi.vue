@@ -11,7 +11,7 @@
         <RecipeCard :recipe="privateRecipe" :show-is-public="true" />
       </div>
     </div>
-    <NuxtLink to="/recipes/new" class="btn-secondary mt-16">
+    <NuxtLink to="/recettes/new" class="btn-secondary mt-16">
       Poster une recette
     </NuxtLink>
   </div>
@@ -25,7 +25,7 @@ useSetPageHeading("Mes recettes")
 
 const publicUser = await useGetPublicUser()
 
-const { data: recipes, error } = await useFetch("/api/recipes/userRecipes", {
+const { data: recipes, error } = await useFetch("/api/recettes/userRecipes", {
   method: "get",
   query: { id: publicUser.value.id }
 })

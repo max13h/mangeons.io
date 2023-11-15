@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="" v-if="menus?.length === 0">
+    <div v-if="menus?.length === 0">
       You don't have any menu created
     </div>
-    <div class="" v-else>
+    <div v-else>
       <h2>Here are your menus</h2>
       <div v-for="(menu, index) in menus" :key="index">
         <CardMenu :menu="menu" />
@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 definePageMeta({
-  layout: "mobile-full"
+  layout: "desktop"
 })
 await useSetPageHeading("Menus")
 
