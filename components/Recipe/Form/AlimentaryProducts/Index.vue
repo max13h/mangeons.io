@@ -27,7 +27,7 @@
         v-if="errorMessage"
         class="text-red-500 text-sm"
       >
-        {{ useCapitalize(errorMessage) }}
+        {{ capitalize(errorMessage) }}
       </span>
     </div>
     <button class="btn-outline-secondary w-full mb-8" @click="useAddAlimentaryProductsModal">

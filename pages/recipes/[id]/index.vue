@@ -2,7 +2,7 @@
   <div>
     <RecipeImage :image-url="recipeData.image_url" />
     <h2 class="text-2xl">
-      {{ useCapitalize(recipeData.name) }}
+      {{ capitalize(recipeData.name) }}
     </h2>
     <p>by {{ recipeData.author.username || "undefined" }}</p>
     <p class="w-full text-center">

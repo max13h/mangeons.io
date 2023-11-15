@@ -7,7 +7,8 @@ export default defineNuxtConfig({
     "@nuxtjs/supabase",
     "@vee-validate/nuxt",
     "@nuxt/image",
-    "@vite-pwa/nuxt"
+    "@vite-pwa/nuxt",
+    "@nuxtjs/device"
   ],
   imports: {
     dirs: ["stores",
@@ -47,5 +48,8 @@ export default defineNuxtConfig({
       callback: "/confirm",
       exclude: ["/", "/register"]
     }
+  },
+  device: {
+    refreshOnResize: true
   }
 })

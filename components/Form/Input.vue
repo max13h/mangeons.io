@@ -6,7 +6,7 @@
       class="inline-block"
       :class="props.labelClass"
     >
-      {{ useCapitalize(props.label) }}
+      {{ capitalize(props.label) }}
     </label>
     <input
       v-model="value"
@@ -23,7 +23,7 @@
         v-if="errorMessage"
         class="text-red-500 text-sm"
       >
-        {{ useCapitalize(errorMessage) }}
+        {{ capitalize(errorMessage) }}
       </span>
     </div>
   </div>

@@ -27,9 +27,11 @@ if (error.value) {
   throw new Error(JSON.stringify(error.value))
 }
 
-definePageMeta({
-  layout: "mobile-full"
-})
+const { isDesktop } = useDevice()
+console.log(isDesktop);
+
+setPageLayout(isDesktop ? false : "mobile-full")
+
 useSetPageHeading("Recettes")
 
 </script>

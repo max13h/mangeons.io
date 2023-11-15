@@ -64,7 +64,7 @@
       v-if="errorMessage"
       class="text-red-500 text-sm"
     >
-      {{ useCapitalize(errorMessage) }}
+      {{ capitalize(errorMessage) }}
     </span>
     <button class="btn-secondary w-full mt-4 mb-8" @click="addStep">
       Ajouter une étape
