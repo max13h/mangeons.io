@@ -1,7 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: false },
-  modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "@nuxtjs/supabase", "@vee-validate/nuxt", "@nuxt/image"
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "@pinia/nuxt",
+    "@nuxtjs/supabase",
+    "@vee-validate/nuxt",
+    "@nuxt/image",
+    "@vite-pwa/nuxt"
   ],
   imports: {
     dirs: ["stores",

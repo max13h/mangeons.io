@@ -6,7 +6,7 @@ export default eventHandler(async (event) => {
 
   const { data, error } = await supabase
     .from("recipes")
-    .select("id, name, cooking_time, description, is_public")
+    .select("id, name, cooking_time, description, image_url, meal_category_id (id, name_fr), is_public")
     .eq("author", query.id )
 
   useHandleSupabaseReturnError(error)
