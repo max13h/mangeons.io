@@ -14,9 +14,9 @@
 
 <script setup lang="ts">
 definePageMeta({
-  layout: "desktop"
+  layout: "app"
 })
-await useSetPageHeading("Menus")
+useSetPageHeading("Menus")
 
 const supabase = useSupabaseClient()
 

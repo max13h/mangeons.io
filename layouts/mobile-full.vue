@@ -1,10 +1,7 @@
 <template>
-  <div class="h-screen flex flex-col">
+  <div class="h-screen flex ">
     <MobileHeader />
-    <div class="grow overflow-y-scroll p-4">
-      <slot />
-    </div>
-    <MobileNavBar />
-    <MobileSideBar />
+
+
   </div>
 </template>

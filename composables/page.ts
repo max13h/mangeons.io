@@ -9,8 +9,3 @@ export const useToggleSideBar = () => {
   const store = usePageStore()
   store.isSideBarOpen = !store.isSideBarOpen
 }
-
-export const useSetPageLayout = (finalLayoutString: string) => {
-  const device = useDevice()
-  setPageLayout(device.isDesktop ? false : "mobile-full")
-}

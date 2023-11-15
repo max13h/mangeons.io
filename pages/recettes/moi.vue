@@ -25,7 +25,7 @@ useSetPageHeading("Mes recettes")
 
 const publicUser = await useGetPublicUser()
 
-const { data: recipes, error } = await useFetch("/api/recettes/userRecipes", {
+const { data: recipes, error } = await useFetch("/api/recipes/userRecipes", {
   method: "get",
   query: { id: publicUser.value.id }
 })

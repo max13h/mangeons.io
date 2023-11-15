@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-const { data: recipes, error } = await useFetch("/api/recettes/publicRecipes")
+const { data: recipes, error } = await useFetch("/api/recipes/publicRecipes")
 
 if (error.value) {
   throw new Error(JSON.stringify(error.value))

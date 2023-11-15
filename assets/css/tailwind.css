@@ -95,3 +95,7 @@ input:focus, textarea:focus, select:focus {
 .absolute-center {
   @apply absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4
 }
+
+.h-dynamic-screen {
+  height: 100dvh;
+}
