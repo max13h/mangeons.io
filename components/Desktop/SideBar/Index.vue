@@ -5,7 +5,7 @@
   >
     <MobileSideBarContent />
   </aside>
-  <div v-if="pageStore.isSideBarOpen" class="overlay absolute bg-dark opacity-50 w-screen h-dynamic-screen -z-01" @click="useToggleSideBar" />
+  <div v-if="pageStore.isSideBarOpen" class="overlay absolute bg-dark opacity-50 w-screen h-dynamic-screen" @click="useToggleSideBar" />
 </template>
 
 <script setup lang="ts">

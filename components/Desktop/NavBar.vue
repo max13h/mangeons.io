@@ -11,9 +11,9 @@
     "
   >
     <div class="flex flex-col items-center flex-grow">
-      <NuxtLink to="/listes-de-course" class="ri-todo-line text-light text-4xl py-2 on-click" />
-      <NuxtLink to="/menus" class="ri-restaurant-line text-light text-4xl py-2 on-click" />
-      <NuxtLink to="/recettes" class="ri-book-2-line text-light text-4xl py-2 on-click" />
+      <NuxtLink to="/listes-de-course" class="ri-todo-line text-light text-4xl py-2 on-click" exact-active-class="active-link" />
+      <NuxtLink to="/menus" class="ri-restaurant-line text-light text-4xl py-2 on-click" exact-active-class="active-link" />
+      <NuxtLink to="/recettes" class="ri-book-2-line text-light text-4xl py-2 on-click" exact-active-class="active-link" />
     </div>
     <i
       class="text-light text-4xl py-2 on-click"
