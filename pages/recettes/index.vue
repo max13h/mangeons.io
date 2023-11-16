@@ -21,17 +21,15 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  layout: "app"
+})
+
 const { data: recipes, error } = await useFetch("/api/recipes/publicRecipes")
 
 if (error.value) {
   throw new Error(JSON.stringify(error.value))
 }
 
-const { isDesktop } = useDevice()
-console.log(isDesktop);
-
-
-
 useSetPageHeading("Recettes")
-
 </script>

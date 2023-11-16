@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 definePageMeta({
-  layout: "mobile-full"
+  layout: "app"
 })
 useSetPageHeading("Profil")
 

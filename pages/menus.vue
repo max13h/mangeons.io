@@ -16,6 +16,7 @@
 definePageMeta({
   layout: "app"
 })
+
 useSetPageHeading("Menus")
 
 const supabase = useSupabaseClient()

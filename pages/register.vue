@@ -47,7 +47,9 @@
 </template>
 
 <script setup lang="ts">
-import { useForm } from "vee-validate"
+definePageMeta({
+  layout: "auth"
+})
 
 const authStore = useAuthStore()
 authStore.resetAuthStore()
@@ -60,9 +62,5 @@ const onSubmit = handleSubmit(async (values) => {
   authStore.resetAuthStore()
   if (useArePasswordsNotSimilar(values.password, values.confirmPassword)) { return }
   await useSignIn(values.email, values.password)
-})
-
-definePageMeta({
-  layout: "auth"
 })
 </script>

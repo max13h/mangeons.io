@@ -41,6 +41,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  layout: "auth"
+})
+
 const authStore = useAuthStore()
 if (authStore.isError === true) {
   authStore.resetAuthStore()
@@ -53,10 +57,6 @@ const { handleSubmit } = useForm({
 const onSubmit = handleSubmit(async (values) => {
   authStore.resetAuthStore()
   await useLogIn(values.email, values.password)
-})
-
-definePageMeta({
-  layout: "auth"
 })
 </script>
 

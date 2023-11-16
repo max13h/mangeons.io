@@ -38,6 +38,7 @@ const modalStore = useModalStore()
     @apply p-4 relative bg-white flex flex-col rounded-3xl border-2 border-secondary overflow-y-scroll w-full m-8;
     box-shadow: 0px 0px 33px 0px #00000063;
     min-width: 200px;
+    max-width: 560px;
     min-height: 200px;
     max-height: 80vh;
   }

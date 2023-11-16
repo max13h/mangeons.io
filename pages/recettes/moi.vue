@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
 definePageMeta({
-  layout: "mobile-focus"
+  layout: "app-focus"
 })
 useSetPageHeading("Mes recettes")
 

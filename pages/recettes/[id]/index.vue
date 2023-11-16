@@ -9,7 +9,7 @@
       Temps de préparation: {{ recipeData.cooking_time }} minutes
     </p>
     <div class="bg-slate-200 rounded-xl p-4 mt-8">
-      <p class="whitespace-pre">
+      <p class="whitespace-normal">
         {{ recipeData.description }}
       </p>
     </div>
@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 definePageMeta({
-  layout: "mobile-focus"
+  layout: "app-focus"
 })
 const route = useRoute()
 const publicUser = await useGetPublicUser()

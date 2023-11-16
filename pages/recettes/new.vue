@@ -43,7 +43,7 @@
         </swiper>
       </div>
     </div>
-    <div class="flex justify-between w-full min-w-[100px] my-shadow z-20 p-4 relative bg-light">
+    <div class="flex justify-between w-11/12 min-w-[100px] border border-slate-100 shadow-xl z-20 mb-4 mx-4 p-4 relative bg-light rounded-3xl ">
       <button type="button" class="swiper-button-prev page-btn">
         <i class="ri-arrow-left-double-line" />
       </button>
@@ -64,7 +64,7 @@ import { Swiper, SwiperSlide } from "swiper/vue"
 import "swiper/css"
 
 definePageMeta({
-  layout: "mobile-deep-focus"
+  layout: "app-deep-focus"
 })
 const recipeStore = useRecipeStore()
 const modalStore = useModalStore()
