@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen bg-light flex flex-col items-center p-4 text-center">
+  <div class="h-dynamic-screen bg-light flex flex-col items-center p-4 text-center">
     <div class="flex-grow flex flex-col items-center p-4">
       <NuxtImg src="/logos/LONG_LIGHT_LOGO.svg" class="w-[66%] my-8" />
       <h1 class="">

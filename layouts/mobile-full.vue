@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen flex ">
+  <div class="h-dynamic-screen flex ">
     <MobileHeader />
 
 

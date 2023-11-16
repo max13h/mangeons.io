@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen bg-green-200 flex justify-center items-center ">
+  <div class="h-dynamic-screen bg-green-200 flex justify-center items-center ">
     <NuxtLink to="/" class="absolute top-8 left-1/2 -translate-x-1/2 w-[200px]">
       <NuxtImg src="/logos/LONG_GREEN_LOGO.svg" alt="mangeons.io logo" />
     </NuxtLink>
