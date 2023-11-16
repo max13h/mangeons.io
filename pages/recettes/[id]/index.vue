@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="overflow-y-scroll">
     <RecipeImage :image-url="recipeData.image_url" />
     <h2 class="text-2xl">
       {{ capitalize(recipeData.name) }}
@@ -13,8 +13,8 @@
         {{ recipeData.description }}
       </p>
     </div>
-    <div class="p-4">
-      <p class="whitespace-pre">
+    <div class="w-full">
+      <p class="whitespace-pre-wrap">
         {{ recipeData.content }}
       </p>
     </div>
@@ -41,6 +41,10 @@ const { data: recipeData, error: recipeError } = await useFetch("/api/recipe/rec
 if (recipeError.value) {
   throw new Error("Error during the useFetch call")
 }
+
+const contentObject = useParseStringToStepListObject(recipeData.value.content)
+
+console.log(contentObject)
 </script>
 
 <style scoped>

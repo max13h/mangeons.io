@@ -10,7 +10,7 @@
         </li>
       </ol>
     </Teleport>
-    <div class="flex flex-col items-center h-full w-full overflow-x-hidden flex-grow pt-4 pl-4 pr-4">
+    <div class="flex flex-col items-center h-full w-full overflow-x-hidden flex-grow py-4">
       <p class="mb-4 text-center rounded-md bg-primary-100 p-2">
         Renseignez les infomations concernant votre nouvelle recette !
       </p>
@@ -44,7 +44,7 @@
         </swiper>
       </div>
     </div>
-    <div class="flex justify-between w-11/12 min-w-[100px] border border-slate-100 shadow-xl z-20 mb-4 mx-4 p-4 relative bg-light rounded-3xl ">
+    <div class="flex justify-between w-full min-w-[100px] border border-slate-100 shadow-xl z-20 p-4 relative bg-light rounded-3xl ">
       <button type="button" class="swiper-button-prev page-btn">
         <i class="ri-arrow-left-double-line" />
       </button>
