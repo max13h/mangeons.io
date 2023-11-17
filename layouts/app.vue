@@ -4,8 +4,8 @@
     <DesktopSideBar v-if="!isMobile" />
 
     <div v-if="!isMobile" class="grow flex flex-col items-center">
-      <div class="w-full max-w-3xl my-4">
-        <div class="overflow-y-scroll p-4">
+      <div class="w-full h-full max-w-3xl my-4">
+        <div class="w-full h-full overflow-y-scroll p-4">
           <slot />
         </div>
       </div>

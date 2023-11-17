@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex flex-col">
+  <div class="w-full h-full flex flex-col">
     <div class="w-full flex justify-end">
       <NuxtLink to="/profil/edit" class="flex w-fit">
         <i class="ri-pencil-line" />
