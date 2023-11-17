@@ -91,8 +91,6 @@ onMounted(async () => {
   recipe.value = data.value
   recipeStore.selectedAlimentaryProducts = data.value.alimentary_products
   recipeStore.selectedKitchenEquipments = data.value.kitchen_equipments
-
-  console.log();
 })
 
 const { handleSubmit } = useForm({
@@ -118,7 +116,7 @@ const onSuccess = async (values: any) => {
     throw new Error(`Error on useFetch => ${JSON.stringify(error)}`)
   }
 }
-const onInvalidSubmit = ({ values, errors }: {errors: any}) => {
+const onInvalidSubmit = ({ values, errors }: { values: any, errors: any }) => {
   arrayOfErrors.value = Object.values(errors)
   useOpenModal("recipeFormInvalid")
   console.log(values);

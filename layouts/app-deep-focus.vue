@@ -13,7 +13,7 @@
     </div>
 
     <div v-if="isMobile" class="grow flex flex-col overflow-hidden">
-      <i class="ri-arrow-left-line text-3xl m-3" @click="route.query.backPageURL? navigateTo(route.query.backPageURL as any) : router.back()" />
+      <i class="ri-arrow-left-line text-3xl m-3 w-fit" @click="route.query.backPageURL? navigateTo(route.query.backPageURL as any) : router.back()" />
       <div class="grow w-full overflow-y-scroll sm:p-4 overflow-x-hidden">
         <slot />
       </div>

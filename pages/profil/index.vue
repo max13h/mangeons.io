@@ -1,8 +1,10 @@
 <template>
   <div class="w-full flex flex-col">
-    <div class="flex justify-end mb-2">
-      <i class="ri-pencil-line" />
-      <p>Editer</p>
+    <div class="w-full flex justify-end">
+      <NuxtLink to="/profil/edit" class="flex w-fit">
+        <i class="ri-pencil-line" />
+        <p>Editer</p>
+      </NuxtLink>
     </div>
     <div class="grow">
       <p class="text-2xl mb-4">

@@ -5,8 +5,11 @@ import type { string } from 'yup';
     <p class="text-sm opacity-60">
       {{ props.label }}
     </p>
-    <p class="p-2 inline-block w-full bg-slate-100 rounded-xl">
+    <p v-if="props.value" class="p-2 inline-block w-full bg-slate-100 rounded-xl">
       {{ props.value }}
+    </p>
+    <p v-else class="p-2 inline-block w-full bg-slate-100 rounded-xl opacity-60 italic">
+      Non renseigné
     </p>
   </div>
 </template>
@@ -14,8 +17,8 @@ import type { string } from 'yup';
 <script setup lang="ts">
 const props = defineProps<{
   label: string;
-  value: string;
-  class: string;
+  value: string | number | null;
+  class?: string;
 }>()
 </script>
 

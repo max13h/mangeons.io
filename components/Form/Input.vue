@@ -39,6 +39,7 @@ interface Props {
   disableTab: boolean;
   label?: string;
   labelClass?: string;
+  convertUndefinedToNull?: boolean;
 }
 
 const props = defineProps<Props>()
@@ -47,5 +48,13 @@ const { value, errorMessage } = useField(() => props.name)
 
 if (props.value) {
   value.value = props.value
+}
+
+if (props.convertUndefinedToNull) {
+  watchEffect(() => {
+    if (value.value === "") {
+      value.value = null
+    }
+  })
 }
 </script>
