@@ -11,6 +11,7 @@
       </div>
     </div>
 
+    <MobileHeader v-if="isMobile" />
     <div v-if="isMobile" class="grow flex flex-col w-full">
       <div class="grow overflow-y-scroll p-4 flex justify-center">
         <slot />

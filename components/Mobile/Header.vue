@@ -1,13 +1,24 @@
 <template>
-  <header class="sticky top-0 bg-light shadow-sm border-b-2 flex border-dark w-full select-none">
-    <NuxtImg src="/logos/LITTLE_LIGHT_LOGO.svg" alt="mangeons.io logo" class="absolute top-1/2 -translate-y-1/2 left-1  w-12" />
-    <h1 class="w-full text-center my-2 text-xl sm:text-2xl md:text-3xl">
-      {{ pageStore.heading }}
-    </h1>
+  <header class="sticky top-0 bg-light shadow-sm border-b-2 flex justify-between items-center border-dark w-full select-none">
+    <NuxtImg src="/logos/LITTLE_LIGHT_LOGO.svg" width="48px" alt="mangeons.io logo" class="w-12 m-1" />
+    <NuxtLink
+      to="/notifications"
+      class="
+        ri-notification-3-line
+        text-2xl
+        w-8
+        h-8
+        flex
+        justify-center
+        items-center
+        on-click
+        m-1
+      "
+      exact-active-class="none"
+    >
+    </NuxtLink>
   </header>
 </template>
 
 <script setup lang="ts">
-import { usePageStore } from "../../stores/pageStore"
-const pageStore = usePageStore()
 </script>
