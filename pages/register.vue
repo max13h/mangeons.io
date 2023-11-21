@@ -14,7 +14,7 @@
 
       <FormInput
         name="password"
-        type="email"
+        type="password"
         label="mot de passe"
         :disable-tab="false"
       >
