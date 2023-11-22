@@ -1,0 +1,15 @@
+.btn-primary {
+  @apply text-white bg-primary border-primary border-2 rounded-2xl p-2
+}
+
+.btn-outline-primary {
+  @apply text-primary border-primary border-2 rounded-2xl p-2
+}
+
+.btn-close-container {
+  @apply text-2xl w-full flex justify-end items-center
+}
+
+.btn-close-container>button {
+  @apply cursor-pointer
+}

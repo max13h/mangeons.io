@@ -40,7 +40,7 @@
       />
     </div>
 
-    <button type="button" class="btn-secondary border-none flex justify-center items-center" @click="onSubmit">
+    <button type="button" class="btn-primary border-none flex justify-center items-center" @click="onSubmit">
       Enregistrer
       <i class="ri-save-3-line inline-block text-2xl w-8" />
     </button>

@@ -37,10 +37,10 @@
       <input
         type="submit"
         value="S'inscrire"
-        class="bg-secondary text-light py-1 rounded-lg"
+        class="bg-primary text-light py-1 rounded-lg"
       >
     </form>
-    <NuxtLink to="/login" class="text-secondary p-3 flex justify-center">
+    <NuxtLink to="/login" class="text-primary p-3 flex justify-center">
       Se connecter
     </NuxtLink>
   </div>

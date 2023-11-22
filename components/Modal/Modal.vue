@@ -35,7 +35,7 @@ const modalStore = useModalStore()
   }
 
   .modal {
-    @apply p-4 relative bg-white flex flex-col rounded-3xl border-2 border-secondary overflow-y-scroll w-full m-8;
+    @apply p-4 relative bg-white flex flex-col rounded-3xl border-2 border-primary overflow-y-scroll w-full m-8;
     box-shadow: 0px 0px 33px 0px #00000063;
     min-width: 200px;
     max-width: 560px;

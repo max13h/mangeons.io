@@ -10,7 +10,7 @@
     <h2 class="text-xl mb-4 self-start">
       Précisez les ingrédients requis pour votre recette 🥦
     </h2>
-    <div class="min-h-[300px] bg-white border-dashed border-2 border-secondary w-full rounded-xl p-4 overflow-y-scroll mb-7 relative">
+    <div class="min-h-[300px] bg-white border-dashed border-2 border-primary w-full rounded-xl p-4 overflow-y-scroll mb-7 relative">
       <p v-if="recipeStore.selectedAlimentaryProducts.length == 0" class="absolute-center text-center w-7/12 italic text-slate-400">
         Aucun ingrédient ajouté
       </p>
@@ -30,7 +30,7 @@
         {{ capitalize(errorMessage) }}
       </span>
     </div>
-    <button class="btn-outline-secondary w-full mb-8" @click="useAddAlimentaryProductsModal">
+    <button class="btn-outline-primary w-full mb-8" @click="useAddAlimentaryProductsModal">
       Ajouter un ingrédient
       <i class="ri-add-circle-line text-xl align-middle" />
     </button>

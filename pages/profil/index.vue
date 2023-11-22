@@ -18,7 +18,7 @@
         <p class="text-xl mb-4">
           Votre foyer
         </p>
-        <div class="w-full border-2 border-dashed border-secondary rounded-xl min-h-[100px] p-4 flex justify-center items-center">
+        <div class="w-full border-2 border-dashed border-primary rounded-xl min-h-[100px] p-4 flex justify-center items-center">
           <div v-if="households && households.length > 0">
             <HouseholdProfilCard v-for="(household, index) in households" :key="index" :id="household" />
           </div>
@@ -26,7 +26,7 @@
             <p class="text-lg mb-4">
               Vous n'avez pas encore de foyer
             </p>
-            <NuxtLink to="/foyer" class="btn-secondary">
+            <NuxtLink to="/foyer" class="btn-primary">
               Rejoindre ou créer
             </NuxtLink>
           </div>

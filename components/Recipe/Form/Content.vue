@@ -9,7 +9,7 @@
         v-for="(step, index) in stepList"
         :key="index"
         :data-value="step.id"
-        class="border-dashed border-2 border-secondary rounded-xl bg-slate-200 p-4 mb-2"
+        class="border-dashed border-2 border-primary rounded-xl bg-slate-200 p-4 mb-2"
       >
         <div class="flex items-center">
           <p class="text-lg">
@@ -26,19 +26,19 @@
             <div class="flex flex-col justify-center h-full w-full">
               <button
                 type="button"
-                class="btn-secondary"
+                class="btn-primary"
                 @click="addNestedStep(index)"
               >
                 Ajouter une sous-étape
               </button>
-              <button type="button" class="btn-outline-secondary mt-4" @click="removeStep(index)">
+              <button type="button" class="btn-outline-primary mt-4" @click="removeStep(index)">
                 Supprimer l'étape
               </button>
             </div>
           </Teleport>
           <i class="ri-draggable text-2xl drag-element" />
         </div>
-        <div v-if="step.nested.length !== 0" ref="nestedStepLists" class="border-dashed border-2 border-secondary bg-slate-300 rounded-xl mt-2 p-4">
+        <div v-if="step.nested.length !== 0" ref="nestedStepLists" class="border-dashed border-2 border-primary bg-slate-300 rounded-xl mt-2 p-4">
           <div
             v-for="(nestedStep, nestedIndex) in stepList[index].nested"
             :key="nestedIndex"
@@ -66,7 +66,7 @@
     >
       {{ capitalize(errorMessage) }}
     </span>
-    <button class="btn-secondary w-full mt-4 mb-8" @click="addStep">
+    <button class="btn-primary w-full mt-4 mb-8" @click="addStep">
       Ajouter une étape
     </button>
   </div>

@@ -3,7 +3,7 @@
     <p class="text-xl my-4">
       Material nécessaire à votre recette 🍳
     </p>
-    <div class="min-h-[300px] bg-white border-dashed border-2 border-secondary w-full rounded-xl p-4 overflow-y-scroll mb-7 relative">
+    <div class="min-h-[300px] bg-white border-dashed border-2 border-primary w-full rounded-xl p-4 overflow-y-scroll mb-7 relative">
       <p v-if="recipeStore.selectedKitchenEquipments.length == 0" class="absolute-center text-center w-7/12 italic text-slate-400">
         Aucun matériel de cuisine ajouté
       </p>
@@ -22,7 +22,7 @@
         {{ capitalize(errorMessage) }}
       </span>
     </div>
-    <button class="btn-outline-secondary w-full mb-4" @click="useAddKitchenEquipmentsModal">
+    <button class="btn-outline-primary w-full mb-4" @click="useAddKitchenEquipmentsModal">
       Ajouter un équipement de cuisine
       <i class="ri-add-circle-line text-xl align-middle" />
     </button>

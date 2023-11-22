@@ -8,7 +8,8 @@ export default defineNuxtConfig({
     "@vee-validate/nuxt",
     "@nuxt/image",
     "@vite-pwa/nuxt",
-    "@nuxtjs/device"
+    "@nuxtjs/device",
+    "nuxt-icon"
   ],
   imports: {
     dirs: ["stores",

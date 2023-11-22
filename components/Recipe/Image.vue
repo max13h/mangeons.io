@@ -6,10 +6,10 @@
         {{ uploadedFile.name }}
       </p>
       <NuxtImg v-if="tempURL" :src="tempURL" />
-      <button type="button" class="btn-secondary w-full mt-4" @click="handleConfirmImageUpload">
+      <button type="button" class="btn-primary w-full mt-4" @click="handleConfirmImageUpload">
         Confirmer
       </button>
-      <button type="button" class="btn-outline-secondary w-full mt-4" @click="handleCancelImageUpload">
+      <button type="button" class="btn-outline-primary w-full mt-4" @click="handleCancelImageUpload">
         Annuler
       </button>
     </Teleport>

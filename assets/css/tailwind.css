@@ -1,85 +1,34 @@
+@import url("./components/index");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-    font-family: 'lexendregular';
-    src: url('../fonts/lexend-variablefont_wght-webfont.woff2') format('woff2'),
-         url('../fonts/lexend-variablefont_wght-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
 
 @font-face {
-    font-family: 'short_stackregular';
-    src: url('../fonts/shortstack-regular-webfont.woff2') format('woff2'),
-         url('../fonts/shortstack-regular-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "quicksand";
+  src: url("../fonts/Quicksand-VariableFont_wght.woff2") format("woff2-variations"),
+       url("../fonts/Quicksand-VariableFont_wght.woff") format("woff-variations");
+  font-weight: 1 700;
 }
-
-*::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-}
-
-*::-webkit-scrollbar-track {
-  display: none;
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: rgba(224, 224, 224, 0.571);
-  border-radius: 20px;
+@font-face {
+  font-family: "lexend";
+  src: url("../fonts/Lexend-VariableFont_wght.woff2") format("woff2-variations"),
+       url("../fonts/Lexend-VariableFont_wght.woff") format("woff-variations");;
+  font-weight: 1 900;
 }
 
 * {
-  scrollbar-width: thin;
-  font-family: "lexendregular", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
-}
-
-h1 {
-    font-family: "short_stackregular", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+  font-family: "lexend", sans-serif;
+  font-weight: 400;
 }
 
 body {
-    @apply bg-white h-dynamic-screen
-}
-
-.active-link {
-    @apply text-primary-200 relative;
-
+    @apply bg-light h-dynamic-screen
 }
 
 .on-click:active {
     transform: scale(0.95);
-}
-
-input, textarea, select {
-    outline: none;
-    @apply border-dashed border-2 border-secondary p-1 rounded-lg w-full px-3 py-1
-}
-
-input:focus, textarea:focus, select:focus {
-    outline: none;
-    @apply border-solid border-2 border-secondary
-}
-
-::placeholder {
-  @apply italic
-}
-
-.btn-secondary {
-  @apply text-white bg-secondary border-secondary border-2 rounded-lg p-2
-}
-.btn-outline-secondary {
-  @apply text-secondary border-secondary border-2 rounded-lg p-2
-}
-
-.btn-close-container {
-  @apply text-2xl w-full flex justify-end items-center
-}
-.btn-close-container>button {
-  @apply cursor-pointer
 }
 
 .absolute-center {
@@ -88,41 +37,4 @@ input:focus, textarea:focus, select:focus {
 
 .h-dynamic-screen {
   height: 100dvh;
-}
-
-.underline-link {
-  position: relative;
-  display: inline-block;
-}
-.underline-link::after {
-  content: '';
-  display: block;
-  position: absolute;
-  height: 2px;
-  width: 0;
-  right: 2.2%;
-  bottom: 6px;
-  background: #f19143;
-  transition: width .4s ease;
-}
-.underline-link::before {
-  content: '';
-  display: block;
-  position: absolute;
-  height: 2px;
-  width: 0;
-  transition: width 0s ease, background .4s ease;
-  left: 0;
-  right: 0;
-  bottom: 6px;
-}
-.underline-link:hover::after {
-  width: 97.8%;
-  background: 0 0;
-  transition: all 0s ease;
-}
-.underline-link:hover::before {
-  width: 97.8%;
-  background: #f19143;
-  transition: width .4s ease;
 }

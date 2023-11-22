@@ -31,10 +31,10 @@
       <input
         type="submit"
         value="Se connecter"
-        class="bg-secondary text-light py-1 rounded-lg on-click cursor-pointer"
+        class="bg-primary text-light py-1 rounded-lg on-click cursor-pointer"
       >
     </form>
-    <NuxtLink to="/register" class="text-secondary p-3 flex justify-center">
+    <NuxtLink to="/register" class="text-primary p-3 flex justify-center">
       Créer un compte
     </NuxtLink>
   </div>

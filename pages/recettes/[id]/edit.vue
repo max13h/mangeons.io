@@ -48,7 +48,7 @@
       <button type="button" class="swiper-button-prev page-btn">
         <i class="ri-arrow-left-double-line" />
       </button>
-      <button v-if="reachEnd" type="button" class="btn-secondary border-none flex items-center" @click="onSubmit">
+      <button v-if="reachEnd" type="button" class="btn-primary border-none flex items-center" @click="onSubmit">
         Enregistrer
         <i class="ri-save-3-line inline-block text-2xl w-8" />
       </button>

@@ -19,7 +19,7 @@
       </p>
     </div>
     <div v-if="publicUser.id == recipeData.author.id">
-      <NuxtLink :to="`/recettes/${route.params.id}/edit`" type="button" class="btn-outline-secondary">
+      <NuxtLink :to="`/recettes/${route.params.id}/edit`" type="button" class="btn-outline-primary">
         Edit
       </NuxtLink>
     </div>
