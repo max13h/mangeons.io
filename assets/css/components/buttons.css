@@ -1,15 +1,42 @@
-.btn-primary {
-  @apply text-white bg-primary border-primary border-2 rounded-2xl p-2
-}
+@layer components {
+  .btn-primary,
+  .btn-outline-primary,
+  .btn-ghost-primary,
+  .btn-secondary,
+  .btn-outline-secondary,
+  .btn-ghost-secondary {
+    @apply inline-block text-center text-white text-lg border-2 rounded-2xl py-1 px-4 cursor-pointer
+  }
 
-.btn-outline-primary {
-  @apply text-primary border-primary border-2 rounded-2xl p-2
-}
+  .btn-primary {
+    @apply  bg-primary border-primary
+  }
 
-.btn-close-container {
-  @apply text-2xl w-full flex justify-end items-center
-}
+  .btn-outline-primary {
+    @apply text-primary border-primary
+  }
 
-.btn-close-container>button {
-  @apply cursor-pointer
+  .btn-ghost-primary {
+    @apply text-primary border-none
+  }
+
+  .btn-secondary {
+    @apply  bg-secondary border-secondary
+  }
+
+  .btn-outline-secondary {
+    @apply text-secondary border-secondary
+  }
+
+  .btn-ghost-secondary {
+    @apply text-secondary border-none
+  }
+
+  .btn-close-container {
+    @apply text-2xl w-full flex justify-end items-center
+  }
+
+  .btn-close-container>button {
+    @apply cursor-pointer
+  }
 }

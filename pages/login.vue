@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-3xl mb-3">
+    <h1 class="">
       Connexion
     </h1>
 
@@ -28,13 +28,11 @@
       >
         {{ authStore.statusMsg }}
       </p>
-      <input
-        type="submit"
-        value="Se connecter"
-        class="bg-primary text-light py-1 rounded-lg on-click cursor-pointer"
-      >
+      <button type="submit" class="btn-primary">
+        Se connecter
+      </button>
     </form>
-    <NuxtLink to="/register" class="text-primary p-3 flex justify-center">
+    <NuxtLink to="/register" class="btn-ghost-primary w-full mt-1">
       Créer un compte
     </NuxtLink>
   </div>

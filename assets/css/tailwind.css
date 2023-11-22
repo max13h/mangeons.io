@@ -1,9 +1,10 @@
+@import url("./base/index");
 @import url("./components/index");
+@import url("./utilities/index");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 
 @font-face {
   font-family: "quicksand";
@@ -24,17 +25,5 @@
 }
 
 body {
-    @apply bg-light h-dynamic-screen
-}
-
-.on-click:active {
-    transform: scale(0.95);
-}
-
-.absolute-center {
-  @apply absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4
-}
-
-.h-dynamic-screen {
-  height: 100dvh;
+  @apply bg-light h-dynamic-screen
 }

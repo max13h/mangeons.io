@@ -1,0 +1,19 @@
+@layer base {
+  *::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  *::-webkit-scrollbar-track {
+    display: none;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: rgba(224, 224, 224, 0.571);
+    border-radius: 20px;
+  }
+
+  * {
+    scrollbar-width: thin;
+  }
+}
