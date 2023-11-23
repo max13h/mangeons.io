@@ -9,6 +9,7 @@
         <CardMenu :menu="menu" />
       </div>
     </div>
+    <button type="button" class="btn-primary" @click="noticeStore.addNotice(`Bonjouaaaaar c'e dijdzoi ojezio ozid jei deijjd eist un test`, `error`)">CLICK TO ADD NOTICE</button>
   </div>
 </template>
 
@@ -25,4 +26,5 @@ const { data: menus } = await supabase
   .from("menus")
   .select("name,created_at")
 
+const noticeStore = useNoticeStore()
 </script>
