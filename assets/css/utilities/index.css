@@ -10,4 +10,8 @@
   .on-click:active {
     transform: scale(0.95);
   }
+
+  .underline-primary {
+    @apply underline decoration-primary
+  }
 }

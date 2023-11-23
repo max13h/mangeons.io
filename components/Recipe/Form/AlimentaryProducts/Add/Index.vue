@@ -19,11 +19,11 @@
       </DisclosureButton>
       <transition
         enter-active-class="transition duration-100 ease-out"
-        enter-from-class="opacity-0"
-        enter-to-class="opacity-100"
+        enter-from-class="-translate-y-16 opacity-0"
+        enter-to-class="translate-y-0 opacity-100"
         leave-active-class="transition duration-100 ease-out"
-        leave-from-class="opacity-100"
-        leave-to-class="opacity-0"
+        leave-from-class="translate-y-0 opacity-100"
+        leave-to-class="-translate-y-2 opacity-0"
       >
         <DisclosurePanel class="flex flex-col items-center py-3 my-2 bg-light border w-[95%] mx-auto rounded-xl">
           <div v-for="alimentaryProduct in alimentaryProducts" :key="alimentaryProduct.id" class="w-[95%]">

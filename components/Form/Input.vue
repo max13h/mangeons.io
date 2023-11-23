@@ -3,7 +3,7 @@
     <label
       v-if="props.label"
       :for="props.name"
-      class="inline-block"
+      class="inline-block ms-2"
       :class="props.labelClass"
     >
       {{ capitalize(props.label) }}

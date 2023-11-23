@@ -1,5 +1,13 @@
 import { useAuthStore } from "../stores/authStore"
 
+export const redirectIfAuthenticated = async () => {
+  const user = useSupabaseUser()
+
+  if (user.value) {
+    await navigateTo("/menus")
+  }
+}
+
 export const useLogIn = async (email: any, password: any) => {
   const authStore = useAuthStore()
   const supabase = useSupabaseClient()

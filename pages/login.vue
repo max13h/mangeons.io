@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h1 class="">
-      Connexion
+    <h1 class="text-3xl font-semibold mb-8 underline-primary">
+      Heureux de vous revoir !
     </h1>
 
-    <form action="#" method="get" class="flex flex-col" @submit.prevent="onSubmit">
+    <form class="flex flex-col" @submit.prevent="onSubmit">
       <FormInput
         name="email"
         type="email"
@@ -23,7 +23,7 @@
 
       <p
         v-if="authStore.statusMsg"
-        class="pb-2"
+        class="mb-4"
         :class="{'text-red-500':authStore.isError, 'text-green-500': !authStore.isError}"
       >
         {{ authStore.statusMsg }}
@@ -32,7 +32,7 @@
         Se connecter
       </button>
     </form>
-    <NuxtLink to="/register" class="btn-ghost-primary w-full mt-1">
+    <NuxtLink to="/register" class="btn-ghost-primary w-full mt-1" tabindex="0">
       Créer un compte
     </NuxtLink>
   </div>
@@ -42,6 +42,8 @@
 definePageMeta({
   layout: "auth"
 })
+
+redirectIfAuthenticated()
 
 const authStore = useAuthStore()
 if (authStore.isError === true) {
