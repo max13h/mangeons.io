@@ -5,6 +5,29 @@
     </h1>
 
     <form class="flex flex-col" @submit.prevent="onSubmit">
+      <div>
+        <label
+          for="username"
+          class="inline-block ms-2"
+        >
+          {{ capitalize("Nom d'utilisateur") }}
+        </label>
+        <input
+          v-model="usernameValue"
+          name="username"
+          type="text"
+          autofocus
+        >
+        <div class="mb-4">
+          <span
+            v-if="usernameErrorMessage"
+            class="text-red-500 text-sm"
+          >
+            {{ capitalize(usernameErrorMessage) }}
+          </span>
+        </div>
+      </div>
+
       <FormInput
         name="email"
         type="email"
@@ -49,15 +72,14 @@ definePageMeta({
 })
 
 const authStore = useAuthStore()
-authStore.resetAuthStore()
 
 const { handleSubmit } = useForm({
   validationSchema: authStore.registerSchema
 })
 
+const { value: usernameValue, errorMessage: usernameErrorMessage, setErrors: usernameSetErrors } = useField(() => "username")
+
 const onSubmit = handleSubmit(async (values) => {
-  authStore.resetAuthStore()
-  if (useArePasswordsNotSimilar(values.password, values.confirmPassword)) { return }
-  await useSignIn(values.email, values.password)
+  await useSignIn(values.email, values.password, values.username)
 })
 </script>

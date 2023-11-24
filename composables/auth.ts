@@ -32,13 +32,18 @@ export const useLogIn = async (email: any, password: any) => {
   }
 }
 
-export const useSignIn = async (email: any, password: any) => {
-  const authStore = useAuthStore()
+export const useSignIn = async (email: string, password: string, username: string) => {
   const supabase = useSupabaseClient()
+  const authStore = useAuthStore()
 
   const { error } = await supabase.auth.signUp({
     email,
-    password
+    password,
+    options: {
+      data: {
+        username
+      }
+    }
   })
 
   if (error) {

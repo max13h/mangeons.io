@@ -10,6 +10,9 @@
       </div>
     </div>
     <button type="button" class="btn-primary" @click="noticeStore.addNotice(`Bonjouaaaaar c'e dijdzoi ojezio ozid jei deijjd eist un test`, `error`)">CLICK TO ADD NOTICE</button>
+    <button @click="logOut">
+      LOG OUT
+    </button>
   </div>
 </template>
 
@@ -27,4 +30,12 @@ const { data: menus } = await supabase
   .select("name,created_at")
 
 const noticeStore = useNoticeStore()
+
+const logOut = async () => {
+  const supabase = useSupabaseClient()
+
+  await supabase.auth.signOut()
+
+  return navigateTo("/login")
+}
 </script>
