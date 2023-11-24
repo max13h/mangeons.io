@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute bottom-4 right-4 flex flex-col items-end z-50">
+  <div class="absolute bottom-4 right-4 flex flex-col items-end z-50 select-none">
     <div
       v-for="notice in noticeStore.notices"
       :key="notice.id"

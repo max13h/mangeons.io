@@ -5,7 +5,7 @@
   .btn-secondary,
   .btn-outline-secondary,
   .btn-ghost-secondary {
-    @apply inline-block text-center text-white text-lg border-2 rounded-2xl py-1 px-4 cursor-pointer
+    @apply inline-block text-center text-white text-lg border-2 rounded-2xl py-1 px-4 cursor-pointer select-none
   }
 
   .btn-primary {
