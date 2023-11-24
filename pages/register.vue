@@ -8,9 +8,20 @@
       <div>
         <label
           for="username"
-          class="inline-block ms-2"
+          class="ms-2 flex items-center"
         >
           {{ capitalize("Nom d'utilisateur") }}
+          <Tooltip class="ms-2" position="right" tooltip-class="min-w-[24rem]">
+            <p class="mb-2">Le nom d'utilisateur doit être formaté de cette manière:</p>
+            <ul class="list-disc ms-4">
+              <li>Entre 3 et 18 caractères</li>
+              <li>Uniquement des lettres de A à Z, des chiffres et les caracères spéciaux trait d'union (-), trais bas (_) & point (.)</li>
+              <li>Au moins une lettre</li>
+              <li>Ne peut pas commencer pas un caractère spécial</li>
+              <li>Ne peut pas se terminer pas un point (.)</li>
+              <li>Les caractères spéciaux ne peuvent pas s'enchainer</li>
+            </ul>
+          </Tooltip>
         </label>
         <input
           v-model="usernameValue"
