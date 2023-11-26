@@ -1,5 +1,3 @@
-import { usePageStore } from "../stores/pageStore"
-
 export const useSetPageHeading = (heading: string) => {
   const store = usePageStore()
   store.heading = heading

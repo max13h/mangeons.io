@@ -23,12 +23,33 @@
             </ul>
           </Tooltip>
         </label>
-        <input
-          v-model="usernameValue"
-          name="username"
-          type="text"
-          autofocus
-        >
+        <div class="relative">
+          <input
+            v-model="usernameValue"
+            name="username"
+            type="text"
+            autofocus
+            :class="hasFetchForUsername ? (isUsernameUnique ? 'username-valide' : 'username-invalide') : ''"
+          >
+          <TooltipContainer v-if="hasFetchForUsername && !isUsernameUnique" position="left" class="absolute right-2 top-1/2 -translate-y-1/2" tooltip-class="min-w-[12rem]">
+            <Icon name="fluent:dismiss-circle-16-filled" size="1.5rem" class="text-red-500 " />
+            <template #tooltip>
+              <p>Le nom d'utilisateur est déjà utilisé</p>
+            </template>
+          </TooltipContainer>
+          <TooltipContainer v-else-if="hasFetchForUsername && isUsernameUnique" position="left" class="absolute right-2 top-1/2 -translate-y-1/2" tooltip-class="min-w-[12rem]">
+            <Icon name="fluent:checkmark-circle-16-filled" size="1.5rem" class="text-green-500" />
+            <template #tooltip>
+              <p>Le nom d'utilisateur est disponible</p>
+            </template>
+          </TooltipContainer>
+          <TooltipContainer v-else-if="isFetchingForUsername && !hasFetchForUsername" position="left" class="absolute right-2 top-1/2 -translate-y-1/2" tooltip-class="min-w-[12rem]">
+            <Icon name="svg-spinners:ring-resize" size="1.2rem" class="text-primary" />
+            <template #tooltip>
+              <p>Nous recherchons la disponibilité du nom d'utilisateur</p>
+            </template>
+          </TooltipContainer>
+        </div>
         <div class="mb-4">
           <span
             v-if="usernameErrorMessage"
@@ -88,9 +109,67 @@ const { handleSubmit } = useForm({
   validationSchema: authStore.registerSchema
 })
 
-const { value: usernameValue, errorMessage: usernameErrorMessage, setErrors: usernameSetErrors } = useField(() => "username")
+const { value: usernameValue, errorMessage: usernameErrorMessage, errors: usernameErrors, setErrors: usernameSetErrors } = useField(() => "username")
+
+const isFetchingForUsername: globalThis.Ref<boolean> = ref(false)
+const hasFetchForUsername: globalThis.Ref<boolean> = ref(false)
+const isUsernameUnique: globalThis.Ref<boolean | null> = ref(null)
+let isUsernameUniqueTimeoutId: any = null
+
+const fetchUsernameUniqueness = async () => {
+  if (usernameErrors.value.length === 0) {
+    isFetchingForUsername.value = true
+
+    const { data, error } = await useFetch("/api/auth/isUsernameUnique", {
+      method: "get",
+      query: {
+        username: usernameValue
+      }
+    })
+
+    useHandleFetchError(error)
+
+    hasFetchForUsername.value = true
+    isUsernameUnique.value = data.value
+
+    if (!isUsernameUnique.value) {
+      usernameSetErrors("Le nom d'utilisateur est déjà utilisé")
+    }
+  }
+}
+
+watch(usernameValue, () => {
+  clearTimeout(isUsernameUniqueTimeoutId)
+  isFetchingForUsername.value = false
+  hasFetchForUsername.value = false
+  isUsernameUnique.value = false
+
+  isUsernameUniqueTimeoutId = setTimeout(fetchUsernameUniqueness, 1000)
+})
 
 const onSubmit = handleSubmit(async (values) => {
-  await useSignIn(values.email, values.password, values.username)
+  if (isUsernameUnique.value) {
+    console.log("PASS SUBMIT")
+  } else {
+    usernameSetErrors("Le nom d'utilisateur est déjà utilisé")
+  }
+  // await useSignIn(values.email, values.password, values.username)
 })
 </script>
+
+<style scoped>
+.username-valide {
+  @apply border-green-500 border-solid
+}
+.username-valide:focus {
+  @apply border-green-500 border-solid
+}
+
+.username-invalide {
+  @apply border-red-500 border-solid
+}
+.username-invalide:focus {
+  @apply border-red-500 border-solid
+}
+
+</style>
