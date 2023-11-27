@@ -1,5 +1,3 @@
-import { useAuthStore } from "../stores/authStore"
-
 export const redirectIfAuthenticated = async () => {
   const user = useSupabaseUser()
 
@@ -32,33 +30,29 @@ export const useLogIn = async (email: any, password: any) => {
   }
 }
 
-export const useSignIn = async (email: string, password: string, username: string) => {
-  const supabase = useSupabaseClient()
-  const authStore = useAuthStore()
-
-  const { error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      data: {
-        username
-      }
+export const useSignUp = async (username: string, email: string, password: string) => {
+  const { status, error } = await useFetch("/api/auth/users", {
+    method: "post",
+    body: {
+      username,
+      email,
+      password
     }
   })
 
-  if (error) {
-    authStore.statusMsg = _translateErrorMessage(error.message)
-    authStore.isError = true
-    return
-  }
+  useHandleFetchError(error)
 
-  const user = useSupabaseUser()
-  if (user) {
-    authStore.statusMsg = "Validez votre inscription en cliquant sur le lien envoyé par email."
+  const noticeStore = useNoticeStore()
+
+  console.log("error", error);
+  console.log("status", status);
+
+  if (status.value === "success") {
+    noticeStore.addNotice("Validez votre inscription en cliquant sur le lien envoyé par email 🤩", "success")
     return navigateTo("/login")
   } else {
-    authStore.statusMsg = "Une erreur est survenue"
-    authStore.isError = true
+    noticeStore.addNotice("Une erreur s'est produit, veuillez réessayer 🫣")
+    return navigateTo("/register")
   }
 }
 
@@ -70,14 +64,6 @@ export const useArePasswordsNotSimilar = (password: string, confirmPassword: str
     return true
   }
   return false
-}
-
-const _translateErrorMessage = (errorMsg: string) => {
-  if (errorMsg === "Password should be at least 6 characters") {
-    return "Le mot de passe doit contenir au moins 6 caractères"
-  } else {
-    return "Une erreur est survenue, veuillez réessayer"
-  }
 }
 
 export const useGetPublicUser = async () => {

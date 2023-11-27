@@ -25,10 +25,12 @@
         </label>
         <div class="relative">
           <input
+            id="username"
             v-model="usernameValue"
             name="username"
             type="text"
             autofocus
+            autocomplete="off"
             :class="hasFetchForUsername ? (isUsernameUnique ? 'username-valide' : 'username-invalide') : ''"
           >
           <TooltipContainer v-if="hasFetchForUsername && !isUsernameUnique" position="left" class="absolute right-2 top-1/2 -translate-y-1/2" tooltip-class="min-w-[12rem]">
@@ -102,6 +104,7 @@
 definePageMeta({
   layout: "auth"
 })
+redirectIfAuthenticated()
 
 const authStore = useAuthStore()
 
@@ -149,11 +152,10 @@ watch(usernameValue, () => {
 
 const onSubmit = handleSubmit(async (values) => {
   if (isUsernameUnique.value) {
-    console.log("PASS SUBMIT")
+    await useSignUp(values.username, values.email, values.password)
   } else {
     usernameSetErrors("Le nom d'utilisateur est déjà utilisé")
   }
-  // await useSignIn(values.email, values.password, values.username)
 })
 </script>
 

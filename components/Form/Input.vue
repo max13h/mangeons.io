@@ -9,6 +9,7 @@
       {{ capitalize(props.label) }}
     </label>
     <input
+      :id="props.name"
       v-model="value"
       :name="props.name"
       :type="props.type"
@@ -17,6 +18,7 @@
       :class="props.class"
       autofocus
       :value="value"
+      :autocomplete="props.autocomplete || 'off'"
     >
     <div class="mb-4">
       <span
@@ -40,6 +42,7 @@ interface Props {
   label?: string;
   labelClass?: string;
   convertUndefinedToNull?: boolean;
+  autocomplete?: string;
 }
 
 const props = defineProps<Props>()
