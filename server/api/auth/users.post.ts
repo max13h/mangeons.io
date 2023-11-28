@@ -4,6 +4,25 @@ export default eventHandler(async (event) => {
   const supabase = await serverSupabaseClient(event)
   const body = await readBody(event)
 
+  const createPublicUser = async () => {
+    const { data: publicUserData, error: publicUserError } = await supabase
+      .from("users")
+      .insert({ username: body.username, user_id: authData.user.id })
+      .select()
+
+    useHandleSupabaseIssue(publicUserData, publicUserError, event)
+
+    console.log("publicUserData", publicUserData);
+  }
+
+  const sendResetPassword = async () => {
+    const { error: resetError } = await supabase.auth.resetPasswordForEmail(body.email, {
+      redirectTo: "https://localhost:3000/update-password"
+    })
+
+    useHandleSupabaseReturnError(resetError, event)
+  }
+
   const { data: authData, error: authError } = await supabase.auth.signUp({
     email: body.email,
     password: body.password,
@@ -13,23 +32,7 @@ export default eventHandler(async (event) => {
       }
     }
   })
-  useHandleSupabaseReturnError(authError)
-
-  const createPublicUser = async () => {
-    const { data: publicUserData, error: publicUserError } = await supabase
-      .from("users")
-      .insert({ username: body.username, user_id: authData.user.id })
-
-    useHandleSupabaseReturnError(publicUserError)
-  }
-
-  const sendResetPassword = async () => {
-    const { data: resetData, error: resetError } = await supabase.auth.resetPasswordForEmail(body.email, {
-      redirectTo: "/update-password"
-    })
-
-    useHandleSupabaseReturnError(resetError)
-  }
+  useHandleSupabaseIssue(authData, authError, event)
 
   if (authData && authData.user) {
     if (authData.user.identities && authData.user.identities?.length > 0) {
@@ -40,4 +43,5 @@ export default eventHandler(async (event) => {
       return setResponseStatus(event, 200)
     }
   }
+  setResponseStatus(event, 500, "An error has occures, please contact the administrator")
 })

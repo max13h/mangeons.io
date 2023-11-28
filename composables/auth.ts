@@ -44,14 +44,11 @@ export const useSignUp = async (username: string, email: string, password: strin
 
   const noticeStore = useNoticeStore()
 
-  console.log("error", error);
-  console.log("status", status);
-
   if (status.value === "success") {
-    noticeStore.addNotice("Validez votre inscription en cliquant sur le lien envoyé par email 🤩", "success")
+    noticeStore.addNotice("Validez votre inscription en cliquant sur le lien envoyé par email", "success")
     return navigateTo("/login")
   } else {
-    noticeStore.addNotice("Une erreur s'est produit, veuillez réessayer 🫣")
+    noticeStore.addNotice("Une erreur s'est produit, veuillez réessayer")
     return navigateTo("/register")
   }
 }
