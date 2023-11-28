@@ -94,7 +94,7 @@
         S'inscrire
       </button>
     </form>
-    <NuxtLink to="/login" class="btn-ghost-primary w-full mt-1" tabindex="0">
+    <NuxtLink to="/auth/login" class="btn-ghost-primary w-full mt-1" tabindex="0">
       Se connecter
     </NuxtLink>
   </div>

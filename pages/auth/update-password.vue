@@ -1,6 +1,6 @@
 <template>
   <div>
-    simple test
+    update password
   </div>
 </template>
 

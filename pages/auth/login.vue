@@ -32,7 +32,7 @@
         Se connecter
       </button>
     </form>
-    <NuxtLink to="/register" class="btn-ghost-primary w-full mt-1" tabindex="0">
+    <NuxtLink to="/auth/register" class="btn-ghost-primary w-full mt-1" tabindex="0">
       Créer un compte
     </NuxtLink>
   </div>

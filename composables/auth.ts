@@ -46,10 +46,10 @@ export const useSignUp = async (username: string, email: string, password: strin
 
   if (status.value === "success") {
     noticeStore.addNotice("Validez votre inscription en cliquant sur le lien envoyé par email", "success")
-    return navigateTo("/login")
+    return navigateTo("/auth/login")
   } else {
     noticeStore.addNotice("Une erreur s'est produit, veuillez réessayer", "error")
-    return navigateTo("/register")
+    return navigateTo("/auth/register")
   }
 }
 

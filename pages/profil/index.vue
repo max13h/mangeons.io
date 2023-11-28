@@ -49,7 +49,7 @@ const logOut = async () => {
 
   await supabase.auth.signOut()
 
-  return navigateTo("/login")
+  return navigateTo("/auth/login")
 }
 
 const publicUser = await useGetPublicUser()
