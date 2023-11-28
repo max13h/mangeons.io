@@ -11,7 +11,7 @@
           class="ms-2 flex items-center"
         >
           {{ capitalize("Nom d'utilisateur") }}
-          <Tooltip class="ms-2" position="right" tooltip-class="min-w-[24rem]">
+          <Tooltip class="ms-2" position="bottom" tooltip-class="min-w-[18rem]">
             <p class="mb-2">Le nom d'utilisateur doit être formaté de cette manière:</p>
             <ul class="list-disc ms-4">
               <li>Entre 3 et 18 caractères</li>
