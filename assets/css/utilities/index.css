@@ -7,6 +7,10 @@
     height: 100dvh;
   }
 
+  .min-h-dynamic-screen {
+    @apply min-h-[100dvh]
+  }
+
   .on-click:active {
     transform: scale(0.95);
   }

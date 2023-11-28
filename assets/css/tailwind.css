@@ -27,3 +27,7 @@
 body {
   @apply bg-light h-dynamic-screen
 }
+
+/* * {
+  @apply !border-red-500 border
+} */
