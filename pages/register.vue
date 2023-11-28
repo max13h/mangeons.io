@@ -123,12 +123,7 @@ const fetchUsernameUniqueness = async () => {
   if (usernameErrors.value.length === 0) {
     isFetchingForUsername.value = true
 
-    const { data, error } = await useFetch("/api/auth/isUsernameUnique", {
-      method: "get",
-      query: {
-        username: usernameValue
-      }
-    })
+    const { data, error } = await useFetch(`/api/auth/users/${usernameValue}`)
 
     useHandleFetchError(error)
 
