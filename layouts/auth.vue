@@ -3,8 +3,8 @@
     <NuxtLink to="/" class="my-4">
       <NuxtImg src="/logos/LONG_GREEN_LOGO.svg" alt="mangeons.io logo" width="200px" />
     </NuxtLink>
-    <div class="grow flex justify-center items-center">
-      <div class="card md:w-[600px] bg-light p-8">
+    <div class="grow flex justify-center items-center w-full">
+      <div class="card w-full sm:w-[600px] bg-light p-8">
         <slot />
       </div>
     </div>

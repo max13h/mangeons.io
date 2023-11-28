@@ -60,12 +60,15 @@
       >
         {{ authStore.statusMsg }}
       </p>
-      <button type="submit" class="btn-primary">
+      <button type="submit" class="btn-primary mt-2">
         S'inscrire
       </button>
     </form>
     <NuxtLink to="/auth/login" class="btn-ghost-primary w-full mt-1" tabindex="0">
       Se connecter
+    </NuxtLink>
+    <NuxtLink to="/auth/password-forgotten" class="text-sm text-primary inline-block mt-4">
+      Mot de passe oublié
     </NuxtLink>
   </div>
 </template>
