@@ -66,6 +66,27 @@ export const usePasswordRecovery = async (email: string) => {
   }
 }
 
+export const useChangePassword = async (newPassword: string) => {
+  const { status, error } = await useFetch("/api/auth/change-password", {
+    method: "patch",
+    body: {
+      newPassword
+    }
+  })
+
+  useHandleFetchError(error)
+
+  const noticeStore = useNoticeStore()
+
+  if (status.value === "success") {
+    noticeStore.addNotice("Votre mot de passe à été changé avec succes", "success")
+    return navigateTo("/auth/connexion")
+  } else {
+    noticeStore.addNotice("Une erreur s'est produit, veuillez réessayer", "error")
+    return navigateTo("/auth/connexion")
+  }
+}
+
 export const useGetPublicUser = async () => {
   const { data, error } = await useFetch("/api/publicUser")
 

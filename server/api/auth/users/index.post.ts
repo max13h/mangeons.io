@@ -17,7 +17,7 @@ export default eventHandler(async (event) => {
 
   const sendResetPassword = async () => {
     const { error: resetError } = await supabase.auth.resetPasswordForEmail(body.email, {
-      redirectTo: "https://localhost:3000/profil/changer-de-mot-de-passe"
+      redirectTo: "http://localhost:3000/auth/changer-de-mot-de-passe"
     })
 
     useHandleSupabaseReturnError(resetError, event)
