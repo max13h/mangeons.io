@@ -1,5 +1,4 @@
 export const useLogIn = async (email: any, password: any) => {
-  const authStore = useAuthStore()
   const supabase = useSupabaseClient()
 
   const { error } = await supabase.auth.signInWithPassword({
@@ -7,18 +6,15 @@ export const useLogIn = async (email: any, password: any) => {
     password
   })
 
-  if (error) {
-    authStore.statusMsg = "Email ou mot de passe incorrect"
-    authStore.isError = true
-    return
-  }
-
+  const noticeStore = useNoticeStore()
   const user = useSupabaseUser()
-  if (user) {
+
+  if (!error && user) {
+    noticeStore.addNotice("Connexion réussie, bon retour parmi nous !", "success")
     return navigateTo("/menus")
   } else {
-    authStore.statusMsg = "Une erreur est survenue"
-    authStore.isError = true
+    noticeStore.addNotice("Une erreur s'est produit, veuillez réessayer", "error")
+    return navigateTo("/auth/connexion")
   }
 }
 
