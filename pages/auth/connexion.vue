@@ -21,21 +21,14 @@
       >
       </FormInput>
 
-      <p
-        v-if="authStore.statusMsg"
-        class="mb-4"
-        :class="{'text-red-500':authStore.isError, 'text-green-500': !authStore.isError}"
-      >
-        {{ authStore.statusMsg }}
-      </p>
       <button type="submit" class="btn-primary mt-2">
         Se connecter
       </button>
     </form>
-    <NuxtLink to="/auth/register" class="btn-ghost-primary w-full mt-1" tabindex="0">
+    <NuxtLink to="/auth/inscription" class="btn-ghost-primary w-full mt-1" tabindex="0">
       Créer un compte
     </NuxtLink>
-    <NuxtLink to="/auth/password-forgotten" class="text-sm text-primary inline-block mt-4">
+    <NuxtLink to="/auth/mot-de-passe-oublie" class="text-sm text-primary inline-block mt-4">
       Mot de passe oublié
     </NuxtLink>
   </div>
@@ -43,22 +36,17 @@
 
 <script setup lang="ts">
 definePageMeta({
-  layout: "auth"
+  layout: "auth",
+  middleware: "auth"
 })
 
-redirectIfAuthenticated()
-
 const authStore = useAuthStore()
-if (authStore.isError === true) {
-  authStore.resetAuthStore()
-}
 
 const { handleSubmit } = useForm({
   validationSchema: authStore.loginSchema
 })
 
 const onSubmit = handleSubmit(async (values) => {
-  authStore.resetAuthStore()
   await useLogIn(values.email, values.password)
 })
 </script>

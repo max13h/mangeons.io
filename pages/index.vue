@@ -10,10 +10,10 @@
       </p>
     </div>
     <div class="flex flex-col items-center w-full md:w-72">
-      <NuxtLink to="/auth/register" class="btn-primary w-full">
+      <NuxtLink to="/auth/inscription" class="btn-primary w-full">
         Inscription
       </NuxtLink>
-      <NuxtLink to="/auth/login" class="btn-outline-primary mt-4 w-full">
+      <NuxtLink to="/auth/connexion" class="btn-outline-primary mt-4 w-full">
         Connexion
       </NuxtLink>
     </div>

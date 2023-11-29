@@ -36,6 +36,6 @@ const logOut = async () => {
 
   await supabase.auth.signOut()
 
-  return navigateTo("/auth/login")
+  return navigateTo("/auth/connexion")
 }
 </script>

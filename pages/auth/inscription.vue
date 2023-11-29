@@ -52,22 +52,14 @@
         label="confirmer le mot de passer"
         :disable-tab="false"
       />
-
-      <p
-        v-if="authStore.statusMsg"
-        class="mb-4"
-        :class="{'text-red-500':authStore.isError, 'text-green-500': !authStore.isError}"
-      >
-        {{ authStore.statusMsg }}
-      </p>
       <button type="submit" class="btn-primary mt-2">
         S'inscrire
       </button>
     </form>
-    <NuxtLink to="/auth/login" class="btn-ghost-primary w-full mt-1" tabindex="0">
+    <NuxtLink to="/auth/connexion" class="btn-ghost-primary w-full mt-1" tabindex="0">
       Se connecter
     </NuxtLink>
-    <NuxtLink to="/auth/password-forgotten" class="text-sm text-primary inline-block mt-4">
+    <NuxtLink to="/auth/mot-de-passe-oublie" class="text-sm text-primary inline-block mt-4">
       Mot de passe oublié
     </NuxtLink>
   </div>
@@ -75,9 +67,9 @@
 
 <script setup lang="ts">
 definePageMeta({
-  layout: "auth"
+  layout: "auth",
+  middleware: "auth"
 })
-redirectIfAuthenticated()
 
 const authStore = useAuthStore()
 
