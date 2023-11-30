@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink :to="`/recettes/${recipe.id}`" class="bg-light rounded-xl shadow w-full h-full flex">
+  <NuxtLink :to="`/app/recettes/${recipe.id}`" class="bg-light rounded-xl shadow w-full h-full flex">
     <NuxtImg
       :src="props.recipe.image_url || '/default/recipe.png'"
       alt="default recipe image"

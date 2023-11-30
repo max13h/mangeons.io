@@ -11,7 +11,7 @@ export const useLogIn = async (email: any, password: any) => {
 
   if (!error && user) {
     noticeStore.addNotice("Connexion réussie, bon retour parmi nous !", "success")
-    return navigateTo("/menus")
+    return navigateTo("/app/menus")
   } else {
     noticeStore.addNotice("Une erreur s'est produit, veuillez réessayer", "error")
     return navigateTo("/auth/connexion")

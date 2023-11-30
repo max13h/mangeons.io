@@ -1,7 +1,7 @@
 <template>
   <div class="w-full h-full flex flex-col">
     <div class="w-full flex justify-end">
-      <NuxtLink to="/profil/edit" class="flex w-fit">
+      <NuxtLink to="/app/profil/edit" class="flex w-fit">
         <i class="ri-pencil-line" />
         <p>Editer</p>
       </NuxtLink>
@@ -26,7 +26,7 @@
             <p class="text-lg mb-4">
               Vous n'avez pas encore de foyer
             </p>
-            <NuxtLink to="/foyer" class="btn-primary">
+            <NuxtLink to="/app/foyer" class="btn-primary">
               Rejoindre ou créer
             </NuxtLink>
           </div>

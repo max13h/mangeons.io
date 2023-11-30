@@ -11,7 +11,7 @@
         <RecipeCard :recipe="privateRecipe" :show-is-public="true" />
       </div>
     </div>
-    <NuxtLink to="/recettes/new" class="btn-primary mt-16">
+    <NuxtLink to="/app/recettes/new" class="btn-primary mt-16">
       Poster une recette
     </NuxtLink>
   </div>

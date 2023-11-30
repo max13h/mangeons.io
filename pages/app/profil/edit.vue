@@ -70,7 +70,7 @@ const onSuccess = async (values: any) => {
 
   if (status.value === "success") {
     return navigateTo({
-      path: "/profil"
+      path: "/app/profil"
     })
   } else {
     throw new Error(`Error on useFetch => ${JSON.stringify(error)}`)
