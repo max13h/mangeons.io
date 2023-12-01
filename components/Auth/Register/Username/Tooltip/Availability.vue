@@ -23,8 +23,8 @@
 
 <script setup lang="ts">
 const props = defineProps<{
-  hasFetchForUsername: globalThis.Ref<boolean>;
-  isUsernameUnique: globalThis.Ref<boolean | null>;
-  isFetchingForUsername: globalThis.Ref<boolean>;
+  hasFetchForUsername: boolean;
+  isUsernameUnique: boolean | null;
+  isFetchingForUsername: boolean;
 }>()
 </script>

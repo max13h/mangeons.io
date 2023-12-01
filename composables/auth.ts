@@ -1,22 +1,44 @@
 export const useSignUp = async (username: string, email: string, password: string) => {
-  const { status, error } = await useFetch("/api/auth/users", {
-    method: "post",
-    body: {
-      username,
-      email,
-      password
+  const supabase = useSupabaseClient()
+
+  const createPublicUser = async () => {
+    const { data: publicUserData, error: publicUserError } = await supabase
+      .from("users")
+      .insert({ username: username, user_id: authData.user.id })
+      .select()
+
+    useHandleSupabaseIssue(publicUserData, publicUserError)
+  }
+
+  const sendResetPassword = async () => {
+    const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: "http://localhost:3000/auth/changer-de-mot-de-passe"
+    })
+    useHandleSupabaseReturnError(resetError)
+  }
+
+  const { data: authData, error: authError } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        username
+      }
     }
   })
 
-  useHandleFetchError(error)
+  useHandleSupabaseReturnError(authError)
 
-  const noticeStore = useNoticeStore()
-
-  if (status.value === "success") {
-    noticeStore.addNotice("Validez votre inscription en cliquant sur le lien envoyé par email", "success")
+  if (authData && authData.user) {
+    if (authData.user.identities && authData.user.identities?.length > 0) {
+      createPublicUser()
+    } else {
+      sendResetPassword()
+    }
+    useNotice("Validez votre inscription en cliquant sur le lien envoyé par email", "success")
     return navigateTo("/auth/connexion")
   } else {
-    noticeStore.addNotice("Une erreur s'est produit, veuillez réessayer", "error")
+    useNotice("Une erreur s'est produit, veuillez réessayer", "error")
     return navigateTo("/auth/inscription")
   }
 }
@@ -31,13 +53,11 @@ export const usePasswordRecovery = async (email: string) => {
 
   useHandleFetchError(error)
 
-  const noticeStore = useNoticeStore()
-
   if (status.value === "success") {
-    noticeStore.addNotice("Cliquez sur le lien reçu par email pour récuperer votre compte", "success")
+    useNotice("Cliquez sur le lien reçu par email pour récuperer votre compte", "success")
     return navigateTo("/auth/connexion")
   } else {
-    noticeStore.addNotice("Une erreur s'est produit, veuillez réessayer", "error")
+    useNotice("Une erreur s'est produit, veuillez réessayer", "error")
     return navigateTo("/auth/mot-de-passe-oublie")
   }
 }
@@ -52,13 +72,11 @@ export const useChangePassword = async (newPassword: string) => {
 
   useHandleFetchError(error)
 
-  const noticeStore = useNoticeStore()
-
   if (status.value === "success") {
-    noticeStore.addNotice("Votre mot de passe à été changé avec succes", "success")
+    useNotice("Votre mot de passe à été changé avec succes", "success")
     return navigateTo("/auth/connexion")
   } else {
-    noticeStore.addNotice("Une erreur s'est produit, veuillez réessayer", "error")
+    useNotice("Une erreur s'est produit, veuillez réessayer", "error")
     return navigateTo("/auth/connexion")
   }
 }
