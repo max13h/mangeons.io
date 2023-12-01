@@ -46,7 +46,16 @@ const { handleSubmit } = useForm({
 })
 
 const onSubmit = handleSubmit(async (values) => {
-  await usePasswordRecovery(values.email)
+  const supabase = useSupabaseClient()
+
+  const { error } = await supabase.auth.resetPasswordForEmail(values.email, {
+    redirectTo: "http://localhost:3000/auth/changer-de-mot-de-passe"
+  })
+
+  useHandleSupabaseReturnError(error)
+
+  useNotice("Cliquez sur le lien reçu par email pour récuperer votre compte", "success")
+  return navigateTo("/auth/connexion")
 })
 
 </script>

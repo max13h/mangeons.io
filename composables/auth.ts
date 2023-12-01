@@ -56,25 +56,6 @@ export const useIsUsernameUnique = async (username: string) => {
   }
 }
 
-export const usePasswordRecovery = async (email: string) => {
-  const { status, error } = await useFetch("/api/auth/password-recovery", {
-    method: "post",
-    body: {
-      email
-    }
-  })
-
-  useHandleFetchError(error)
-
-  if (status.value === "success") {
-    useNotice("Cliquez sur le lien reçu par email pour récuperer votre compte", "success")
-    return navigateTo("/auth/connexion")
-  } else {
-    useNotice("Une erreur s'est produit, veuillez réessayer", "error")
-    return navigateTo("/auth/mot-de-passe-oublie")
-  }
-}
-
 export const useChangePassword = async (newPassword: string) => {
   const { status, error } = await useFetch("/api/auth/change-password", {
     method: "patch",
