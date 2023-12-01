@@ -52,5 +52,10 @@ export default defineNuxtConfig({
   },
   device: {
     refreshOnResize: true
+  },
+  routeRules: {
+    "/": { prerender: true },
+    "/app/**": { ssr: false },
+    "/api/**": { cors: true }
   }
 })
