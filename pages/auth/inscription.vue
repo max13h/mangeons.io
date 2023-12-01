@@ -88,12 +88,8 @@ const fetchUsernameUniqueness = async () => {
   if (usernameErrors.value.length === 0) {
     isFetchingForUsername.value = true
 
-    const { data, error } = await useFetch(`/api/auth/users/${usernameValue.value}`)
-
-    useHandleFetchError(error)
-
+    isUsernameUnique.value = await useIsUsernameUnique(usernameValue.value as string)
     hasFetchForUsername.value = true
-    isUsernameUnique.value = data.value
 
     if (!isUsernameUnique.value) {
       usernameSetErrors("Le nom d'utilisateur est déjà utilisé")

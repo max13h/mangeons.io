@@ -43,6 +43,19 @@ export const useSignUp = async (username: string, email: string, password: strin
   }
 }
 
+export const useIsUsernameUnique = async (username: string) => {
+  const supabase = useSupabaseClient()
+
+  const { data, error } = await supabase.from("users").select("username").eq("username", username || "null")
+
+  useHandleSupabaseReturnError(error)
+  if (data) {
+    return data.length === 0
+  } else {
+    throw new Error("Supabase returned nothing")
+  }
+}
+
 export const usePasswordRecovery = async (email: string) => {
   const { status, error } = await useFetch("/api/auth/password-recovery", {
     method: "post",
