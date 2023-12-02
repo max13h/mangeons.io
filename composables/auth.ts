@@ -49,29 +49,11 @@ export const useIsUsernameUnique = async (username: string) => {
   const { data, error } = await supabase.from("users").select("username").eq("username", username || "null")
 
   useHandleSupabaseReturnError(error)
+
   if (data) {
     return data.length === 0
   } else {
     throw new Error("Supabase returned nothing")
-  }
-}
-
-export const useChangePassword = async (newPassword: string) => {
-  const { status, error } = await useFetch("/api/auth/change-password", {
-    method: "patch",
-    body: {
-      newPassword
-    }
-  })
-
-  useHandleFetchError(error)
-
-  if (status.value === "success") {
-    useNotice("Votre mot de passe à été changé avec succes", "success")
-    return navigateTo("/auth/connexion")
-  } else {
-    useNotice("Une erreur s'est produit, veuillez réessayer", "error")
-    return navigateTo("/auth/connexion")
   }
 }
 

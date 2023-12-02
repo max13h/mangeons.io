@@ -31,15 +31,35 @@
 definePageMeta({
   layout: "auth"
 })
-
+const user = useSupabaseUser()
 const authStore = useAuthStore()
 
 const { handleSubmit } = useForm({
-  validationSchema: authStore.loginSchema
+  validationSchema: authStore.changePasswordSchema
 })
 
 const onSubmit = handleSubmit(async (values) => {
-  await useChangePassword(values.newPassword)
+  console.log(values)
+  if (user.value) {
+    const supabase = useSupabaseClient()
+
+    const { error } = await supabase.auth.updateUser({
+      password: values.newPassword
+    })
+
+    useHandleSupabaseReturnError(error)
+
+    if (!error) {
+      useNotice("Votre mot de passe à été changé avec succes", "success")
+      return navigateTo("/auth/connexion")
+    } else {
+      useNotice("Une erreur s'est produit, veuillez réessayer", "error")
+      return navigateTo("/auth/connexion")
+    }
+  } else {
+    useNotice("Pour effectuez cette action, veuillez faire une demande de récupération de mot de passe", "error")
+    return navigateTo("/auth/mot-de-passe-oublie")
+  }
 })
 </script>
 

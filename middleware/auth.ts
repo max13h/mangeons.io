@@ -2,6 +2,6 @@ export default defineNuxtRouteMiddleware(() => {
   const user = useSupabaseUser()
 
   if (user.value) {
-    return navigateTo("/app/menus")
+    return navigateTo("/app/menus", { redirectCode: 301 })
   }
 })
