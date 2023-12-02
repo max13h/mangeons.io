@@ -29,8 +29,7 @@ export default defineNuxtConfig({
         { rel: "icon", href: "/favicon.ico" },
         { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
         { rel: "mask-icon", href: "/mask-icon.svg", color: "#FFFFFF" }
-      ],
-      noscript: [{ children: "JavaScript is required" }]
+      ]
     }
   },
   typescript: {
@@ -38,8 +37,7 @@ export default defineNuxtConfig({
   },
   pinia: {
     autoImports: [
-      // automatically imports `defineStore`
-      "defineStore" // import { defineStore } from 'pinia'
+      "defineStore"
     ]
   },
   supabase: {
@@ -54,8 +52,6 @@ export default defineNuxtConfig({
     refreshOnResize: true
   },
   routeRules: {
-    "/": { prerender: true },
-    "/app/**": { ssr: false },
-    "/api/**": { cors: true }
+    "/app/**": { ssr: false }
   }
 })
