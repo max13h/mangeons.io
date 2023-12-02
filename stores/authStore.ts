@@ -22,8 +22,8 @@ export const useAuthStore = defineStore("auth", () => {
   })
 
   const changePasswordSchema = object({
-    password: string().min(6, "Le mot de passe doit faire plus de 6 caractères").required("Le mot de passe est requis"),
-    confirmPassword: string().oneOf([yupRef("password")], "Les mots de passe doivent être identiques")
+    newPassword: string().min(6, "Le mot de passe doit faire plus de 6 caractères").required("Le mot de passe est requis"),
+    confirmNewPassword: string().oneOf([yupRef("newPassword")], "Les mots de passe doivent être identiques")
   })
 
   return { loginSchema, registerSchema, forgottenPasswordSchema, changePasswordSchema }

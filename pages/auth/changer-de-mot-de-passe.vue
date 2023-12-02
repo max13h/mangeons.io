@@ -39,7 +39,6 @@ const { handleSubmit } = useForm({
 })
 
 const onSubmit = handleSubmit(async (values) => {
-  console.log(values)
   if (user.value) {
     const supabase = useSupabaseClient()
 
@@ -51,10 +50,10 @@ const onSubmit = handleSubmit(async (values) => {
 
     if (!error) {
       useNotice("Votre mot de passe à été changé avec succes", "success")
-      return navigateTo("/auth/connexion")
+      return navigateTo("/app/profil")
     } else {
       useNotice("Une erreur s'est produit, veuillez réessayer", "error")
-      return navigateTo("/auth/connexion")
+      return navigateTo("/auth/mot-de-passe-oublie")
     }
   } else {
     useNotice("Pour effectuez cette action, veuillez faire une demande de récupération de mot de passe", "error")
