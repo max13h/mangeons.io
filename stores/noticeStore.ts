@@ -3,7 +3,7 @@ export const useNoticeStore = defineStore("notice", () => {
 
   const addNotice = (message: string, status: string = "default") => {
     notices.value.push({
-      id: crypto.randomUUID(),
+      id: Math.random().toString(36).substring(2),
       message,
       status
     })
