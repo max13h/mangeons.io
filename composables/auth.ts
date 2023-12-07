@@ -43,6 +43,13 @@ export const useSignUp = async (username: string, email: string, password: strin
   }
 }
 
+export const useLogOut = async () => {
+  const supabase = useSupabaseClient()
+
+  await supabase.auth.signOut()
+  return navigateTo("/auth/connexion")
+}
+
 export const useIsUsernameUnique = async (username: string) => {
   const supabase = useSupabaseClient()
 
@@ -58,11 +65,24 @@ export const useIsUsernameUnique = async (username: string) => {
 }
 
 export const useGetPublicUser = async () => {
-  const { data, error } = await useFetch("/api/publicUser")
+  const supabase = useSupabaseClient()
+  const user = useSupabaseUser()
 
-  if (error.value) {
-    throw new Error("Error during the useFetch call")
-  }
+  const { data, error } = await useAsyncData("publicUser", async () => {
+    if (user.value) {
+      const { data, error } = await supabase
+        .from("users")
+        .select()
+        .eq("user_id", user.value.id)
+
+      useHandleSupabaseIssue(data, error)
+      return data[0]
+    } else {
+      throw new Error("No user")
+    }
+  })
+
+  useHandleFetchError(error)
 
   return data
 }

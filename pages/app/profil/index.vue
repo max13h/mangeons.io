@@ -1,5 +1,6 @@
 <template>
   <div class="w-full h-full flex flex-col">
+    aa
     <div class="w-full flex justify-end">
       <NuxtLink to="/app/profil/edit" class="flex w-fit">
         <i class="ri-pencil-line" />
@@ -19,7 +20,7 @@
           Votre foyer
         </p>
         <div class="w-full border-2 border-dashed border-primary rounded-xl min-h-[100px] p-4 flex justify-center items-center">
-          <div v-if="households && households.length > 0">
+          <div v-if="households && households?.length > 0">
             <HouseholdProfilCard v-for="(household, index) in households" :key="index" :id="household" />
           </div>
           <div v-else class="flex flex-col items-center">
@@ -33,7 +34,7 @@
         </div>
       </div>
     </div>
-    <button @click="logOut">
+    <button @click="useLogOut()">
       LOG OUT
     </button>
   </div>
@@ -44,23 +45,21 @@ definePageMeta({
   layout: "app"
 })
 
-const logOut = async () => {
-  const supabase = useSupabaseClient()
-
-  await supabase.auth.signOut()
-
-  return navigateTo("/auth/connexion")
-}
-
+const supabase = useSupabaseClient()
 const publicUser = await useGetPublicUser()
 
-const { data: households, error } = await useFetch("/api/household/userHouseholds", {
-  method: "get",
-  query: { id: publicUser.value.id }
+const { data: households, error } = await useAsyncData("households", async () => {
+  if (publicUser.value) {
+    const { data, error } = await supabase
+      .from("households_users")
+      .select("id")
+      .eq("user_id", publicUser.value.id)
+
+    useHandleSupabaseReturnError(error)
+
+    return data
+  }
 })
 
-if (error.value) {
-  throw new Error("Error on fetch")
-}
-
+useHandleFetchError(error)
 </script>
