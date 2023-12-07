@@ -9,7 +9,7 @@
         Poster une recette
       </NuxtLink>
     </div>
-    <div v-else class="flex flex-col items-center">
+    <div v-else-if="recipes && recipes.length > 0" class="flex flex-col items-center">
       <div v-for="recipe in recipes" :key="recipe.id" class="w-full mb-4">
         <RecipeCard :recipe="recipe" :show-is-public="false" />
       </div>

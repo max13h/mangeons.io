@@ -1,8 +1,8 @@
 <template>
-  <NuxtLink :to="`/app/recettes/${recipe.id}`" class="bg-light rounded-xl shadow w-full h-full flex">
+  <NuxtLink :to="`/app/recettes/${recipe.id}`" class="card p-1 flex">
     <NuxtImg
       :src="props.recipe.image_url || '/default/recipe.png'"
-      alt="default recipe image"
+      alt="Default recipe image"
       width="100px"
       height="100px"
       class="rounded-l-xl object-cover min-w-[100px]"
@@ -10,31 +10,28 @@
     />
     <div class="p-4 flex-grow overflow-hidden">
       <p class="text-lg truncate w-full">
-        {{ props.recipe.name }}
+        {{ capitalize(props.recipe.name) }}
       </p>
       <p class="text-sm truncate italic">
-        {{ props.recipe.description }}
+        {{ capitalize(props.recipe.description) }}
       </p>
-      <div class="flex justify-between">
-        <p v-if="props.showIsPublic" class="w-full text-xs mt-2">
-          <i
-            class=""
-            :class="[
-              props.recipe.is_public ? 'text-green-500' : 'text-black',
-              props.recipe.is_public ? 'ri-checkbox-circle-line' : 'ri-lock-line'
-            ]"
+      <div class="flex justify-between mt-2 max-w-[16rem]">
+        <p v-if="props.showIsPublic" class="text-xs">
+          <Icon
+            :name="props.recipe.is_public ? 'fluent:checkmark-circle-16-regular' : 'fluent:lock-closed-16-regular'"
+            :class="[ props.recipe.is_public ? 'text-green-500' : 'text-black' ]"
+            size="1rem"
           />
           {{ props.recipe.is_public ? "Publié" : "Privé" }}
         </p>
-        <div class="flex justify-between w-full mt-2">
-          <p class="text-xs">
-            {{ props.recipe.meal_category_id.name_fr }}
-          </p>
-          <p class="text-xs ">
-            <i class="ri-time-line" />
-            {{ props.recipe.cooking_time }} min
-          </p>
-        </div>
+        <p class="text-xs">
+          <Icon name="fluent:tag-16-regular" size="1rem" />
+          {{ props.recipe.meal_category_id.name_fr }}
+        </p>
+        <p class="text-xs truncate">
+          <Icon name="fluent:clock-16-regular" size="1rem" />
+          {{ props.recipe.cooking_time }} min
+        </p>
       </div>
     </div>
   </NuxtLink>
