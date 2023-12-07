@@ -1,6 +1,5 @@
 <template>
   <div class="w-full h-full flex flex-col">
-    aa
     <div class="w-full flex justify-end">
       <NuxtLink to="/app/profil/edit" class="flex w-fit">
         <i class="ri-pencil-line" />
