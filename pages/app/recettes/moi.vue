@@ -21,21 +21,28 @@
 definePageMeta({
   layout: "app-focus"
 })
-useSetPageHeading("Mes recettes")
-
 const publicUser = await useGetPublicUser()
 
-const { data: recipes, error } = await useFetch("/api/recipes/userRecipes", {
-  method: "get",
-  query: { id: publicUser.value.id }
+const { data: recipes, error } = await useAsyncData("personalRecipes", async () => {
+  const supabase = useSupabaseClient()
+
+  if (publicUser.value) {
+    const { data, error } = await supabase
+      .from("recipes")
+      .select("id, name, cooking_time, description, image_url, meal_category_id (id, name_fr), is_public")
+      .eq("author", publicUser.value.id)
+
+    useHandleSupabaseReturnError(error)
+    return data
+  } else {
+    throw new Error("No public user")
+  }
 })
 
-if (error.value) {
-  throw new Error(JSON.stringify(error.value))
-}
+useHandleFetchError(error)
 
-const publicRecipes = recipes.value.filter((recipe) => recipe.is_public === true)
-const privateRecipes = recipes.value.filter((recipe) => recipe.is_public === false)
+const publicRecipes = recipes.value?.filter(recipe => recipe.is_public === true)
+const privateRecipes = recipes.value?.filter(recipe => recipe.is_public === false)
 </script>
 
 <style scoped>
