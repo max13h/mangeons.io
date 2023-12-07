@@ -24,12 +24,18 @@
 definePageMeta({
   layout: "app"
 })
+const supabase = useSupabaseClient()
 
-const { data: recipes, error } = await useFetch("/api/recipes/publicRecipes")
+const { data: recipes, error } = await useAsyncData("publicRecipes", async () => {
+  const { data, error } = await supabase
+    .from("recipes")
+    .select("id, name, cooking_time, description, image_url, meal_category_id (id, name_fr)")
+    .eq("is_public", true)
 
-if (error.value) {
-  throw new Error(JSON.stringify(error.value))
-}
+  useHandleSupabaseReturnError(error)
+  return data
+})
 
-useSetPageHeading("Recettes")
+useHandleFetchError(error)
+
 </script>
