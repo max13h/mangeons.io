@@ -11,10 +11,6 @@
       </ol>
     </Teleport>
     <div class="flex flex-col items-center h-full w-full overflow-x-hidden flex-grow pt-4 pl-4 pr-4">
-      <p class="mb-4 text-center rounded-md bg-primary-100 p-2">
-        Renseignez les infomations concernant votre nouvelle recette !
-      </p>
-
       <div class="w-full overflow-x-hidden flex-grow ">
         <swiper
           class="h-full"
@@ -43,16 +39,16 @@
         </swiper>
       </div>
     </div>
-    <div class="flex justify-between w-11/12 min-w-[100px] border border-slate-100 shadow-xl z-20 mb-4 mx-4 p-4 relative bg-light rounded-3xl ">
+    <div class="flex justify-between w-full px-4 pb-4 pt-2 relative">
       <button type="button" class="swiper-button-prev page-btn">
-        <i class="ri-arrow-left-double-line" />
+        <Icon name="fluent:chevron-double-left-16-filled" size="1.5rem" />
       </button>
-      <button v-if="reachEnd" type="button" class="btn-primary border-none flex items-center" @click="onSubmit">
+      <button v-if="reachEnd" type="button" class="btn-secondary border-none flex items-center" @click="onSubmit">
         Enregistrer
-        <i class="ri-save-3-line inline-block text-2xl w-8" />
+        <Icon name="fluent:save-16-filled" size="1.5rem" class="ms-2" />
       </button>
       <button type="button" class="swiper-button-next page-btn">
-        <i class="ri-arrow-right-double-line" />
+        <Icon name="fluent:chevron-double-right-16-filled" size="1.5rem" />
       </button>
     </div>
   </div>
@@ -108,9 +104,8 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
 
 <style scoped>
 .page-btn {
-  @apply p-2 bg-primary-100 rounded-lg w-16 text-2xl
+  @apply w-16 card p-2 bg-secondary text-white
 }
-
 .swiper-button-disabled{
     @apply opacity-0
 }

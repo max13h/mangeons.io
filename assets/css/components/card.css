@@ -2,4 +2,8 @@
   .card {
     @apply rounded-2xl p-4 w-full bg-white shadow-md
   }
+
+  .dotted {
+    @apply border-dashed border-2 border-primary rounded-2xl w-full bg-white shadow-md
+  }
 }
