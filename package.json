@@ -1,6 +1,10 @@
 {
   "name": "nuxt-app",
   "private": true,
+  "engines": {
+    "node": "20.10.x",
+    "npm": "10.2.x"
+  },
   "scripts": {
     "build": "nuxt build",
     "start": "node .output/server/index.mjs",
