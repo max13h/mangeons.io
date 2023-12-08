@@ -25,8 +25,6 @@
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
           }"
-          @navigation-next="pageNb++"
-          @navigation-prev="pageNb--"
           @reach-end="reachEnd = true"
         >
           <swiper-slide>
@@ -73,7 +71,6 @@ const route = useRoute()
 
 register()
 const reachEnd = ref(false)
-const pageNb = ref(1)
 
 const arrayOfErrors: globalThis.Ref<string[]> = ref([])
 

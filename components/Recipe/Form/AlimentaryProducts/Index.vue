@@ -7,10 +7,10 @@
       <RecipeFormAlimentaryProductsAddQuantityHint></RecipeFormAlimentaryProductsAddQuantityHint>
     </Teleport>
 
-    <h2 class="text-xl mb-4 self-start">
+    <p class="text-xl my-4 font-light">
       Précisez les ingrédients requis pour votre recette 🥦
-    </h2>
-    <div class="min-h-[300px] bg-white border-dashed border-2 border-primary w-full rounded-xl p-4 overflow-y-scroll mb-7 relative">
+    </p>
+    <div class="min-h-[300px] bg-white border-dashed border-2 border-primary w-full rounded-2xl p-4 overflow-y-scroll relative">
       <p v-if="recipeStore.selectedAlimentaryProducts.length == 0" class="absolute-center text-center w-7/12 italic text-slate-400">
         Aucun ingrédient ajouté
       </p>
@@ -22,7 +22,7 @@
         :index-in-store="index"
       />
     </div>
-    <div class="mb-4">
+    <div class="mb-7">
       <span
         v-if="errorMessage"
         class="text-red-500 text-sm"

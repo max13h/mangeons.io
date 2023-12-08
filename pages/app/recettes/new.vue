@@ -20,8 +20,11 @@
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
           }"
-          @navigation-next="pageNb++"
-          @navigation-prev="pageNb--"
+          :pagination="{
+            el: '.swiper-pagination-el',
+            type: 'bullets',
+            bulletActiveClass: 'swiper-pagination-active-bullet'
+          }"
           @reach-end="reachEnd = true"
         >
           <swiper-slide>
@@ -39,17 +42,20 @@
         </swiper>
       </div>
     </div>
-    <div class="flex justify-between w-full px-4 pb-4 pt-2 relative">
-      <button type="button" class="swiper-button-prev page-btn">
-        <Icon name="fluent:chevron-double-left-16-filled" size="1.5rem" />
-      </button>
-      <button v-if="reachEnd" type="button" class="btn-secondary border-none flex items-center" @click="onSubmit">
-        Enregistrer
-        <Icon name="fluent:save-16-filled" size="1.5rem" class="ms-2" />
-      </button>
-      <button type="button" class="swiper-button-next page-btn">
-        <Icon name="fluent:chevron-double-right-16-filled" size="1.5rem" />
-      </button>
+    <div class="flex flex-col items-center w-full">
+      <span class="swiper-pagination-el w-full flex justify-center my-1" />
+      <div class="flex justify-between w-full px-4 pb-4 pt-2 relative">
+        <button type="button" class="swiper-button-prev page-btn">
+          <Icon name="fluent:chevron-double-left-16-filled" size="1.8rem" />
+        </button>
+        <button v-if="reachEnd" type="button" class="flex items-center btn-primary shadow-md" @click="onSubmit">
+          <span class="hidden-under-320 me-2">Enregistrer</span>
+          <Icon name="fluent:save-16-filled" size="1.5rem" />
+        </button>
+        <button type="button" class="swiper-button-next page-btn">
+          <Icon name="fluent:chevron-double-right-16-filled" size="1.8rem" />
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -58,6 +64,7 @@
 import { register } from "swiper/element/bundle"
 import { Swiper, SwiperSlide } from "swiper/vue"
 import "swiper/css"
+import "swiper/css/pagination"
 
 definePageMeta({
   layout: "app-deep-focus"
@@ -67,7 +74,6 @@ const modalStore = useModalStore()
 
 register()
 const reachEnd = ref(false)
-const pageNb = ref(1)
 
 const { handleSubmit } = useForm({
   validationSchema: recipeStore.schemaNewRecipe
@@ -104,7 +110,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
 
 <style scoped>
 .page-btn {
-  @apply w-16 card p-2 bg-secondary text-white
+  @apply w-fit px-4 btn-outline-primary shadow-md
 }
 .swiper-button-disabled{
     @apply opacity-0
@@ -117,4 +123,11 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
 .my-shadow {
   box-shadow: 0px 1px 24px 0px rgba(0,0,0,0.45);
 }
+
+@media (max-width: 320px) {
+  .hidden-under-320 {
+    @apply hidden
+  }
+}
+
 </style>

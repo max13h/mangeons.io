@@ -28,6 +28,6 @@ body {
   @apply bg-light h-dynamic-screen
 }
 
-/* * {
-  @apply !border-red-500 border
-} */
+.swiper-pagination-active-bullet {
+  @apply !bg-primary !opacity-100
+}
