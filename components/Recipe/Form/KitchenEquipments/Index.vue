@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="text-xl my-4 font-light">
+    <p class="text-xl my-4 font-light ms-2">
       Material nécessaire à votre recette 🍳
     </p>
     <div class="min-h-[300px] bg-white border-dashed border-2 border-primary w-full rounded-2xl p-4 overflow-y-scroll mb-7 relative">

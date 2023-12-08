@@ -2,7 +2,7 @@
   <div>
     <input v-model="input" type="search" name="search" placeholder="Cherchez un ingrédient" class="mb-4">
     <div v-if="input">
-      <p v-if="input&&!filteredList.length" class="w-full flex justify-center items-center italic mt-4 text-slate-500">
+      <p v-if="input&&!filteredList.length" class="w-full flex justify-center items-center italic mt-4 opacity-50">
         Aucun résultat
       </p>
       <div v-else>
@@ -14,7 +14,7 @@
       </div>
     </div>
     <Disclosure v-for="storeArea in storeAreas" v-else :key="storeArea.id">
-      <DisclosureButton class="disclosure-button">
+      <DisclosureButton class="disclosure-button relative">
         {{ storeArea.name_fr }}
       </DisclosureButton>
       <transition
@@ -25,7 +25,7 @@
         leave-from-class="translate-y-0 opacity-100"
         leave-to-class="-translate-y-2 opacity-0"
       >
-        <DisclosurePanel class="flex flex-col items-center py-3 my-2 bg-light border w-[95%] mx-auto rounded-xl">
+        <DisclosurePanel class="flex flex-col items-center mt-2">
           <div v-for="alimentaryProduct in alimentaryProducts" :key="alimentaryProduct.id" class="w-[95%]">
             <div v-if="storeArea.id === alimentaryProduct.store_area_id">
               <RecipeFormAlimentaryProductsAddCard :alimentary-product="alimentaryProduct"></RecipeFormAlimentaryProductsAddCard>
@@ -62,6 +62,6 @@ watchEffect(() => {
 
 <style scoped>
 .disclosure-button {
-  @apply bg-slate-200 w-full my-1 rounded-md p-2 shadow
+  @apply bg-slate-200 w-full my-1 rounded-2xl p-2 shadow-md
 }
 </style>

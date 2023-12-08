@@ -1,5 +1,5 @@
 <template>
-  <div class="border-2 shadow-sm p-1 rounded-lg bg-white mb-2 flex flex-col justify-between items-center">
+  <div class="rounded-2xl shadow-md border-2 border-slate-200 p-2  mb-2 flex flex-col justify-between items-center">
     <div class="flex justify-between w-full">
       <div class="flex items-center w-full mb-2">
         <NuxtImg :src="props.alimentaryProduct.image_url" :alt="props.alimentaryProduct.name_fr" width="25" />
@@ -7,22 +7,30 @@
           {{ props.alimentaryProduct.name_fr }}
         </p>
       </div>
-      <i class="ri-delete-bin-line text-lg" @click="remove" />
+      <Icon name="fluent:delete-16-regular" size="1.3rem" class="cursor-pointer" @click="remove" />
     </div>
     <div class="flex flex-col w-full">
-      <p class="mb-2 italic">
+      <p class="mb-2 text-sm">
         Quantité
-        <ModalHint @click="useOpenModal('quantityHint')"></ModalHint>
+        <Tooltip position="bottom" class="inline" tooltip-class="!w-48">
+          <p class="mb-4">
+            Ajoutez une unité <strong>cohérente</strong> pour la quantité de vos ingrédients !
+          </p>
+          <p class="mb-2 underline">
+            Exemple:
+          </p>
+          <p>kg / g / mg / l / cl / ml / louche / pincée / tranche / unité / boite ...</p>
+        </Tooltip>
       </p>
-      <div class="flex w-full justify-end items-start">
+      <div class="flex w-full justify-end items-start flex-wrap">
         <input
           v-model.number="quantity"
           type="number"
           name="quantity"
           placeholder="100"
-          class="max-w-[6rem] me-4"
+          class="max-w-[6rem] my-1"
         >
-        <div class="flex flex-col">
+        <div class="flex flex-col ms-4 my-1">
           <input
             v-model="unit"
             type="text"

@@ -1,9 +1,9 @@
 <template>
-  <div class="h-full">
+  <div class="h-full overflow-y-scroll overflow-x-hidden">
     <div class="flex items-center text-xl mb-4 min-h-[56px]">
       <p class=" font-light">
         Décrivrez <span class="font-light underline">étape</span> par <span class="font-light underline">étape</span> comment réussir votre recette
-        <Tooltip position="bottom" class=" w-fit inline">
+        <Tooltip position="bottom" class="w-fit inline">
           <p class="text-base">
             Vous pouvez <strong>redimensionner</strong> les boites de dialogues afin de mieux voir ce que vous écrivez. Selectionnez le <strong>bas droit</strong> de la case pour étendre
           </p>
@@ -26,11 +26,12 @@
           <textarea
             ref="inputElements"
             v-model="step.value"
+            :name="`step-${index}`"
             type="text"
             class="m-2"
           />
-          <Icon name="fluent:settings-16-regular" size="2.5rem" @click="showOptions(index)" />
-          <Teleport v-if="(modalStore.whatIsOpen == 'recipeStepSetting') && (optionIndex == index)" to="#modal">
+          <Icon name="fluent:more-circle-16-regular" size="2rem" class="cursor-pointer" @click="showOptions(index)" />
+          <Teleport v-if="(modalStore.whatIsOpen === 'recipeStepSetting') && (optionIndex === index)" to="#modal">
             <div class="flex flex-col justify-center h-full w-full">
               <button
                 type="button"
@@ -44,7 +45,7 @@
               </button>
             </div>
           </Teleport>
-          <Icon name="fluent:re-order-dots-vertical-16-regular" size="2.5rem" class="drag-element" />
+          <Icon name="fluent:re-order-dots-vertical-16-regular" size="2.5rem" class="drag-element cursor-grab active:cursor-grabbing" />
         </div>
         <div v-if="step.nested.length !== 0" ref="nestedStepLists">
           <div
@@ -59,11 +60,21 @@
             <textarea
               ref="inputElements"
               v-model="stepList[index].nested[nestedIndex].value"
+              :name="`step-${index}` + `${nestedIndex}`"
               type="text"
               class="m-2"
             />
-            <Icon name="fluent:delete-16-regular" size="2rem" @click="removeNestedStep(nestedIndex, index)" />
-            <Icon name="fluent:re-order-dots-vertical-16-regular" size="2.5rem" class="drag-nested-element" @click="removeNestedStep(nestedIndex, index)" />
+            <Icon name="fluent:more-circle-16-regular" size="2rem" class="cursor-pointer" @click="showNestedOptions(`${index}` + `${nestedIndex}`)" />
+            <Teleport
+              v-if="(modalStore.whatIsOpen === 'recipeNestedStepSetting') && (optionNestedIndex === `${index}` + `${nestedIndex}`)"
+              to="#modal"
+              class="bg-red-300"
+            >
+              <button type="button" class="btn-ghost-primary w-full" @click="removeNestedStep(nestedIndex, index)">
+                Supprimer la sous étape
+              </button>
+            </Teleport>
+            <Icon name="fluent:re-order-dots-vertical-16-regular" size="2.5rem" class="drag-nested-element cursor-grab active:cursor-grabbing" />
           </div>
         </div>
       </div>
@@ -115,9 +126,14 @@ const showOptions = (index: number) => {
   useOpenModal("recipeStepSetting")
   optionIndex.value = index
 }
+const optionNestedIndex: globalThis.Ref<string> = ref("")
+const showNestedOptions = (nestedIndex: string) => {
+  useOpenModal("recipeNestedStepSetting")
+  optionNestedIndex.value = nestedIndex
+}
 
 const addStep = () => {
-  const promise = new Promise((resolve, _reject) => {
+  const promise = new Promise((resolve) => {
     let highestId = -1
     if (stepList.value.length > 0) {
       highestId = Math.max(...stepList.value.map(obj => obj.id))

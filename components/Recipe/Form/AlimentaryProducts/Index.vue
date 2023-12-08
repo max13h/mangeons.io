@@ -3,14 +3,10 @@
     <Teleport v-if="modalStore.whatIsOpen == 'addAlimentaryProducts'" to="#modal">
       <RecipeFormAlimentaryProductsAdd></RecipeFormAlimentaryProductsAdd>
     </Teleport>
-    <Teleport v-if="modalStore.whatIsOpen == 'quantityHint'" to="#modal">
-      <RecipeFormAlimentaryProductsAddQuantityHint></RecipeFormAlimentaryProductsAddQuantityHint>
-    </Teleport>
-
-    <p class="text-xl my-4 font-light">
+    <p class="text-xl my-4 font-light ms-2">
       Précisez les ingrédients requis pour votre recette 🥦
     </p>
-    <div class="min-h-[300px] bg-white border-dashed border-2 border-primary w-full rounded-2xl p-4 overflow-y-scroll relative">
+    <div class="min-h-[300px] bg-white border-dashed border-2 border-primary w-full rounded-2xl p-4 relative">
       <p v-if="recipeStore.selectedAlimentaryProducts.length == 0" class="absolute-center text-center w-7/12 italic text-slate-400">
         Aucun ingrédient ajouté
       </p>
