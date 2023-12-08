@@ -1,27 +1,35 @@
 <template>
   <div class="h-full">
-    <h2 class="text-xl mb-4 min-h-[56px]">
-      Décrivrez <span class="underline">étape</span> par <span class="underline">étape</span> comment réussir votre recette 🔪
-    </h2>
+    <div class="flex items-center text-xl mb-4 min-h-[56px]">
+      <p class=" font-light">
+        Décrivrez <span class="font-light underline">étape</span> par <span class="font-light underline">étape</span> comment réussir votre recette
+        <Tooltip position="bottom" class=" w-fit inline">
+          <p class="text-base">
+            Vous pouvez <strong>redimensionner</strong> les boites de dialogues afin de mieux voir ce que vous écrivez. Selectionnez le <strong>bas droit</strong> de la case pour étendre
+          </p>
+        </Tooltip>
+        🔪
+      </p>
+    </div>
 
     <div ref="mainStepList" class="overflow-hidden">
       <div
         v-for="(step, index) in stepList"
         :key="index"
         :data-value="step.id"
-        class="border-dashed border-2 border-primary rounded-xl bg-slate-200 p-4 mb-2"
+        class="rounded-2xl bg-slate-200 px-2 mb-2 flex flex-col"
       >
-        <div class="flex items-center">
-          <p class="text-lg">
+        <div class="flex items-center mb-1">
+          <p>
             {{ step.index + 1 }}.
           </p>
           <textarea
             ref="inputElements"
             v-model="step.value"
             type="text"
-            class="border-white mx-4"
+            class="m-2"
           />
-          <i class="ri-settings-3-line text-2xl me-4" @click="showOptions(index)" />
+          <Icon name="fluent:settings-16-regular" size="2.5rem" @click="showOptions(index)" />
           <Teleport v-if="(modalStore.whatIsOpen == 'recipeStepSetting') && (optionIndex == index)" to="#modal">
             <div class="flex flex-col justify-center h-full w-full">
               <button
@@ -36,26 +44,26 @@
               </button>
             </div>
           </Teleport>
-          <i class="ri-draggable text-2xl drag-element" />
+          <Icon name="fluent:re-order-dots-vertical-16-regular" size="2.5rem" class="drag-element" />
         </div>
-        <div v-if="step.nested.length !== 0" ref="nestedStepLists" class="border-dashed border-2 border-primary bg-slate-300 rounded-xl mt-2 p-4">
+        <div v-if="step.nested.length !== 0" ref="nestedStepLists">
           <div
             v-for="(nestedStep, nestedIndex) in stepList[index].nested"
             :key="nestedIndex"
-            class="flex items-center mb-4"
+            class="flex items-center rounded-2xl bg-slate-100 mb-2 px-2"
             :data-value="nestedStep.id"
           >
-            <p class="text-base">
+            <p class="text-sm">
               {{ nestedStep.index + 1 }}.
             </p>
             <textarea
               ref="inputElements"
               v-model="stepList[index].nested[nestedIndex].value"
               type="text"
-              class="border-white mx-4"
+              class="m-2"
             />
-            <i class="ri-delete-bin-line text-xl me-4" @click="removeNestedStep(nestedIndex, index)" />
-            <i class="ri-draggable text-2xl drag-nested-element" />
+            <Icon name="fluent:delete-16-regular" size="2rem" @click="removeNestedStep(nestedIndex, index)" />
+            <Icon name="fluent:re-order-dots-vertical-16-regular" size="2.5rem" class="drag-nested-element" @click="removeNestedStep(nestedIndex, index)" />
           </div>
         </div>
       </div>
@@ -66,8 +74,9 @@
     >
       {{ capitalize(errorMessage) }}
     </span>
-    <button class="btn-primary w-full mt-4 mb-8" @click="addStep">
+    <button class="btn-outline-primary w-full mt-4 mb-8" @click="addStep">
       Ajouter une étape
+      <Icon name="fluent:add-circle-16-regular" size="2rem" />
     </button>
   </div>
 </template>
@@ -258,6 +267,3 @@ onMounted(() => {
   })
 })
 </script>
-
-<style scoped>
-</style>

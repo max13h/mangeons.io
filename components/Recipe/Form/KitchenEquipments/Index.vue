@@ -22,7 +22,7 @@
         {{ capitalize(errorMessage) }}
       </span>
     </div>
-    <button class="btn-outline-primary w-full mb-4" @click="useAddKitchenEquipmentsModal">
+    <button class="btn-outline-primary w-full mb-8" @click="useAddKitchenEquipmentsModal">
       Ajouter le matériel nécessaire
       <Icon name="fluent:add-circle-16-regular" size="2rem" />
     </button>

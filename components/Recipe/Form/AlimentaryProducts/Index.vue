@@ -32,7 +32,7 @@
     </div>
     <button class="btn-outline-primary w-full mb-8" @click="useAddAlimentaryProductsModal">
       Ajouter un ingrédient
-      <i class="ri-add-circle-line text-xl align-middle" />
+      <Icon name="fluent:add-circle-16-regular" size="2rem" />
     </button>
   </div>
 </template>

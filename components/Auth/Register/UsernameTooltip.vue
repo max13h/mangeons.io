@@ -1,5 +1,5 @@
 <template>
-  <Tooltip class="ms-2" position="bottom" tooltip-class="min-w-[18rem]">
+  <Tooltip class="ms-1" position="bottom" tooltip-class="min-w-[18rem]">
     <p class="mb-2">
       Le nom d'utilisateur doit être formaté de cette manière:
     </p>

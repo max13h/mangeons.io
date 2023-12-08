@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center items-center tooltip">
+  <div class="tooltip">
     <Icon name="fluent:question-circle-16-regular" size="1.2rem" />
     <div
       class="tooltip-content card"
