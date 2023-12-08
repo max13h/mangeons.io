@@ -1,10 +1,12 @@
 <template>
   <div class="modal-backdrop">
-    <div class="modal">
+    <div class="modal" tabindex="0" @keydown.esc="modalStore.close">
       <div class="btn-close-container mb-2">
         <button type="button" class="ri-close-line" @click="modalStore.close" />
       </div>
-      <slot />
+      <div class="overflow-y-scroll">
+        <slot />
+      </div>
     </div>
   </div>
 </template>
@@ -35,11 +37,10 @@ const modalStore = useModalStore()
   }
 
   .modal {
-    @apply p-4 relative bg-white flex flex-col rounded-3xl border-2 border-primary overflow-y-scroll w-full m-8;
+    @apply relative bg-white flex flex-col card overflow-y-scroll w-full m-4;
     box-shadow: 0px 0px 33px 0px #00000063;
     min-width: 200px;
-    max-width: 560px;
-    min-height: 200px;
+    max-width: 640px;
     max-height: 80vh;
   }
 </style>

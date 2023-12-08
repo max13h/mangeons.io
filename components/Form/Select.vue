@@ -3,12 +3,13 @@
     <label
       v-if="props.label"
       :for="props.name"
-      class="inline-block"
+      class="inline-block ms-2"
       :class="props.labelClass"
     >
       {{ capitalize(props.label) }}
     </label>
     <select
+      :id="props.name"
       v-model="value"
       :name="props.name"
       :placeholder="props.placeholder"

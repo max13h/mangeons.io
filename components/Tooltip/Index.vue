@@ -59,4 +59,9 @@ const position = ref(`tooltip-${props.position}`)
   left: 125%;
   transform: translateY(-50%)
 }
+
+.tooltip-right-bottom {
+  top: 100%;
+  left: 100%;
+}
 </style>
