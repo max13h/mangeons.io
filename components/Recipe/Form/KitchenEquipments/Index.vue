@@ -23,7 +23,7 @@
       </span>
     </div>
     <button class="btn-outline-primary w-full mb-4" @click="useAddKitchenEquipmentsModal">
-      Ajouter matériel de cuisine
+      Ajouter le matériel nécessaire
       <Icon name="fluent:add-circle-16-regular" size="2rem" />
     </button>
   </div>
