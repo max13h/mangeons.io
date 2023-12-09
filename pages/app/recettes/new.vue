@@ -45,14 +45,14 @@
     <div class="flex flex-col items-center w-full">
       <span class="swiper-pagination-el w-full flex justify-center my-1" />
       <div class="flex justify-between w-full px-4 pb-4 pt-2 relative">
-        <button type="button" class="swiper-button-prev page-btn">
+        <button type="button" class="swiper-button-prev page-btn btn-outline-primary">
           <Icon name="fluent:chevron-double-left-16-filled" size="1.8rem" />
         </button>
         <button v-if="reachEnd" type="button" class="flex items-center btn-primary shadow-md" @click="onSubmit">
           <span class="hidden-under-320 me-2">Enregistrer</span>
           <Icon name="fluent:save-16-filled" size="1.5rem" />
         </button>
-        <button type="button" class="swiper-button-next page-btn">
+        <button type="button" class="swiper-button-next page-btn btn-outline-primary">
           <Icon name="fluent:chevron-double-right-16-filled" size="1.8rem" />
         </button>
       </div>
@@ -119,7 +119,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
 
 <style scoped>
 .page-btn {
-  @apply w-fit px-4 btn-outline-primary shadow-md
+  @apply w-fit px-4 shadow-md
 }
 .swiper-button-disabled{
     @apply opacity-0
