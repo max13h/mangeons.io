@@ -18,7 +18,7 @@
         {{ recipeData.content }}
       </p>
     </div>
-    <div v-if="publicUser.id == recipeData.author.id">
+    <div v-if="publicUser?.id == recipeData.author.id">
       <NuxtLink :to="`/app/recettes/${route.params.id}/edit`" type="button" class="btn-outline-primary">
         Edit
       </NuxtLink>
@@ -33,18 +33,19 @@ definePageMeta({
 const route = useRoute()
 const publicUser = await useGetPublicUser()
 
-const { data: recipeData, error: recipeError } = await useFetch("/api/recipe/recipe", {
-  method: "get",
-  query: { id: route.params.id }
+const { data: recipeData, error } = await useAsyncData("getRecipe", async () => {
+  const supabase = useSupabaseClient()
+
+  const { data, error } = await supabase.rpc("get_all_data_of_recipe", { recipe_id: route.params.id })
+
+  useHandleSupabaseIssue(data, error)
+
+  return data[0]
 })
 
-if (recipeError.value) {
-  throw new Error("Error during the useFetch call")
-}
+useHandleFetchError(error)
 
 const contentObject = useParseStringToStepListObject(recipeData.value.content)
-
-console.log(contentObject)
 </script>
 
 <style scoped>
