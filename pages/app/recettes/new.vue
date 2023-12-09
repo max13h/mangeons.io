@@ -90,12 +90,16 @@ const onSuccess = async (values: any) => {
     return useErrorNotice()
   }
 
-  const { data, error, status } = await useFetch("/api/recipe/recipe", {
-    method: "post",
-    body: { recipe_data: values }
+  const { data, error, status } = await useAsyncData("postRecipe", async () => {
+    const supabase = useSupabaseClient()
+
+    const { data, error } = await supabase.rpc("post_all_data_of_new_recipe", { recipe_data: values })
+
+    useHandleSupabaseReturnError(error)
+    return data
   })
 
-  if (status.value === "success") {
+  if (status.value === "success" && !error.value) {
     return navigateTo({
       path: `/app/recettes/${data.value}`,
       query: {
@@ -103,7 +107,7 @@ const onSuccess = async (values: any) => {
       }
     })
   } else {
-    throw new Error(`Error on useFetch => ${JSON.stringify(error)}`)
+    return useErrorNotice()
   }
 }
 const onInvalidSubmit = ({ errors }: {errors: any}) => {
