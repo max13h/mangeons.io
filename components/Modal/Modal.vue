@@ -37,7 +37,7 @@ const modalStore = useModalStore()
   }
 
   .modal {
-    @apply relative bg-white flex flex-col card overflow-y-scroll w-full m-4;
+    @apply relative bg-white flex flex-col overflow-y-scroll w-full m-4 rounded-2xl p-4;
     box-shadow: 0px 0px 33px 0px #00000063;
     min-width: 200px;
     max-width: 640px;
