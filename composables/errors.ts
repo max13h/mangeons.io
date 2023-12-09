@@ -1,6 +1,6 @@
 export const useHandleFetchError = (error: globalThis.Ref<any>) => {
   if (error.value) {
-    useNotice("Une erreur s'est produite, veuillez réessayer plus tard", "error")
+    useErrorNotice()
     throw new Error("An error occures durring the process", { cause: error })
   }
 }

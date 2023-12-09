@@ -52,7 +52,7 @@ const onSubmit = handleSubmit(async (values) => {
       useNotice("Votre mot de passe à été changé avec succes", "success")
       return navigateTo("/app/profil")
     } else {
-      useNotice("Une erreur s'est produit, veuillez réessayer", "error")
+      useErrorNotice()
       return navigateTo("/auth/mot-de-passe-oublie")
     }
   } else {

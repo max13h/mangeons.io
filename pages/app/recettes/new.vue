@@ -83,7 +83,12 @@ const arrayOfErrors: globalThis.Ref<string[]> = ref([])
 
 const onSuccess = async (values: any) => {
   const publicUser = await useGetPublicUser()
-  values.author = publicUser.value.id
+
+  if (publicUser.value) {
+    values.author = publicUser.value.id
+  } else {
+    return useErrorNotice()
+  }
 
   const { data, error, status } = await useFetch("/api/recipe/recipe", {
     method: "post",

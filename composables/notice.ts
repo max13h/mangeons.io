@@ -3,3 +3,7 @@ export const useNotice = (message: string, status: string) => {
 
   noticeStore.addNotice(message, status)
 }
+
+export const useErrorNotice = () => {
+  useNotice("Une erreur s'est produite, veuillez réessayer plus tard", "error")
+}
