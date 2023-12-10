@@ -19,12 +19,11 @@
         :data-value="step.id"
         class="rounded-2xl bg-slate-200 px-2 mb-2 flex flex-col"
       >
-        <div class="flex items-center mb-1">
+        <div class="flex items-center">
           <p>
             {{ step.index + 1 }}.
           </p>
           <textarea
-            ref="inputElements"
             v-model="step.value"
             :name="`step-${index}`"
             type="text"
@@ -40,7 +39,7 @@
               >
                 Ajouter une sous-étape
               </button>
-              <button type="button" class="btn-outline-primary mt-4" @click="removeStep(index)">
+              <button type="button" class="btn-ghost-primary text-red-500 text-base mt-4" @click="removeStep(index)">
                 Supprimer l'étape
               </button>
             </div>
@@ -51,14 +50,13 @@
           <div
             v-for="(nestedStep, nestedIndex) in stepList[index].nested"
             :key="nestedIndex"
-            class="flex items-center rounded-2xl bg-slate-100 mb-2 px-2"
+            class="flex items-center rounded-2xl bg-slate-50 mb-2 px-2 ms-2"
             :data-value="nestedStep.id"
           >
             <p class="text-sm">
               {{ nestedStep.index + 1 }}.
             </p>
             <textarea
-              ref="inputElements"
               v-model="stepList[index].nested[nestedIndex].value"
               :name="`step-${index}` + `${nestedIndex}`"
               type="text"
@@ -70,11 +68,11 @@
               to="#modal"
               class="bg-red-300"
             >
-              <button type="button" class="btn-ghost-primary w-full" @click="removeNestedStep(nestedIndex, index)">
+              <button type="button" class="btn-ghost-primary text-red-500 text-base w-full" @click="removeNestedStep(nestedIndex, index)">
                 Supprimer la sous étape
               </button>
             </Teleport>
-            <Icon name="fluent:re-order-dots-vertical-16-regular" size="2.5rem" class="drag-nested-element cursor-grab active:cursor-grabbing" />
+            <Icon v-if="!isMobile" name="fluent:re-order-dots-vertical-16-regular" size="2.5rem" class="drag-nested-element cursor-grab active:cursor-grabbing" />
           </div>
         </div>
       </div>
@@ -97,11 +95,12 @@ import Sortable from "sortablejs"
 
 const modalStore = useModalStore()
 
+const { isMobile } = useDevice()
+
 const { value, errorMessage } = useField(() => "content")
 
 const mainStepList: globalThis.Ref<any> = ref(null)
 const nestedStepLists: globalThis.Ref<any[]> = ref([])
-const inputElements = ref([])
 
 const props = defineProps<{
   content?: string
@@ -121,11 +120,13 @@ if (props.content) {
   stepList.value = useParseStringToStepListObject(props.content)
 }
 
+// OPEN OPTIONS MODAL FOR STEP ELEMENT
 const optionIndex: globalThis.Ref<number> = ref(0)
 const showOptions = (index: number) => {
   useOpenModal("recipeStepSetting")
   optionIndex.value = index
 }
+// OPEN OPTIONS MODAL FOR NESTED STEP ELEMENT
 const optionNestedIndex: globalThis.Ref<string> = ref("")
 const showNestedOptions = (nestedIndex: string) => {
   useOpenModal("recipeNestedStepSetting")
