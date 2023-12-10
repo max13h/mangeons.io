@@ -1,5 +1,5 @@
 <template>
-  <div class="tooltip">
+  <div v-if="!isMobile" class="tooltip">
     <Icon name="fluent:question-circle-16-regular" size="1.2rem" />
     <div
       class="tooltip-content card"
@@ -7,6 +7,12 @@
     >
       <slot />
     </div>
+  </div>
+  <div v-else>
+    <Icon name="fluent:question-circle-16-regular" size="1.2rem" @click="useOpenModal('tooltip')" />
+    <Teleport v-if="useIsModalOpen('tooltip')" to="#modal">
+      <slot />
+    </Teleport>
   </div>
 </template>
 
@@ -17,6 +23,8 @@ const props = defineProps<{
 }>()
 
 const position = ref(`tooltip-${props.position}`)
+
+const { isMobile } = useDevice()
 </script>
 
 <style scoped>
