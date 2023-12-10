@@ -1,6 +1,6 @@
 <template>
   <div class="p-4 flex flex-col h-full">
-    <Teleport v-if="modalStore.whatIsOpen === 'recipeFormInvalid'" to="#modal">
+    <Teleport v-if="useIsModalOpen('recipeFormInvalid')" to="#modal">
       <p class="mb-4 text-lg">
         Oups, des problèmes ont été repérés 🚨
       </p>
@@ -54,7 +54,6 @@ definePageMeta({
 
 const publicUser = await useGetPublicUser()
 const profileStore = useProfileStore()
-const modalStore = useModalStore()
 
 const { handleSubmit } = useForm({
   validationSchema: profileStore.schemaProfile

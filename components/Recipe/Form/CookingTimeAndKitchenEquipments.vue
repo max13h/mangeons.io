@@ -1,7 +1,7 @@
 <template>
   <div>
     <Teleport
-      v-if="modalStore.whatIsOpen == 'addKitchenEquipments'"
+      v-if="useIsModalOpen('addKitchenEquipments')"
       to="#modal"
     >
       <RecipeFormKitchenEquipmentsAdd />
@@ -21,8 +21,6 @@
 </template>
 
 <script setup lang="ts">
-const modalStore = useModalStore()
-
 const props = defineProps<{
   cookingTime?: number
 }>()

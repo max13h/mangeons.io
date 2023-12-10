@@ -30,7 +30,7 @@
             class="m-2"
           />
           <Icon name="fluent:more-circle-16-regular" size="2rem" class="cursor-pointer" @click="showOptions(index)" />
-          <Teleport v-if="(modalStore.whatIsOpen === 'recipeStepSetting') && (optionIndex === index)" to="#modal">
+          <Teleport v-if="(useIsModalOpen('recipeStepSetting')) && (optionIndex === index)" to="#modal">
             <div class="flex flex-col justify-center h-full w-full">
               <button
                 type="button"
@@ -64,7 +64,7 @@
             />
             <Icon name="fluent:more-circle-16-regular" size="2rem" class="cursor-pointer" @click="showNestedOptions(`${index}` + `${nestedIndex}`)" />
             <Teleport
-              v-if="(modalStore.whatIsOpen === 'recipeNestedStepSetting') && (optionNestedIndex === `${index}` + `${nestedIndex}`)"
+              v-if="(useIsModalOpen('recipeNestedStepSetting')) && (optionNestedIndex === `${index}` + `${nestedIndex}`)"
               to="#modal"
               class="bg-red-300"
             >

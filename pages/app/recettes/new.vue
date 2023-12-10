@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center h-full">
-    <Teleport v-if="modalStore.whatIsOpen === 'recipeFormInvalid'" to="#modal">
+    <Teleport v-if="useIsModalOpen('recipeFormInvalid')" to="#modal">
       <p class="mb-4 text-lg">
         Oups, des problèmes ont été repérés 🚨
       </p>
@@ -70,7 +70,6 @@ definePageMeta({
   layout: "app-deep-focus"
 })
 const recipeStore = useRecipeStore()
-const modalStore = useModalStore()
 
 register()
 const reachEnd = ref(false)

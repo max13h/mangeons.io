@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Teleport v-if="modalStore.whatIsOpen == 'confirmeRecipeImageChange'" to="#modal">
+    <Teleport v-if="useIsModalOpen('confirmeRecipeImageChange')" to="#modal">
       <p>Confirmez le changement d'image:</p>
       <p v-if="uploadedFile" class="font-bold w-full text-center mt-4">
         {{ uploadedFile.name }}

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Teleport v-if="modalStore.whatIsOpen == 'addAlimentaryProducts'" to="#modal">
+    <Teleport v-if="useIsModalOpen('addAlimentaryProducts')" to="#modal">
       <RecipeFormAlimentaryProductsAdd></RecipeFormAlimentaryProductsAdd>
     </Teleport>
     <p class="text-xl my-4 font-light ms-2">
@@ -34,7 +34,6 @@
 </template>
 
 <script setup lang="ts">
-const modalStore = useModalStore()
 const recipeStore = useRecipeStore()
 
 const { value, errorMessage } = useField("selectedAlimentaryProducts")
