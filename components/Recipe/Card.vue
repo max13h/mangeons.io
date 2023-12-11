@@ -1,6 +1,6 @@
 <template>
-  <NuxtLink :to="`/app/recettes/${recipe.id}`" class="card p-0 flex">
-    <div class="w-[100px] h-[110px] rounded-l-xl overflow-hidden">
+  <NuxtLink :to="`/app/recettes/${recipe.id}`" class="card p-0 flex w-full">
+    <div class="w-[100px] h-[110px] min-w-[66px] rounded-l-xl overflow-hidden">
       <NuxtImg
         :src="props.recipe.image_url || '/default/recipe.png'"
         alt="Default recipe image"
