@@ -1,13 +1,14 @@
 <template>
-  <NuxtLink :to="`/app/recettes/${recipe.id}`" class="card p-1 flex">
-    <NuxtImg
-      :src="props.recipe.image_url || '/default/recipe.png'"
-      alt="Default recipe image"
-      width="100px"
-      height="100px"
-      class="rounded-l-xl object-cover min-w-[100px]"
-      placeholder
-    />
+  <NuxtLink :to="`/app/recettes/${recipe.id}`" class="card p-0 flex">
+    <div class="w-[100px] h-[110px] rounded-l-xl overflow-hidden">
+      <NuxtImg
+        :src="props.recipe.image_url || '/default/recipe.png'"
+        alt="Default recipe image"
+        width="100px"
+        class="object-cover w-full h-full"
+        placeholder
+      />
+    </div>
     <div class="p-4 flex-grow overflow-hidden">
       <p class="text-lg truncate w-full">
         {{ capitalize(props.recipe.name) }}
