@@ -27,7 +27,3 @@
 body {
   @apply bg-light h-dynamic-screen
 }
-
-.swiper-pagination-active-bullet {
-  @apply !bg-primary !opacity-100
-}
