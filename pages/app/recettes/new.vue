@@ -19,7 +19,7 @@
         leave-from-class="translate-x-0"
         leave-to-class="-translate-x-full"
       >
-        <RecipeFormNameDescriptionAndCategory v-if="pageNb === 1" />
+        <RecipeFormNameDescriptionAndCategory v-show="pageNb === 1" />
       </Transition>
       <Transition
         enter-active-class="transition duration-100 ease-out"
@@ -29,7 +29,7 @@
         leave-from-class="translate-x-0"
         :leave-to-class="goToNext ? '-translate-x-full' : 'translate-x-full'"
       >
-        <RecipeFormCookingTimeAndKitchenEquipments v-if="pageNb === 2" />
+        <RecipeFormCookingTimeAndKitchenEquipments v-show="pageNb === 2" />
       </Transition>
       <Transition
         enter-active-class="transition duration-100 ease-out"
@@ -39,7 +39,7 @@
         leave-from-class="translate-x-0"
         :leave-to-class="goToNext ? '-translate-x-full' : 'translate-x-full'"
       >
-        <RecipeFormAlimentaryProducts v-if="pageNb === 3" />
+        <RecipeFormAlimentaryProducts v-show="pageNb === 3" />
       </Transition>
       <Transition
         enter-active-class="transition duration-100 ease-out"
@@ -49,7 +49,7 @@
         leave-from-class="translate-x-0"
         leave-to-class="translate-x-full"
       >
-        <RecipeFormContent v-if="pageNb === 4" />
+        <RecipeFormContent v-show="pageNb === 4" />
       </Transition>
     </div>
     <div class="flex flex-col items-center w-full">
