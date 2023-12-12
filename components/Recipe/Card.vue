@@ -3,7 +3,7 @@
     <div class="w-[100px] h-[110px] min-w-[66px] rounded-l-xl overflow-hidden">
       <NuxtImg
         :src="props.recipe.image_url || '/default/recipe.png'"
-        alt="Default recipe image"
+        :alt="props.recipe.image_url ? `Recipe image for ${props.recipe.name}` : 'Default recipe image'"
         width="100px"
         class="object-cover w-full h-full"
         placeholder

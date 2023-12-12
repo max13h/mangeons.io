@@ -1,6 +1,6 @@
 <template>
   <div class="overflow-y-scroll">
-    <RecipeImage :image-url="recipeData.image_url" />
+    <RecipeImage :image-url="recipeData.image_url" :name="recipeData.name" />
     <h2 class="text-2xl">
       {{ capitalize(recipeData.name) }}
     </h2>

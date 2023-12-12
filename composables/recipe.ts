@@ -58,3 +58,63 @@ export const useParseStringToStepListObject = (listString: string) => {
   }
   return finalArrayOfObjects
 }
+
+export const useUploadRecipeImage = async (recipeId: string, uploadedFile: any, oldImageUrl: string = null) => {
+  const modalStore = useModalStore()
+  modalStore.close()
+
+  const supabase = useSupabaseClient()
+  const user = useSupabaseUser()
+
+  if (user.value) {
+    const newImageName = `${recipeId}_${Date.now()}.jpg`
+
+    const { error: postImageError } = await useAsyncData(async () => {
+      const { error } = await supabase.storage
+        .from("recipes")
+        .upload(`${user.value.id}/${newImageName}`, uploadedFile)
+
+      useHandleSupabaseReturnError(error)
+    })
+
+    useHandleFetchError(postImageError)
+
+    if (oldImageUrl) {
+      const { error: removeOldImageError } = await useAsyncData(async () => {
+        const match = oldImageUrl.match(/(?<=recipes\/).*$/)
+
+        const { error } = await supabase
+          .storage
+          .from("recipes")
+          .remove([match[0]])
+
+        useHandleSupabaseReturnError(error)
+      })
+
+      useHandleFetchError(removeOldImageError)
+    }
+
+    const { error: updateImageUrlError } = await useAsyncData(async () => {
+      const { data } = supabase.storage
+        .from("recipes")
+        .getPublicUrl(`${user.value.id}/${newImageName}`)
+
+      if (!data) {
+        throw new Error("No public URL")
+      }
+
+      const { error: insertError } = await supabase
+        .from("recipes")
+        .update({ image_url: data.publicUrl })
+        .eq("id", recipeId)
+
+      useHandleSupabaseReturnError(insertError)
+    })
+
+    useHandleFetchError(updateImageUrlError)
+  } else {
+    useErrorNotice()
+  }
+
+  window.location.reload(true)
+}

@@ -5,7 +5,17 @@
       <p v-if="uploadedFile" class="font-bold w-full text-center mt-4">
         {{ uploadedFile.name }}
       </p>
-      <NuxtImg v-if="tempURL" :src="tempURL" />
+      <div class="w-full flex justify-center">
+        <div v-if="tempURL" class="w-[200px] h-[220px] overflow-hidden">
+          <NuxtImg
+            :src="tempURL"
+            alt="Image you just uploaded"
+            width="100px"
+            class="object-cover w-full h-full"
+            placeholder
+          />
+        </div>
+      </div>
       <button type="button" class="btn-primary w-full mt-4" @click="handleConfirmImageUpload">
         Confirmer
       </button>
@@ -14,23 +24,20 @@
       </button>
     </Teleport>
 
-    <div class="relative overflow-hidden rounded-xl w-full h-32 mb-4 border-2 bg-slate-200">
-      <div v-if="imageUrl">
-        <NuxtImg :src="imageUrl" alt="recipe image" class="absolute absolute-center object-cover w-full h-full" />
-        <label for="recipe-image" class="absolute bottom-0 right-0 w-8 h-8 z-10">
-          <input type="file" accept="image/*" name="recipe-image" class="border-none opacity-0 w-full h-full cursor-pointer absolute absolute-center z-50" @change="handleChangeRecipeImage">
-          <i class="ri-image-edit-line text-2xl absolute absolute-center z-10" />
-          <span class="absolute bg-gradient-to-b from-transparent to-white w-full h-full blur-sm" />
-        </label>
-      </div>
-      <div v-else>
-        <i class="ri-image-add-line absolute absolute-center text-4xl text-white z-50" />
-        <span class="absolute bg-gradient-to-b from-transparent to-slate-600 w-full h-full translate-y-8 z-10 " />
-        <label for="recipe-image" class="absolute absolute-center text-4xl z-10 w-full h-full  ">
-          <input type="file" accept="image/*" name="recipe-image" class="border-none opacity-0 w-full h-full cursor-pointer" @change="handleChangeRecipeImage">
-        </label>
-        <NuxtImg src="/default/recipe.png" alt="default recipe image" class="rounded-xl w-full h-full object-cover max-h-32" />
-      </div>
+    <div v-if="props.imageUrl" class="image-card">
+      <NuxtImg :src="props.imageUrl" :alt="`Recipe image for ${props.name}`" class="w-full h-full object-cover  z-0" sizes="144px sm:176px md:768px" />
+      <label for="recipe-image" class="absolute bottom-0 right-0 w-8 h-8 z-10 overflow-hidden cursor-pointer">
+        <Icon name="fluent:image-edit-16-regular" class="absolute absolute-center z-10 drop-shadow-icon cursor-pointer" size="1.5rem" />
+        <input type="file" accept="image/*" name="recipe-image" class="border-none opacity-0 w-full h-full cursor-pointer absolute absolute-center z-10" @change="handleChangeRecipeImage">
+      </label>
+    </div>
+    <div v-else class="image-card">
+      <NuxtImg src="/default/recipe.png" alt="default recipe image" class="w-full h-full object-cover z-0" sizes="144px sm:176px md:768px" />
+      <span class="absolute absolute-center w-full h-full bg-gradient-to-b from-transparent to-slate-500 z-10 " />
+      <Icon name="fluent:image-add-20-regular" class="absolute absolute-center text-white z-10" size="3rem" />
+      <label for="recipe-image" class="absolute absolute-center z-10 w-full h-full">
+        <input type="file" accept="image/*" name="recipe-image" class="border-none opacity-0 w-full h-full cursor-pointer" @change="handleChangeRecipeImage">
+      </label>
     </div>
   </div>
 </template>
@@ -41,9 +48,9 @@ const uploadedFile: any = ref(undefined)
 const tempURL: globalThis.Ref<string> = ref("")
 const route = useRoute()
 const props = defineProps<{
-  imageUrl: string
+  imageUrl: string | null;
+  name: string
 }>()
-const imageUrl: globalThis.Ref<string> = ref(props.imageUrl)
 
 const handleChangeRecipeImage = (event: any) => {
   const file = event.target.files[0]
@@ -61,41 +68,18 @@ const handleCancelImageUpload = () => {
   uploadedFile.value = undefined
   tempURL.value = ""
 }
-const handleConfirmImageUpload = async () => {
-  modalStore.close()
-
-  const supabase = useSupabaseClient()
-  const user = useSupabaseUser()
-
-  if (user.value) {
-    const { error: uploadError } = await supabase.storage
-      .from("recipes")
-      .upload(`${user.value.id}/${route.params.id}`, uploadedFile.value, {
-        upsert: true
-      })
-
-    if (uploadError) {
-      throw new Error("Error on upload image")
-    }
-
-    const { data: publicUrlData } = await supabase.storage
-      .from("recipes")
-      .getPublicUrl(`${user.value.id}/${route.params.id}`)
-
-    imageUrl.value = tempURL.value
-
-    const { error: insertError } = await supabase
-      .from("recipes")
-      .update({ image_url: publicUrlData.publicUrl })
-      .eq("id", route.params.id)
-
-    if (insertError) {
-      throw new Error("Error on upsert new public url")
-    }
-  }
+const handleConfirmImageUpload = () => {
+  useUploadRecipeImage(route.params.id, uploadedFile.value, props.imageUrl)
 }
 </script>
 
 <style scoped>
+.drop-shadow-icon {
+  filter: drop-shadow(1px 1px 10px rgb(0, 0, 0));
+  @apply text-white
+}
 
+.image-card {
+  @apply relative overflow-hidden h-36 sm:h-44 mb-4 w-full rounded-2xl bg-white shadow-md
+}
 </style>
