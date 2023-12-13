@@ -81,6 +81,6 @@ const handleConfirmImageUpload = () => {
 }
 
 .image-card {
-  @apply relative overflow-hidden h-36 sm:h-44 mb-4 w-full rounded-2xl bg-white shadow-md
+  @apply relative overflow-hidden h-36 sm:h-44 mb-4 w-full rounded-2xl bg-white shadow-none
 }
 </style>

@@ -4,7 +4,7 @@
     <h1 class="text-2xl mb-4">
       {{ capitalize(recipeData.name) }}
     </h1>
-    <div class="card border-2 border-primary mb-4">
+    <div class=" mb-4">
       <div class="flex items-center justify-between mb-4">
         <p class="w-full">
           Par {{ recipeData.author.username || "quelqu'un 🤷" }}
