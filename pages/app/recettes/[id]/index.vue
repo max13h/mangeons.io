@@ -52,7 +52,13 @@ const { data: recipeData, error } = await useAsyncData("getRecipe", async () => 
   return data[0]
 })
 
-useHandleFetchError(error)
+if (error.value) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: "Cette recette n'existe pas",
+    fatal: true
+  })
+}
 
 </script>
 
