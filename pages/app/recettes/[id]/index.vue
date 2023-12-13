@@ -1,27 +1,36 @@
 <template>
   <div class="overflow-y-scroll">
-    <RecipeImage :image-url="recipeData.image_url" :name="recipeData.name" />
-    <h2 class="text-2xl">
+    <RecipeImage :recipe-data="recipeData" />
+    <h1 class="text-2xl mb-4">
       {{ capitalize(recipeData.name) }}
-    </h2>
-    <p>by {{ recipeData.author.username || "undefined" }}</p>
-    <p class="w-full text-center">
-      Temps de préparation: {{ recipeData.cooking_time }} minutes
-    </p>
-    <div class="bg-slate-200 rounded-xl p-4 mt-8">
+    </h1>
+    <div class="card border-2 border-primary mb-4">
+      <div class="flex items-center justify-between mb-4">
+        <p class="w-full">
+          Par {{ recipeData.author.username || "quelqu'un 🤷" }}
+        </p>
+        <p class="w-full text-end flex items-center justify-end">
+          {{ recipeData.cooking_time }} {{ recipeData.cooking_time === 1 ? "minute" : "minutes" }} en cuisine
+          <Icon name="fluent:clock-16-regular" class="ms-1" />
+        </p>
+      </div>
       <p class="whitespace-normal">
         {{ recipeData.description }}
       </p>
+      <div v-if="publicUser?.id == recipeData.author.id" class="w-full text-end">
+        <NuxtLink :to="`/app/recettes/${route.params.id}/edit`" type="button" class="btn-outline-primary mt-4">
+          Edit
+        </NuxtLink>
+      </div>
     </div>
     <div class="w-full">
-      <p class="whitespace-pre-wrap">
+      <h2 class="text-xl mb-4">
+        Suivez les instructions pour préparer la recette:
+      </h2>
+      <RecipeContent :content="recipeData.content" />
+      <!-- <p class="whitespace-pre-wrap">
         {{ recipeData.content }}
-      </p>
-    </div>
-    <div v-if="publicUser?.id == recipeData.author.id">
-      <NuxtLink :to="`/app/recettes/${route.params.id}/edit`" type="button" class="btn-outline-primary">
-        Edit
-      </NuxtLink>
+      </p> -->
     </div>
   </div>
 </template>
@@ -45,7 +54,6 @@ const { data: recipeData, error } = await useAsyncData("getRecipe", async () => 
 
 useHandleFetchError(error)
 
-const contentObject = useParseStringToStepListObject(recipeData.value.content)
 </script>
 
 <style scoped>
