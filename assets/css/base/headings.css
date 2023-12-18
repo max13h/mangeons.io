@@ -1,18 +1,25 @@
 @layer base {
-  h1, h2, h3, h4, h5, h6 {
-    font-family: "quicksand", sans-serif;
-    @apply font-bold
-  }
-
   h1 {
-    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl
+    font-size: calc(1.375rem + 1.5vw)
   }
 
   h2 {
-    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl
+    font-size: calc(1.325rem + .9vw)
   }
 
   h3 {
-    @apply text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl
+    font-size: calc(1.3rem + .6vw)
+  }
+
+  h4 {
+    font-size: calc(1.275rem + .3vw)
+  }
+
+  h5 {
+    font-size: 1.25rem;
+  }
+
+  h6 {
+    font-size: 1rem
   }
 }

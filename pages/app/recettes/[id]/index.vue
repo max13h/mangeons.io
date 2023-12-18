@@ -1,7 +1,7 @@
 <template>
   <div class="overflow-y-scroll">
     <RecipeImage :recipe-data="recipeData" />
-    <h1 class="text-2xl mb-4">
+    <h1 class="mb-4">
       {{ capitalize(recipeData.name) }}
     </h1>
     <div class=" mb-4">
