@@ -83,15 +83,12 @@ const storePublicUser = (publicUser: any) => {
   authStore.publicUser = publicUser
 }
 
-const createPublicUser = async (supabase: any, userId: string) => {
-  const { data, error } = await supabase
-    .from("users")
-    .insert({ user_id: userId })
-    .select()
+const createPublicUser = async (supabase: any) => {
+  const { data, error } = await supabase.rpc("create_public_user_and_infos")
 
-  useHandleSupabaseIssue(data, error)
+  useHandleSupabaseReturnError(error)
 
-  if (data && data[0]) { return data[0] }
+  return data
 }
 
 export const useStorePublicUser = async () => {
@@ -104,7 +101,7 @@ export const useStorePublicUser = async () => {
     if (publicUser && publicUser[0]) {
       storePublicUser(publicUser)
     } else {
-      const newPublicUser = await createPublicUser(supabase, user.value.id)
+      const newPublicUser = await createPublicUser(supabase)
 
       if (newPublicUser) {
         storePublicUser(newPublicUser)
