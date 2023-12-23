@@ -64,25 +64,51 @@ export const useIsUsernameUnique = async (username: string) => {
   }
 }
 
-export const useGetPublicUser = async () => {
+export const usePublicUser = () => {
+  const authStore = useAuthStore()
+  return authStore.publicUser
+}
+
+const getPublicUser = async (supabase: any, userId: string) => {
+  const { data, error } = await supabase
+    .from("users")
+    .select()
+    .eq("user_id", userId)
+  useHandleSupabaseReturnError(error)
+  return data
+}
+
+const storePublicUser = (publicUser: any) => {
+  const authStore = useAuthStore()
+  authStore.publicUser = publicUser
+}
+
+const createPublicUser = async (supabase: any, userId: string) => {
+  const { data, error } = await supabase
+    .from("users")
+    .insert({ user_id: userId })
+    .select()
+
+  useHandleSupabaseIssue(data, error)
+
+  if (data && data[0]) { return data[0] }
+}
+
+export const useStorePublicUser = async () => {
   const supabase = useSupabaseClient()
   const user = useSupabaseUser()
 
-  const { data, error } = await useAsyncData("publicUser", async () => {
-    if (user.value) {
-      const { data, error } = await supabase
-        .from("users")
-        .select()
-        .eq("user_id", user.value.id)
+  if (user.value) {
+    const publicUser = await getPublicUser(supabase, user.value.id)
 
-      useHandleSupabaseIssue(data, error)
-      return data[0]
+    if (publicUser && publicUser[0]) {
+      storePublicUser(publicUser)
     } else {
-      throw new Error("No user")
+      const newPublicUser = await createPublicUser(supabase, user.value.id)
+
+      if (newPublicUser) {
+        storePublicUser(newPublicUser)
+      }
     }
-  })
-
-  useHandleFetchError(error)
-
-  return data
+  }
 }
