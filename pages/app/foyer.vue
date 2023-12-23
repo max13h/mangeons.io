@@ -16,7 +16,7 @@ definePageMeta({
   layout: "app"
 })
 
-const publicUser = await useGetPublicUser()
+const publicUser = await usePublicUser()
 
 const { data: households, error } = await useFetch("/api/household/households", {
   method: "get",

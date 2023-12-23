@@ -21,7 +21,7 @@
 definePageMeta({
   layout: "app-focus"
 })
-const publicUser = await useGetPublicUser()
+const publicUser = await usePublicUser()
 
 const { data: recipes, error } = await useAsyncData("personalRecipes", async () => {
   const supabase = useSupabaseClient()

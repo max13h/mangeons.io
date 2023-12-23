@@ -45,7 +45,7 @@ definePageMeta({
 })
 
 const supabase = useSupabaseClient()
-const publicUser = await useGetPublicUser()
+const publicUser = await usePublicUser()
 
 const { data: households, error } = await useAsyncData("households", async () => {
   if (publicUser.value) {

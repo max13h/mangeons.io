@@ -52,7 +52,7 @@ definePageMeta({
   layout: "app-deep-focus"
 })
 
-const publicUser = await useGetPublicUser()
+const publicUser = await usePublicUser()
 const formSchemaStore = useFormSchemaStore()
 
 const { handleSubmit } = useForm({

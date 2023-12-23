@@ -153,7 +153,7 @@ const { handleSubmit } = useForm({
 const arrayOfErrors: globalThis.Ref<string[]> = ref([])
 
 const onSuccess = async (values: any) => {
-  const publicUser = await useGetPublicUser()
+  const publicUser = await usePublicUser()
 
   if (publicUser.value) {
     values.author = publicUser.value.id

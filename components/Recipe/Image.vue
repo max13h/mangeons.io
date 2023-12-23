@@ -51,7 +51,7 @@ const props = defineProps<{
   recipeData: any;
 }>()
 
-const publicUser = await useGetPublicUser()
+const publicUser = await usePublicUser()
 
 const handleChangeRecipeImage = (event: any) => {
   const file = event.target.files[0]
