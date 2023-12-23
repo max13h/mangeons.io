@@ -71,10 +71,10 @@ definePageMeta({
   middleware: "auth"
 })
 
-const authStore = useAuthStore()
+const formSchemaStore = useFormSchemaStore()
 
 const { handleSubmit } = useForm({
-  validationSchema: authStore.registerSchema
+  validationSchema: formSchemaStore.registerSchema
 })
 
 const { value: usernameValue, errorMessage: usernameErrorMessage, errors: usernameErrors, setErrors: usernameSetErrors } = useField(() => "username")

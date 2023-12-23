@@ -39,10 +39,10 @@ definePageMeta({
   middleware: "auth"
 })
 
-const authStore = useAuthStore()
+const formSchemaStore = useFormSchemaStore()
 
 const { handleSubmit } = useForm({
-  validationSchema: authStore.forgottenPasswordSchema
+  validationSchema: formSchemaStore.forgottenPasswordSchema
 })
 
 const onSubmit = handleSubmit(async (values) => {

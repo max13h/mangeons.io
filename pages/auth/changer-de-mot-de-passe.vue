@@ -32,10 +32,10 @@ definePageMeta({
   layout: "auth"
 })
 const user = useSupabaseUser()
-const authStore = useAuthStore()
+const formSchemaStore = useFormSchemaStore()
 
 const { handleSubmit } = useForm({
-  validationSchema: authStore.changePasswordSchema
+  validationSchema: formSchemaStore.changePasswordSchema
 })
 
 const onSubmit = handleSubmit(async (values) => {

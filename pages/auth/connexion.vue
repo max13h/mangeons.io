@@ -40,10 +40,10 @@ definePageMeta({
   middleware: "auth"
 })
 
-const authStore = useAuthStore()
+const formSchemaStore = useFormSchemaStore()
 
 const { handleSubmit } = useForm({
-  validationSchema: authStore.loginSchema
+  validationSchema: formSchemaStore.loginSchema
 })
 
 const onSubmit = handleSubmit(async (values) => {
