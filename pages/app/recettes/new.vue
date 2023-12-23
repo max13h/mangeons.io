@@ -101,7 +101,7 @@
 definePageMeta({
   layout: "app-deep-focus"
 })
-const recipeStore = useRecipeStore()
+const formSchemaStore = useFormSchemaStore()
 
 const pageNb = ref(1)
 const changingPage = ref(false)
@@ -147,7 +147,7 @@ const prevPage = () => {
 }
 
 const { handleSubmit } = useForm({
-  validationSchema: recipeStore.schemaNewRecipe
+  validationSchema: formSchemaStore.recipeSchema
 })
 
 const arrayOfErrors: globalThis.Ref<string[]> = ref([])

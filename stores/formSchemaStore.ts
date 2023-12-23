@@ -63,7 +63,7 @@ export const useFormSchemaStore = defineStore("formSchema", () => {
       .required("L'unité est requise")
   })
 
-  const schemaNewRecipe = object({
+  const recipeSchema = object({
     name: string()
       .min(6, "le nom doit avoir plus de 6 caractères")
       .max(80, "le nom doit avoir moins de 80 caractères")
@@ -99,8 +99,6 @@ export const useFormSchemaStore = defineStore("formSchema", () => {
     forgottenPasswordSchema,
     changePasswordSchema,
     schemaProfile,
-    schemaRecipe,
-    schemaAlimentaryProduct,
-    schemaNewRecipe
+    recipeSchema
   }
 })

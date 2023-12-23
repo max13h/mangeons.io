@@ -102,6 +102,7 @@ definePageMeta({
   layout: "app-deep-focus"
 })
 const recipeStore = useRecipeStore()
+const formSchemaStore = useFormSchemaStore()
 const route = useRoute()
 
 const pageNb = ref(1)
@@ -168,7 +169,7 @@ onMounted(async () => {
 })
 
 const { handleSubmit } = useForm({
-  validationSchema: recipeStore.schemaNewRecipe
+  validationSchema: formSchemaStore.recipeSchema
 })
 
 const onSuccess = async (values: any) => {
