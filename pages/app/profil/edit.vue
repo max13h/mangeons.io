@@ -53,10 +53,10 @@ definePageMeta({
 })
 
 const publicUser = await useGetPublicUser()
-const profileStore = useProfileStore()
+const formSchemaStore = useFormSchemaStore()
 
 const { handleSubmit } = useForm({
-  validationSchema: profileStore.schemaProfile
+  validationSchema: formSchemaStore.schemaProfile
 })
 
 const onSuccess = async (values: any) => {
